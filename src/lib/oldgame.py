@@ -4,6 +4,7 @@
 
 #Module initialization
 import pygame
+import random
 pygame.init()
 clock = pygame.time.Clock()
 #player object type
@@ -726,16 +727,16 @@ while not done:
             player.yv = 0
         elif player.direction == "up":
             if frames % 3 == 0 and player.yv >= -8:
-                player.yv -= 1
+                player.yv -= 2
         elif player.direction == "down":
             if frames % 3 == 0 and player.yv <= 8:
-                player.yv += 1
+                player.yv += 2
         elif player.direction == "left":
             if frames % 3 == 0 and player.xv >= -8:
-                player.xv -= 1
+                player.xv -= 2
         elif player.direction == "right":
             if frames % 3 == 0 and player.xv <= 8:
-                player.xv += 1
+                player.xv += 2
 
         #actually carry out the player movement based on velocity
         player.x1 += player.xv #x

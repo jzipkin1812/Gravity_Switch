@@ -1,3 +1,19 @@
+from . import utility as u
+import pygame
+directionDict = {
+    pygame.K_DOWN : "down",
+    pygame.K_s: "down",
+
+    pygame.K_UP : "up",
+    pygame.K_w: "up",
+
+    pygame.K_LEFT : "left",
+    pygame.K_a: "left",
+
+    pygame.K_RIGHT : "right",
+    pygame.K_d: "right",
+
+}
 class Player:
     def __init__(self, x1, y1, color = (102, 205, 170), size = 25):
         self.color = color
@@ -9,6 +25,23 @@ class Player:
         self.yv = 0
         self.size = size
         self.direction = "stop"
+        
+    
+    def display(self, screen):
+        u.betterRect(screen, self.x1, self.y1, self.x1 + self.size, self.y1 + self.size, self.color, 0)
+    
+    def keyMove(self, key):
+        self.direction = directionDict[key]
+    
+    def updateMove(self):
+        if self.direction == "up":
+            self.y -= 1
+        elif self.direction == "down":
+            self.y += 1
+        elif self.direction == "left":
+            self.x -= 1
+        elif self.direction == "right":
+            self.x += 1
 
     #This is only for debug, so I can view the player stats
     def __repr__(self):

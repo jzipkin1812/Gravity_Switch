@@ -1,7 +1,7 @@
 import pygame
 import math
 # UTILITY FUNCTIONS
-def betterRect(color, x1, y1, x2, y2, screen, width = 0):
+def betterRect(screen, x1, y1, x2, y2, color = (0, 0, 0), width = 0):
     pygame.draw.polygon(screen, (color), ([(x1, y1), (x2, y1), (x2, y2), (x1, y2)]), width)
 
 def distanceFormula(x1, y1, x2, y2):
