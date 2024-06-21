@@ -1,0 +1,13 @@
+level.Level(
+    players = [
+        p.Player(150, 150),
+    ],
+    levelObjects = [
+        b.Entity(50, 50, 100, 600),
+        b.Entity(50, 50, 600, 100),
+        b.Entity(550, 50, 600, 600),
+        b.Entity(50, 550, 600, 600),
+        b.Entity(350, 275, 600, 325),
+        b.Coin(200, 325),
+    ],
+)

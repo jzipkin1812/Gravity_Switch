@@ -11,7 +11,6 @@ import math
 pygame.mixer.pre_init(44100, -16, 2, 2048)
 pygame.init()
 
-#Functions that correlate to specific game buttons
 
 #pygame variables 
 clock = pygame.time.Clock()
@@ -26,7 +25,7 @@ frames = 0
 #To shorten the game loop, we will be updating the game state's instance variables,
 #rather than variables local to this file.
 mainStatus = gs.GameStateInfo(screen)
-
+exec("print('Hello')")
 while not mainStatus.quit:
     clock.tick()
     mainStatus.tickTime = clock.get_time() 
@@ -50,4 +49,7 @@ while not mainStatus.quit:
     # Debug: Display FPS
     u.screenText(10, 40, screen, "FPS: " + str(int(clock.get_fps())), 20)
     pygame.display.flip()
+
+mainStatus.levelDumpFile.write(mainStatus.level.toString())
+mainStatus.levelDumpFile.close()
 pygame.quit()
