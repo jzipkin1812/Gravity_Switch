@@ -4,7 +4,7 @@ from . import utility as u
 from .constants import *
 
 class Level:
-    def __init__(self, players, levelObjects):
+    def __init__(self, players = [], levelObjects = []):
         # Mutable level objects and players
         self.players: list[player.Player] = players
         self.levelObjects: list[entity.Block] = levelObjects

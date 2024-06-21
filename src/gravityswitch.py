@@ -25,7 +25,6 @@ frames = 0
 #To shorten the game loop, we will be updating the game state's instance variables,
 #rather than variables local to this file.
 mainStatus = gs.GameStateInfo(screen)
-exec("print('Hello')")
 while not mainStatus.quit:
     clock.tick()
     mainStatus.tickTime = clock.get_time() 

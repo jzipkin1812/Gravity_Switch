@@ -1,8 +1,9 @@
 import pygame
-from . import premadeLevels
+from .premadeLevels import *
 from . import level
 from . import player
 from . import entity
+from . import specialEntities as special 
 from .constants import *
 class GameStateInfo:
     def __init__(self, pygameScreen, backgroundColor: tuple = (0, 0, 90)):
@@ -32,11 +33,12 @@ class GameStateInfo:
             "Game Over" : self.processGameOver,
         }
         # Gameplay statuses
-        self.world: list[level.Level] = premadeLevels.worldA
+        self.world: list[level.Level] = worldA
         self.levelNumber: int = 0
-        self.level: level.Level = premadeLevels.emptyLevel#self.world[self.levelNumber]
+        self.level: level.Level = emptyLevel#self.world[self.levelNumber]
+        self.advance = False
+        
         # Level editor info
-        self.advance = True # Prevents changing levels
         self.gridSize: int = GRID_SIZE
         self.point1: tuple = (0, 0)
         self.point2: tuple = (0, 0)
@@ -127,10 +129,18 @@ class GameStateInfo:
             if event.key == pygame.K_SPACE:
                 self.level.levelObjects.append(entity.Entity(a[0], a[1], 
                                                             b[0], b[1]))
+            if event.key == pygame.K_l:
+                self.level.levelObjects.append(special.Cloud(a[0], a[1], 
+                                                            b[0], b[1]))
             if event.key == pygame.K_p:
                 self.level.players.append(player.Player(a[0], a[1], (102, 205, 170), self.gridSize))
             if event.key == pygame.K_c:
                 self.level.levelObjects.append(entity.Coin(a[0], a[1]))
+            if event.key == pygame.K_n:
+                self.level.levelObjects.append(special.NullCube(a[0], a[1]))
+            # Write/Save
+            if event.key == pygame.K_w:
+                self.levelDumpFile.write(self.level.toString())
         
         if event.type == pygame.MOUSEBUTTONDOWN:
             # Middle Mouse: Swap modes

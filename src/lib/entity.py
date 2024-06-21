@@ -49,18 +49,18 @@ class Entity:
             player.stop()
             return(True)
     def inYRange(self, player: p.Player) -> bool:
-        isAbove = (player.y + player.size) < self.y1
-        isBelow = (player.y) > self.y2
+        isAbove = (player.y + player.size) <= self.y1
+        isBelow = (player.y) >= self.y2
         return not(isAbove or isBelow)
     def inXRange(self, player: p.Player) -> bool:
-        isLeft = (player.x + player.size) < self.x1
-        isRight = (player.x) > self.x2
+        isLeft = (player.x + player.size) <= self.x1
+        isRight = (player.x) >= self.x2
         return not(isLeft or isRight)
     def isTouching(self, player):
-        isLeft = (player.x + player.size) < self.x1
-        isRight = (player.x) > self.x2
-        isAbove = (player.y + player.size) < self.y1
-        isBelow = (player.y) > self.y2
+        isLeft = (player.x + player.size) <= self.x1
+        isRight = (player.x) >= self.x2
+        isAbove = (player.y + player.size) <= self.y1
+        isBelow = (player.y) >= self.y2
         return(not(isLeft or isRight or isAbove or isBelow))
     def toString(self):
         return("b.Entity(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ")")
