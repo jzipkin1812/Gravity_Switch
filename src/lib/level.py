@@ -4,7 +4,7 @@ from . import utility as u
 from .constants import *
 
 class Level:
-    def __init__(self, players = [], levelObjects = []):
+    def __init__(self, players = [], levelObjects = [], background = (0, 0, 0)):
         # Mutable level objects and players
         self.players: list[player.Player] = players
         self.levelObjects: list[entity.Block] = levelObjects
@@ -17,6 +17,9 @@ class Level:
         self.origObjects: list[entity.Block] = []
         for o in levelObjects:
             self.origObjects.append(o.copy())
+        
+        # Background Color
+        self.background = background
     
     def isComplete(self) -> bool:
         for obj in self.levelObjects:
@@ -31,6 +34,7 @@ class Level:
         return(False)
     
     def display(self, screen):
+        screen.fill(self.background)
         for p in self.players:
             p.display(screen)
         for b in self.levelObjects:
@@ -47,7 +51,7 @@ class Level:
         result: str = "level.Level(\n    players = [\n"
         # All players
         for p in self.players:
-            result += "        p.Player(" + str(p.x) + ", " + str(p.y) + "),\n"
+            result += "        " + p.toString() + ",\n"
         result += "    ],\n"
         
         result += "    levelObjects = [\n"
@@ -55,6 +59,7 @@ class Level:
         for o in self.levelObjects:
             result += "        " + o.toString() + ",\n"
         result += "    ],\n"
+        result += "    background = " + str(self.background) + ",\n"
         
     
         result += ")"
@@ -68,3 +73,12 @@ class Level:
         self.levelObjects = []
         for oo in self.origObjects:
             self.levelObjects.append(oo.copy())
+    
+    def solidify(self):
+        self.origPlayers = []
+        for p in self.players:
+            self.origPlayers.append(p.copy())
+            
+        self.origObjects = []
+        for o in self.levelObjects:
+            self.origObjects.append(o.copy())

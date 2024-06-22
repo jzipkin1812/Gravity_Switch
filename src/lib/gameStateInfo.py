@@ -6,7 +6,8 @@ from . import entity
 from . import specialEntities as special 
 from .constants import *
 class GameStateInfo:
-    def __init__(self, pygameScreen, backgroundColor: tuple = (0, 0, 90)):
+    def __init__(self, pygameScreen):
+        global GLOBALCOLORS
         # Pygame variables
         self.quit: bool = False
         self.frames: int = 0
@@ -16,7 +17,7 @@ class GameStateInfo:
         self.mouseX: int = 0
         self.mouseY: int = 0
         # Aesthetic variables
-        self.backgroundColor = backgroundColor
+        self.colors = GLOBALCOLORS = colorsWorldB
         # Mode functions
         self.mode: str = "Gameplay"
         # For each mode, we use different functions.
@@ -33,16 +34,18 @@ class GameStateInfo:
             "Game Over" : self.processGameOver,
         }
         # Gameplay statuses
-        self.world: list[level.Level] = worldA
+        self.world: list[level.Level] = worldB
         self.levelNumber: int = 0
-        self.level: level.Level = emptyLevel#self.world[self.levelNumber]
-        self.advance = False
+        self.level: level.Level = self.world[self.levelNumber]
+        # self.level.background = (80, 0, 0)
+        self.advance = True
         
         # Level editor info
         self.gridSize: int = GRID_SIZE
         self.point1: tuple = (0, 0)
         self.point2: tuple = (0, 0)
         self.levelDumpFile = open("levelDump.txt", "w")
+        self.editDirection = "up"
 
     def update(self):
         self.frames += 1
@@ -58,7 +61,7 @@ class GameStateInfo:
         self.modeDisplayDict[self.mode]()
 
     def displayBackground(self):
-        self.screen.fill(self.backgroundColor)
+        self.screen.fill(self.colors["background"])
     
     def displayLevel(self):
         self.displayBackground()
@@ -101,11 +104,12 @@ class GameStateInfo:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 2:
                 self.mode = "Level Editor"
-        
         # Key presses
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 pass
+            if event.key == pygame.K_r:
+                self.level.reset()
             if event.key in [pygame.K_DOWN, pygame.K_UP, pygame.K_LEFT, pygame.K_RIGHT,
                              pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d]:
                 for p in self.level.players:
@@ -127,25 +131,34 @@ class GameStateInfo:
                 self.level.players = [p for p in self.level.players if not 
                                       (p.x == a[0] and p.y == a[1])]
             if event.key == pygame.K_SPACE:
+                print(self.colors["platform"])
                 self.level.levelObjects.append(entity.Entity(a[0], a[1], 
+                                                            b[0], b[1], self.colors["platform"]))
+            if event.key == pygame.K_a:
+                self.level.levelObjects.append(special.Antiplatform(a[0], a[1], 
                                                             b[0], b[1]))
             if event.key == pygame.K_l:
                 self.level.levelObjects.append(special.Cloud(a[0], a[1], 
                                                             b[0], b[1]))
             if event.key == pygame.K_p:
-                self.level.players.append(player.Player(a[0], a[1], (102, 205, 170), self.gridSize))
+                self.level.players.append(player.Player(a[0], a[1], self.colors["player"], self.gridSize))
             if event.key == pygame.K_c:
-                self.level.levelObjects.append(entity.Coin(a[0], a[1]))
+                self.level.levelObjects.append(entity.Coin(a[0], a[1], self.colors["coin"]))
             if event.key == pygame.K_n:
                 self.level.levelObjects.append(special.NullCube(a[0], a[1]))
             # Write/Save
             if event.key == pygame.K_w:
                 self.levelDumpFile.write(self.level.toString())
+            # Change direction for directed objects
+            if event.key in [pygame.K_DOWN, pygame.K_UP, pygame.K_LEFT, pygame.K_RIGHT]:
+                self.editDirection = player.directionDict[event.key]
+                self.level.levelObjects.append(special.Redirector(a[0], a[1], self.editDirection))
         
         if event.type == pygame.MOUSEBUTTONDOWN:
-            # Middle Mouse: Swap modes
+            # Middle Mouse: Swap modes and solidify level contents
             if event.button == 2:
                 self.mode = "Gameplay"
+                self.level.solidify()
             # Left mouse: Set point1
             if event.button == 1:
                 self.point1 = (self.mouseX - (self.mouseX % self.gridSize), self.mouseY - (self.mouseY % self.gridSize))

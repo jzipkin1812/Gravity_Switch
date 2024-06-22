@@ -63,7 +63,7 @@ class Entity:
         isBelow = (player.y) >= self.y2
         return(not(isLeft or isRight or isAbove or isBelow))
     def toString(self):
-        return("b.Entity(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ")")
+        return("b.Entity(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", " + str(self.color) + ")")
     def willTouch(self, player):
         right = round(player.x + player.size)
         tryRight = round(right + player.xv)
@@ -90,7 +90,7 @@ class Entity:
         return(Entity(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2])))
         
 class Coin(Entity):
-    def __init__(self, x, y, color = (123, 104, 238)):
+    def __init__(self, x, y, color = GLOBALCOLORS["coin"]):
         super().__init__(x, y, x + GRID_SIZE, y + GRID_SIZE, color)
         self.required = True
     def collide(self, player: p.Player) -> bool:
@@ -99,8 +99,11 @@ class Coin(Entity):
             return(True)
         else:
             return(False)
+    def display(self, screen):
+        # print(self.color)
+        u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 0)
     def toString(self):
-        return("b.Coin(" + str(self.x1) + ", " + str(self.y1) + ")")
+        return("b.Coin(" + str(self.x1) + ", " + str(self.y1) + "," + str((self.color[0], self.color[1], self.color[2])) + ")")
     def copy(self):
         return(Coin(self.x1, self.y1, (self.color[0], self.color[1], self.color[2])))
     

@@ -1,5 +1,6 @@
 from . import utility as u
 import pygame
+from .constants import *
 directionDict = {
     pygame.K_DOWN : "down",
     pygame.K_s: "down",
@@ -15,7 +16,7 @@ directionDict = {
 
 }
 class Player:
-    def __init__(self, x, y, color = (102, 205, 170), size = 25):
+    def __init__(self, x, y, color = GLOBALCOLORS["player"], size = 25):
         self.color = color
         self.x = x
         self.y = y
@@ -57,6 +58,9 @@ class Player:
     
     def copy(self):
         return(Player(self.x, self.y, (self.color[0], self.color[1], self.color[2]), self.size))
+
+    def toString(self):
+        return("p.Player(" + str(self.x) + ", " + str(self.y) + "," + str(self.color) + ")")
 
     # #This is only for debug, so I can view the player stats
     # def __repr__(self):
