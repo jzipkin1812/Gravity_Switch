@@ -2,6 +2,7 @@ SCREEN_WIDTH = 650
 SCREEN_HEIGHT = 650
 SCREEN_SIZE = 650
 GRID_SIZE = 25
+GAME_SPEED = 0.45
 
 colorsWorldA = {
     "platform" : (100, 149, 237),

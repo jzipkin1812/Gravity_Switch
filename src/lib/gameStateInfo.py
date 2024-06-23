@@ -16,6 +16,7 @@ class GameStateInfo:
         self.screenHeight: int = self.screen.get_height()
         self.mouseX: int = 0
         self.mouseY: int = 0
+        self.timer = pygame.time.Clock()
         # Aesthetic variables
         self.colors = GLOBALCOLORS = colorsWorldB
         # Mode functions
@@ -35,7 +36,7 @@ class GameStateInfo:
         }
         # Gameplay statuses
         self.world: list[level.Level] = worldB
-        self.levelNumber: int = 0
+        self.levelNumber: int = 6
         self.level: level.Level = self.world[self.levelNumber]
         # self.level.background = (80, 0, 0)
         self.advance = True
@@ -49,7 +50,11 @@ class GameStateInfo:
 
     def update(self):
         self.frames += 1
-        self.level.update()
+        
+        # Player movement occurs in the update, with speed independent of framerate.
+        self.timer.tick()
+        self.level.update(self.timer.get_time())
+        
         if (self.level.isComplete()) and self.advance:
             self.level.reset()
             self.levelNumber += 1
@@ -122,6 +127,11 @@ class GameStateInfo:
     def processEditor(self, event: pygame.event.Event):
         a = self.point1
         b = self.point2
+        # Adjust points if necessary
+        # if(a[0] - 5 > b[0] or a[1] - 5 > b[1]):
+        #     temp = (a[0], a[1])
+        #     self.point1 = self.point2
+        #     self.point2 = temp
         # Keys add objects to level
         if event.type == pygame.KEYDOWN:
             # Erase
@@ -131,7 +141,6 @@ class GameStateInfo:
                 self.level.players = [p for p in self.level.players if not 
                                       (p.x == a[0] and p.y == a[1])]
             if event.key == pygame.K_SPACE:
-                print(self.colors["platform"])
                 self.level.levelObjects.append(entity.Entity(a[0], a[1], 
                                                             b[0], b[1], self.colors["platform"]))
             if event.key == pygame.K_a:
@@ -165,7 +174,8 @@ class GameStateInfo:
             # Right mouse: Set point2
             if event.button == 3:
                 self.point2 = (self.mouseX - (self.mouseX % self.gridSize) + self.gridSize, self.mouseY - (self.mouseY % self.gridSize)  + self.gridSize)
-    
+        
+            
     def screenText(self, x, y, text = "Default", size = 100, color = [250, 250, 250], background = None):
         tempFont = pygame.font.SysFont("msgothic", size)
         tempText = tempFont.render(text, True, color, background)

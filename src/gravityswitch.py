@@ -7,6 +7,7 @@ from lib import player
 from lib import entity
 from lib import utility as u
 import math
+from lib import constants as c
 
 pygame.mixer.pre_init(44100, -16, 2, 2048)
 pygame.init()
@@ -14,16 +15,11 @@ pygame.init()
 
 #pygame variables 
 clock = pygame.time.Clock()
-screen_width = 650
-screen_height = 650
-screen = pygame.display.set_mode([screen_width,screen_height])
+screen = pygame.display.set_mode([c.SCREEN_WIDTH, c.SCREEN_HEIGHT])
 pygame.display.set_caption("Gravity Switch 2.0")
 done = False
 frames = 0
 
-#The game state object carries almost all the information about everything going on in the game.
-#To shorten the game loop, we will be updating the game state's instance variables,
-#rather than variables local to this file.
 mainStatus = gs.GameStateInfo(screen)
 while not mainStatus.quit:
     clock.tick()

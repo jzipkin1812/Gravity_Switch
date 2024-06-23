@@ -57,8 +57,9 @@ class Cloud(Entity):
     def __init__(self, x1, y1, x2, y2, color = (200, 200, 200)):
         super().__init__(x1, y1, x2, y2, color)
     def collide(self, player: p.Player) -> bool:
+        yv = player.yv * player.vMod
         bottom = round(player.y + player.size)
-        tryDown = round(bottom + player.yv)
+        tryDown = round(bottom + yv)
         if player.direction == "down" and tryDown >= self.y1 >= bottom and self.inXRange(player):
             player.y = self.y1 - player.size
             player.stop()

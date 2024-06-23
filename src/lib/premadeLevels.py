@@ -199,6 +199,7 @@ A10 = level.Level(
 worldA = [A1, A2, A3, A4, A5, A6, A7, A8, A9, A10]
 for l in worldA:
     l.background = (0, 0, 80)
+A10.background = (0, 0, 40)
 
 B1 = level.Level(
     players = [
@@ -314,7 +315,7 @@ B5 = level.Level(
 )
 B6 = level.Level(
     players = [
-        p.Player(450, 375,(255, 255, 68)),
+        p.Player(450.0, 375.0,(255, 255, 68)),
     ],
     levelObjects = [
         b.Entity(600, 150, 650, 325, (85, 51, 51)),
@@ -335,8 +336,11 @@ B6 = level.Level(
         b.Entity(0, 0, 50, 400, (85, 51, 51)),
         b.Coin(575, 250,(204, 68, 34)),
         s.Antiplatform(275, 0, 325, 75),
+        b.Coin(250, 250,(204, 68, 34)),
     ],
     background = (255, 102, 0),
+    text = "6. \"Staircase\"",
+    textLocation = (285, 590),
 )
 B7 = level.Level(
     players = [
@@ -364,6 +368,8 @@ B7 = level.Level(
         s.Antiplatform(50, 275, 400, 325),
     ],
     background = (255, 102, 0),
+    text = "7. \"Trapdoors\"",
+    textLocation = (50, 120),
 )
 B8 = level.Level(
     players = [
@@ -425,7 +431,7 @@ B9 = level.Level(
 )
 B10 = level.Level(
     players = [
-        p.Player(75, 575,(255, 255, 68)),
+        p.Player(75.0, 575.0,(255, 255, 68)),
     ],
     levelObjects = [
         s.Redirector(400, 575, "up"),
@@ -445,6 +451,7 @@ B10 = level.Level(
         s.Redirector(575, 275, "up"),
         b.Coin(525, 275,(204, 68, 34)),
         b.Coin(525, 350,(204, 68, 34)),
+        b.Entity(0, 300, 50, 400, (85, 51, 51)),
     ],
     background = (80, 0, 0),
 )

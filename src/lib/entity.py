@@ -16,17 +16,20 @@ class Entity:
         u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 0)
     
     def collide(self, player: p.Player) -> bool:
+        xv = player.xv * player.vMod
+        yv = player.yv * player.vMod
+        
         right = round(player.x + player.size)
-        tryRight = round(right + player.xv)
+        tryRight = round(right + xv)
         
         left = round(player.x)
-        tryLeft = round(left + player.xv)
+        tryLeft = round(left + xv)
         
         top = round(player.y)
-        tryUp = round(top + player.yv)
+        tryUp = round(top + yv)
         
         bottom = round(player.y + player.size)
-        tryDown = round(bottom + player.yv)
+        tryDown = round(bottom + yv)
         
         if player.direction == "stop":   
             return(False)
@@ -64,18 +67,21 @@ class Entity:
         return(not(isLeft or isRight or isAbove or isBelow))
     def toString(self):
         return("b.Entity(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", " + str(self.color) + ")")
-    def willTouch(self, player):
+    def willTouch(self, player: p.Player):
+        xv = player.xv * player.vMod
+        yv = player.yv * player.vMod
+        
         right = round(player.x + player.size)
-        tryRight = round(right + player.xv)
+        tryRight = round(right + xv)
         
         left = round(player.x)
-        tryLeft = round(left + player.xv)
+        tryLeft = round(left + xv)
         
         top = round(player.y)
-        tryUp = round(top + player.yv)
+        tryUp = round(top + yv)
         
         bottom = round(player.y + player.size)
-        tryDown = round(bottom + player.yv)
+        tryDown = round(bottom + yv)
         
         if player.direction == "stop":   
             return(False)

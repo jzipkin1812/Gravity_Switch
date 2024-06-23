@@ -17,17 +17,18 @@ directionDict = {
 }
 class Player:
     def __init__(self, x, y, color = GLOBALCOLORS["player"], size = 25):
-        self.color = color
-        self.x = x
-        self.y = y
-        self.xv = 0
-        self.yv = 0
+        self.color: tuple = color
+        self.x: float = x
+        self.y: float = y
+        self.xv: float = 0
+        self.yv: float = 0
         
-        self.size = size
-        self.direction = "stop"
+        self.size: int = size
+        self.direction: str = "stop"
         
-        self.accel = .025
-        self.maxVelocity = 15
+        self.accel: float = .025
+        self.maxVelocity: int = 15
+        self.vMod: float = 1
         
     
     def display(self, screen):
@@ -37,20 +38,28 @@ class Player:
         self.direction = directionDict[key]
         
     
-    def updateMove(self):
+    def getVmod(self, milliseconds):
+        self.vMod = (milliseconds) * GAME_SPEED
+        
+    def updateMove(self, milliseconds):
+        accelMod = self.accel * (milliseconds) * GAME_SPEED
+        # self.vMod = (milliseconds) * GAME_SPEED
+        
+        self.x += self.xv * self.vMod
+        self.y += self.yv * self.vMod
+        
         if self.direction == "stop":
             self.xv = self.yv = 0
         elif self.direction == "up":
-            self.yv = max(self.yv - self.accel, -1 * self.maxVelocity)
+            self.yv = max(self.yv - accelMod, -1 * self.maxVelocity)
         elif self.direction == "down":
-            self.yv = min(self.yv + self.accel, self.maxVelocity)
+            self.yv = min(self.yv + accelMod, self.maxVelocity)
         elif self.direction == "left":
-            self.xv = max(self.xv - self.accel, -1 * self.maxVelocity)
+            self.xv = max(self.xv - accelMod, -1 * self.maxVelocity)
         elif self.direction == "right":
-            self.xv = min(self.xv + self.accel, self.maxVelocity)
+            self.xv = min(self.xv + accelMod, self.maxVelocity)
         
-        self.x += self.xv
-        self.y += self.yv
+        
     
     def stop(self):
         self.direction = "stop"

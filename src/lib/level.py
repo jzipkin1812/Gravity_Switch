@@ -4,7 +4,7 @@ from . import utility as u
 from .constants import *
 
 class Level:
-    def __init__(self, players = [], levelObjects = [], background = (0, 0, 0)):
+    def __init__(self, players = [], levelObjects = [], background = (0, 0, 0), text = "", textLocation = (0, 0)):
         # Mutable level objects and players
         self.players: list[player.Player] = players
         self.levelObjects: list[entity.Block] = levelObjects
@@ -18,8 +18,10 @@ class Level:
         for o in levelObjects:
             self.origObjects.append(o.copy())
         
-        # Background Color
+        # Aesthetics
         self.background = background
+        self.text: str = text
+        self.textLocation: tuple = textLocation
     
     def isComplete(self) -> bool:
         for obj in self.levelObjects:
@@ -34,19 +36,23 @@ class Level:
         return(False)
     
     def display(self, screen):
-        screen.fill(self.background)
+        # screen.fill(self.background)
+        u.transparentScreenText(self.textLocation[0], self.textLocation[1], screen, self.text, 70, (150, 150, 150))
         for p in self.players:
             p.display(screen)
         for b in self.levelObjects:
             b.display(screen)
-    def update(self):
+        
+    def update(self, milliseconds = 1):
+        # print(milliseconds)
         # Delete all dead objects.
         self.levelObjects = [entity for entity in self.levelObjects if not entity.dead]
         # Execute all collisions. Then, update player movements based on the result.
         for p in self.players:
+            p.getVmod(milliseconds)
             for b in self.levelObjects:
                 b.collide(p)
-            p.updateMove()
+            p.updateMove(milliseconds)
     def toString(self) -> str:
         result: str = "level.Level(\n    players = [\n"
         # All players

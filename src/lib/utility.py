@@ -16,3 +16,9 @@ def screenText(x, y, screen, text = "Default", size = 100, color = [250, 250, 25
     tempFont = pygame.font.SysFont("msgothic", size)
     tempText = tempFont.render(text, True, color, background)
     screen.blit(tempText, (x, y))
+    
+def transparentScreenText(x, y, screen, text = "Default", size = 100, color = [250, 250, 250]):
+    tempFont = pygame.font.SysFont("msgothic", size)
+    tempText = tempFont.render(text, True, color)
+    tempText.set_alpha(0)  
+    screen.blit(tempText, (x, y))
