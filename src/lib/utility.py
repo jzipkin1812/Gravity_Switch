@@ -22,3 +22,12 @@ def transparentScreenText(x, y, screen, text = "Default", size = 100, color = [2
     tempText = tempFont.render(text, True, color)
     tempText.set_alpha(0)  
     screen.blit(tempText, (x, y))
+    
+def invert(direction: str) -> str:
+    inverted = {
+        "up" : "down",
+        "down" : "up",
+        "left" : "right",
+        "right" : "left",
+    }
+    return(inverted[direction])

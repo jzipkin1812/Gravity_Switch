@@ -66,8 +66,6 @@ class Level:
             result += "        " + o.toString() + ",\n"
         result += "    ],\n"
         result += "    background = " + str(self.background) + ",\n"
-        
-    
         result += ")"
         return(result)
 

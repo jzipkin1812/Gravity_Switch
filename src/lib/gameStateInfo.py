@@ -8,7 +8,6 @@ from .constants import *
 from .loadAssets import *
 class GameStateInfo:
     def __init__(self, pygameScreen):
-        global GLOBALCOLORS
         # Pygame variables
         self.quit: bool = False
         self.frames: int = 0
@@ -19,7 +18,7 @@ class GameStateInfo:
         self.mouseY: int = 0
         self.timer = pygame.time.Clock()
         # Aesthetic variables
-        self.colors = GLOBALCOLORS = colorsWorldB
+        self.colors = colorsWorldA
         # Mode functions
         self.mode: str = "Title Screen"
         # For each mode, we use different functions.
@@ -39,8 +38,8 @@ class GameStateInfo:
             
         }
         # Gameplay statuses
-        self.world: list[level.Level] = worldB
-        self.levelNumber: int = 6
+        self.world: list[level.Level] = worldA
+        self.levelNumber: int = 0
         self.level: level.Level = self.world[self.levelNumber]
         # self.level.background = (80, 0, 0)
         self.advance: bool = True
@@ -136,6 +135,7 @@ class GameStateInfo:
         #LVL SELECT: (354, 322) to (597, 402)
 
         if event.type == pygame.KEYDOWN:
+            print(event.key)
             if event.key == pygame.K_SPACE:
                 self.mode = "Gameplay"
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -179,28 +179,41 @@ class GameStateInfo:
                                            (e.x1 <= a[0] <= e.x2 and e.y1 <= a[1] <= e.y2)]
                 self.level.players = [p for p in self.level.players if not 
                                       (p.x == a[0] and p.y == a[1])]
-            if event.key == pygame.K_SPACE:
+            # Undo
+            if event.key == pygame.K_z:
+                if len(self.level.levelObjects) > 0:
+                    self.level.levelObjects.pop()
+            elif event.key == pygame.K_SPACE:
                 self.level.levelObjects.append(entity.Entity(a[0], a[1], 
                                                             b[0], b[1], self.colors["platform"]))
+            elif event.key == pygame.K_t:
+                self.level.levelObjects.append(special.Teleporter(a[0], a[1], 
+                                                            b[0], b[1]))
             elif event.key == pygame.K_a:
                 self.level.levelObjects.append(special.Antiplatform(a[0], a[1], 
                                                             b[0], b[1]))
-            elif event.key == pygame.K_l:
+            elif event.key == pygame.K_o:
                 self.level.levelObjects.append(special.Cloud(a[0], a[1], 
                                                             b[0], b[1]))
+            elif event.key == pygame.K_l:
+                self.level.levelObjects.append(special.Lever(a[0], a[1], 
+                                                            b[0], b[1], self.editDirection))
             elif event.key == pygame.K_p:
                 self.level.players.append(player.Player(a[0], a[1], self.colors["player"], self.gridSize))
             elif event.key == pygame.K_c:
                 self.level.levelObjects.append(entity.Coin(a[0], a[1], self.colors["coin"]))
             elif event.key == pygame.K_n:
                 self.level.levelObjects.append(special.NullCube(a[0], a[1]))
+            
             # Write/Save
             elif event.key == pygame.K_w:
                 self.levelDumpFile.write(self.level.toString())
             # Change direction for directed objects
             elif event.key in [pygame.K_DOWN, pygame.K_UP, pygame.K_LEFT, pygame.K_RIGHT]:
                 self.editDirection = player.directionDict[event.key]
+            elif event.key == pygame.K_i:
                 self.level.levelObjects.append(special.Redirector(a[0], a[1], self.editDirection))
+            
             
             elif event.key == pygame.K_ESCAPE:
                 self.mode = "Title Screen"
@@ -235,12 +248,14 @@ class GameStateInfo:
         self.levelNumber = num
         self.world = destination
         self.level = destination[num]
-        self.advance = True
+        self.advance = False
         self.mode = "Gameplay"
         if destination == worldA:
             self.colors = colorsWorldA
         elif destination == worldB:
             self.colors = colorsWorldB
+        elif destination == worldC:
+            self.colors = colorsWorldC
                    
         
         
