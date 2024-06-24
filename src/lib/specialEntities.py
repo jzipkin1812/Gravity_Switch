@@ -147,8 +147,11 @@ class Lever(Entity):
         self.direction = direction
         self.hollow = False
     def collide(self, player: p.Player) -> bool:
-        if(player.direction == "stop" or self.hollow):
+        # Hollowness
+        if(player.direction == "stop"):
             self.hollow = False
+            return False
+        elif self.hollow:
             return False
         # If you are counteracting the lever collide normally
         if(player.direction == u.invert(self.direction)):
