@@ -19,10 +19,10 @@ Press the space key to create a rectangular platform, defined by the two editor 
 Press the backspace button and any object touching the primary pointer will be deleted. Be careful; multiple objects can be deleted at once if they all touch the primary pointer.
 ## Other Objects
 Non-platform objects take up only one 25x25 pixel square each, so they only depend on the primary (red) editor pointer. Here are all such objects:
-Player: p (there can be multiple...stay tuned for a world based on this concept, or make your own challenges with it now!)
-Goal square / Coin: c
-Null cube (from Space Station): n
-Redirector (from Volcanic Delta): Arrow keys (to determine direction)
+* Player: p (there can be multiple...stay tuned for a world based on this concept, or make your own challenges with it now!)
+* Goal square / Coin: c
+* Null cube (from Space Station): n
+* Redirector (from Volcanic Delta): Arrow keys (to determine direction)
 ## Testing your Level
 Simply click the mouse wheel again to exit editor mode and start playing. CAUTION: Whenever you exit editor mode, the current version of the level will be saved and 'locked in' until you go back to editor mode. This means that, if you start playing a level, mess up some objects while playing, then re-enter editor mode, oh no! Your half-played level has now been saved! Do not do this. It is good practice to ALWAYS restart (r button) before re-entering editor mode.
 ## Saving and Sharing your level
@@ -32,12 +32,12 @@ What you see in levelDump is literally the code needed to be executed to create 
 
 # New Features and Changelog
 ## Version 1.0 (6/23/2024):
-- Worlds A (Space Station) and B (Volcanic Delta) are fully functional, with many levels overhauled or completely new, especially in World B.
-- The level editor is fully functional, though not yet totally user-friendly.
-- The title screen and level select page are fully functional. However, the "!" levels have not been added yet. They are intended to be challenge levels; these will be significantly harder than the main game and optional.
-- There is still no save file, so everything is unlocked right at the start.
+* Worlds A (Space Station) and B (Volcanic Delta) are fully functional, with many levels overhauled or completely new, especially in World B.
+* The level editor is fully functional, though not yet totally user-friendly.
+* The title screen and level select page are fully functional. However, the "!" levels have not been added yet. They are intended to be challenge levels; these will be significantly harder than the main game and optional.
+* There is still no save file, so everything is unlocked right at the start.
 ## Plans for Next Version: 1.1
-- Implement World C, and add the six missing levels that have never been created.
-- Add a new concept to World C: Teleporters with limited uses.
-- Add a challenge level or two.
-- Fix the editor pointer bug mentioned above.
+* Implement World C, and add the six missing levels that have never been created.
+* Add a new concept to World C: Teleporters with limited uses.
+* Add a challenge level or two.
+* Fix the editor pointer bug mentioned above.
