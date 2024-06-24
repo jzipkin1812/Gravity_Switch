@@ -95,8 +95,8 @@ class GameStateInfo:
         for i in range(0, SCREEN_SIZE, self.gridSize):
             pygame.draw.line(self.screen, (75, 75, 75), (i, 0), (i, SCREEN_HEIGHT))
             pygame.draw.line(self.screen, (75, 75, 75), (0, i), (SCREEN_WIDTH, i))
-        # pos1 indicator
-        pygame.draw.circle(self.screen, (0, 0, 0), self.point1, 5)
+        # editor pointers
+        pygame.draw.circle(self.screen, (255, 0, 0), self.point1, 5)
         pygame.draw.circle(self.screen, (255, 255, 255), self.point2, 5)
     
     def process(self, event: pygame.event.Event):
@@ -145,6 +145,12 @@ class GameStateInfo:
                     self.mode = "Gameplay"
                 elif 354 <= self.mouseX <= 597 and 322 <= self.mouseY <= 402:
                     self.mode = "Level Select"
+                elif 155 <= self.mouseX <= 395 and 457 <= self.mouseY <= 538:
+                    self.mode = "Level Editor"
+                    self.level = editorLevel
+                    self.advance = False
+                    self.world = worldA
+                    self.levelNumber = 0
     
     def processLevelSelect(self, event: pygame.event.Event):        
         if event.type == pygame.MOUSEWHEEL:
@@ -218,7 +224,6 @@ class GameStateInfo:
         self.screen.blit(tempText, (x, y))
     
     def selectLevel(self):
-        print(self.mouseX, self.mouseY)
         mouseModY = self.mouseY - self.scrollMod
         for planet, selector in worldInfo:
             for i, (x, y) in enumerate(selector):
@@ -232,6 +237,10 @@ class GameStateInfo:
         self.level = destination[num]
         self.advance = True
         self.mode = "Gameplay"
+        if destination == worldA:
+            self.colors = colorsWorldA
+        elif destination == worldB:
+            self.colors = colorsWorldB
                    
         
         

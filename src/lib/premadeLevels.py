@@ -4,7 +4,7 @@ from . import entity as b
 from . import specialEntities as s
 from .constants import *
 
-emptyLevel = level.Level(
+editorLevel = level.Level(
     
 )
 
