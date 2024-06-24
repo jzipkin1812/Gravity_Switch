@@ -115,6 +115,7 @@ class GameStateInfo:
         # Clicking the mouse
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 2:
+                self.level.reset()
                 self.mode = "Level Editor"
         # Key presses
         if event.type == pygame.KEYDOWN:

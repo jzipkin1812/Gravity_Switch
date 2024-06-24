@@ -33,7 +33,7 @@ Use the t key to create a set of two teleporters. The top-left corners of each p
 ### Deleting Teleporters
 Please use the undo key to delete teleporters; backspace is buggy for this specific object.
 ## Testing your Level 
-Simply click the mouse wheel again to exit editor mode and start playing. CAUTION: Whenever you exit editor mode, the current version of the level will be saved and 'locked in' until you go back to editor mode. This means that, if you start playing a level, mess up some objects while playing, then re-enter editor mode, oh no! Your half-played level has now been saved! Do not do this. It is good practice to ALWAYS restart (r button) before re-entering editor mode.
+Simply click the mouse wheel again to exit editor mode and start playing. You can freely switch between these two modes with the mouse wheel at any time. Ngl the seamless design of this feature ate...
 ## Saving and Sharing your level
 While in editor mode, press the w button to write your current level to a file. The file it will be saved to is "levelDump.txt", located in the src folder. When closing the game, the current level will also be saved for you just in case. You'll find everything you saved during your last playthrough of the game in levelDump.txt at once. 
 ### How to read and use levelDump.txt and premadeLevels.py
