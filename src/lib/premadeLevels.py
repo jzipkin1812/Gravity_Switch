@@ -2,6 +2,7 @@ from . import level
 from . import player as p
 from . import entity as b
 from . import specialEntities as s
+from .constants import *
 
 emptyLevel = level.Level(
     
@@ -457,3 +458,9 @@ B10 = level.Level(
 )
 
 worldB = [B1, B2, B3, B4, B5, B6, B7, B8, B9, B10]
+
+
+worldInfo = [
+    (worldA, levelSelectWorldA),
+    (worldB, levelSelectWorldB),
+]
