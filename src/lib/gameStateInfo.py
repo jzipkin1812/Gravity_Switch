@@ -264,7 +264,7 @@ class GameStateInfo:
         self.world = destination
         self.level = destination[num]
         self.level.reset()
-        self.advance = False
+        self.advance = True
         self.mode = "Gameplay"
         if destination == worldA:
             self.colors = colorsWorldA
