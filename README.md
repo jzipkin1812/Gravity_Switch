@@ -28,6 +28,7 @@ Non-platform objects take up only one 25x25 pixel square each, so they only depe
 Some objects face a direction. To set the direction of an object you are about to place, use an arrow key. Then,
 * Redirector (from Volcanic Delta): i 
 * Lever (from Non-Euclidean Rainforest): l
+* Tar (from Dark Matter Mountains): r
 ## Teleporters
 Use the t key to create a set of two teleporters. The top-left corners of each part of the teleporter are determined by the two editor pointers. It is recommended to only have one set, since they all look the same, but multiple sets will function just fine.
 ### Limited-Use Teleporters
@@ -42,6 +43,10 @@ What you see in levelDump is literally the code needed to be executed to create 
 With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text into the terminal. (This feature uses Python's input() function.) The text should appear on screen.
 
 # New Features and Changelog
+## Version 1.2 (6/25/2024):
+* World C complete.
+* Added world D.
+* Added a new mechanic: Tar.
 ## Version 1.1 (6/24/2024):
 * Added all of world C except for levels 9 and 10. These levels are getting tough!
 * Added a new concept to World C: Teleporters with limited uses.
@@ -53,7 +58,7 @@ With your primary pointer on the top-left location of where you want your text, 
 * The title screen and level select page are fully functional. However, the "!" levels have not been added yet. They are intended to be challenge levels; these will be significantly harder than the main game and optional.
 * There is still no save file, so everything is unlocked right at the start.
 * All mechanics and objects from the original 2018 game are implemented.
-## Plans for Next Version: 1.2
-* Finish world C.
+## Plans for Future Versions
+* Finish world D.
 * Add a challenge level or two.
 * Fix the editor pointer bug mentioned above.

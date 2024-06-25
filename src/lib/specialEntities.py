@@ -218,3 +218,27 @@ class Lever(Entity):
         return("s.Lever(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" + self.direction + "\")")
     def copy(self):
         return(Lever(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2])))
+    
+
+class Tar(Entity):
+    def __init__(self, x1, y1, x2, y2, direction = "up", color = (47, 79, 79)):
+        super().__init__(x1, y1, x2, y2, color)
+        self.direction = direction
+    def collide(self, player: p.Player) -> bool:
+        # Players stick to tar
+        if(self.isTouching(player) and player.direction == u.invert(self.direction)):
+            player.stop()
+        
+    def display(self, screen):
+        if self.direction == "up":
+            u.betterRect(screen, self.x1, self.y1, self.x2, (self.y1 + self.y2) // 2, self.color, 0)
+        elif self.direction == "down":
+            u.betterRect(screen, self.x1, (self.y1 + self.y2) // 2, self.x2, self.y2, self.color, 0)
+        elif self.direction == "right":
+            u.betterRect(screen, (self.x2 + self.x1) // 2, self.y1, self.x2, self.y2, self.color, 0)
+        elif self.direction == "left":
+            u.betterRect(screen, self.x1, self.y1, (self.x2 + self.x1) // 2, self.y2, self.color, 0)
+    def toString(self):
+        return("s.Tar(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" + self.direction + "\")")
+    def copy(self):
+        return(Tar(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2])))

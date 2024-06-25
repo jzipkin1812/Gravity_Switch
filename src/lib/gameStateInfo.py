@@ -113,6 +113,11 @@ class GameStateInfo:
     
         
     def processGameplay(self, event: pygame.event.Event):
+        # For multiple players, check if everyone is stopped.
+        allStopped = True
+        for p in self.level.players:
+            if p.direction != "stop":
+                allStopped = False
         # Clicking the mouse
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 2:
@@ -124,11 +129,10 @@ class GameStateInfo:
                 pass
             elif event.key == pygame.K_r:
                 self.level.reset()
-            elif event.key in [pygame.K_DOWN, pygame.K_UP, pygame.K_LEFT, pygame.K_RIGHT,
-                             pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d]:
+            elif (event.key in [pygame.K_DOWN, pygame.K_UP, pygame.K_LEFT, pygame.K_RIGHT,
+                             pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d]) and allStopped:
                 for p in self.level.players:
-                    if p.direction == "stop":
-                        p.keyMove(event.key)
+                    p.keyMove(event.key)
             elif event.key == pygame.K_ESCAPE:
                 self.mode = "Title Screen"
     
@@ -196,6 +200,9 @@ class GameStateInfo:
                                                             b[0], b[1]))
             elif event.key == pygame.K_l:
                 self.level.levelObjects.append(special.Lever(a[0], a[1], 
+                                                            b[0], b[1], self.editDirection))
+            elif event.key == pygame.K_r:
+                self.level.levelObjects.append(special.Tar(a[0], a[1], 
                                                             b[0], b[1], self.editDirection))
             elif event.key == pygame.K_p:
                 self.level.players.append(player.Player(a[0], a[1], self.colors["player"], self.gridSize))
@@ -272,6 +279,8 @@ class GameStateInfo:
             self.colors = colorsWorldB
         elif destination == worldC:
             self.colors = colorsWorldC
+        elif destination == worldD:
+            self.colors = colorsWorldD
                    
         
         
