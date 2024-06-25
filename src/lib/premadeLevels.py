@@ -5,34 +5,6 @@ from . import specialEntities as s
 from .constants import *
 
 editorLevel = level.Level(
-    players = [
-        p.Player(50.0, 375.0,(89, 129, 45)),
-    ],
-    levelObjects = [
-        s.Lever(150, 425, 200, 600, "left"),
-        s.Lever(475, 425, 525, 600, "right"),
-        b.Coin(375, 175,(144, 69, 85)),
-        b.Entity(400, 0, 450, 100, (49, 87, 54)),
-        b.Entity(250, 0, 450, 50, (49, 87, 54)),
-        b.Entity(325, 600, 575, 650, (49, 87, 54)),
-        b.Entity(450, 175, 525, 225, (49, 87, 54)),
-        b.Entity(0, 600, 250, 650, (49, 87, 54)),
-        b.Coin(200, 325,(144, 69, 85)),
-        s.Teleporter(125, 50, 600, 575, 3, (144, 169, 85)),
-        b.Entity(150, 275, 200, 350, (49, 87, 54)),
-        b.Entity(575, 225, 650, 275, (49, 87, 54)),
-        b.Coin(475, 50,(144, 69, 85)),
-        b.Entity(450, 0, 650, 50, (49, 87, 54)),
-        b.Entity(325, 375, 375, 425, (49, 87, 54)),
-        s.NullCube(50, 150),
-        b.Coin(300, 625,(144, 69, 85)),
-        b.Entity(0, 475, 50, 600, (49, 87, 54)),
-        s.Lever(325, 425, 375, 600, "right"),
-    ],
-    background = ((19, 42, 19),),
-    text = "8.The Three Gates",
-    textLocation = (100, 125),
-    textColor = (150, 150, 150),
 )
 A1 = level.Level(
     players = [
