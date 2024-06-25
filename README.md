@@ -30,24 +30,30 @@ Some objects face a direction. To set the direction of an object you are about t
 * Lever (from Non-Euclidean Rainforest): l
 ## Teleporters
 Use the t key to create a set of two teleporters. The top-left corners of each part of the teleporter are determined by the two editor pointers. It is recommended to only have one set, since they all look the same, but multiple sets will function just fine.
-### Deleting Teleporters
-Please use the undo key to delete teleporters; backspace is buggy for this specific object.
+### Limited-Use Teleporters
+The number keys provide this functionality. Press 0 and then create a teleporter to make one with unlimited uses. Press 1, 2, 3, or 4 to make teleporters with those number of uses.
 ## Testing your Level 
 Simply click the mouse wheel again to exit editor mode and start playing. You can freely switch between these two modes with the mouse wheel at any time. Ngl the seamless design of this feature ate...
 ## Saving and Sharing your level
 While in editor mode, press the w button to write your current level to a file. The file it will be saved to is "levelDump.txt", located in the src folder. When closing the game, the current level will also be saved for you just in case. You'll find everything you saved during your last playthrough of the game in levelDump.txt at once. 
 ### How to read and use levelDump.txt and premadeLevels.py
 What you see in levelDump is literally the code needed to be executed to create that level. If you go to /lib/premadeLevels.py, you'll see that this format is used by the game. Feel free to send such code to a friend, and they can paste it in to editorLevel in that file. Then, when pressing the level editor button, they'll see your level!
+## Adding text to your level
+With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text into the terminal. (This feature uses Python's input() function.) The text should appear on screen.
 
 # New Features and Changelog
+## Version 1.1 (6/24/2024):
+* Added all of world C except for levels 9 and 10. These levels are getting tough!
+* Added a new concept to World C: Teleporters with limited uses.
+* Fixed teleporter deletion bug in the editor.
+* Added text to levels and to the level editor.
 ## Version 1.0 (6/23/2024):
 * Worlds A (Space Station) and B (Volcanic Delta) are fully functional, with many levels overhauled or completely new, especially in World B. World C is part-done.
 * The level editor is fully functional, though not yet totally user-friendly.
 * The title screen and level select page are fully functional. However, the "!" levels have not been added yet. They are intended to be challenge levels; these will be significantly harder than the main game and optional.
 * There is still no save file, so everything is unlocked right at the start.
 * All mechanics and objects from the original 2018 game are implemented.
-## Plans for Next Version: 1.1
-* Implement World C, and add the six missing levels that have never been created.
-* Add a new concept to World C: Teleporters with limited uses.
+## Plans for Next Version: 1.2
+* Finish world C.
 * Add a challenge level or two.
 * Fix the editor pointer bug mentioned above.

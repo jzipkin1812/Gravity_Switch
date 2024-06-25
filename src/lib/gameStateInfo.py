@@ -49,6 +49,7 @@ class GameStateInfo:
         self.point2: tuple = (0, 0)
         self.levelDumpFile = open("levelDump.txt", "w")
         self.editDirection = "up"
+        self.editUses = 0
         # Level select info
         self.scrollMod: int = 0
 
@@ -176,10 +177,7 @@ class GameStateInfo:
         if event.type == pygame.KEYDOWN:
             # Erase
             if event.key == pygame.K_BACKSPACE:
-                self.level.levelObjects = [e for e in self.level.levelObjects if not 
-                                           (e.x1 <= a[0] <= e.x2 and e.y1 <= a[1] <= e.y2)]
-                self.level.players = [p for p in self.level.players if not 
-                                      (p.x == a[0] and p.y == a[1])]
+                self.level.erase(a[0], a[1])
             # Undo
             if event.key == pygame.K_z:
                 if len(self.level.levelObjects) > 0:
@@ -189,7 +187,7 @@ class GameStateInfo:
                                                             b[0], b[1], self.colors["platform"]))
             elif event.key == pygame.K_t:
                 self.level.levelObjects.append(special.Teleporter(a[0], a[1], 
-                                                            b[0], b[1]))
+                                                            b[0], b[1], self.editUses))
             elif event.key == pygame.K_a:
                 self.level.levelObjects.append(special.Antiplatform(a[0], a[1], 
                                                             b[0], b[1]))
@@ -205,6 +203,11 @@ class GameStateInfo:
                 self.level.levelObjects.append(entity.Coin(a[0], a[1], self.colors["coin"]))
             elif event.key == pygame.K_n:
                 self.level.levelObjects.append(special.NullCube(a[0], a[1]))
+            # Text Location
+            elif event.key == pygame.K_TAB:
+                self.level.textLocation = (a[0], a[1])
+                self.level.textColor = self.colors["text"]
+                self.level.text = input()
             
             # Write/Save
             elif event.key == pygame.K_w:
@@ -214,7 +217,18 @@ class GameStateInfo:
                 self.editDirection = player.directionDict[event.key]
             elif event.key == pygame.K_i:
                 self.level.levelObjects.append(special.Redirector(a[0], a[1], self.editDirection))
-            
+            # Change uses for teleporters and possibly other objects in the future
+            elif event.key == pygame.K_0:
+                self.editUses = 0
+            elif event.key == pygame.K_1:
+                self.editUses = 1
+            elif event.key == pygame.K_2:
+                self.editUses = 2
+            elif event.key == pygame.K_3:
+                self.editUses = 3
+            elif event.key == pygame.K_4:
+                self.editUses = 4
+                
             
             elif event.key == pygame.K_ESCAPE:
                 self.mode = "Title Screen"

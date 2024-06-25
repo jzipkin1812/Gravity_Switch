@@ -4,7 +4,7 @@ from . import utility as u
 from .constants import *
 
 class Level:
-    def __init__(self, players = [], levelObjects = [], background = (0, 0, 0), text = "", textLocation = (0, 0)):
+    def __init__(self, players = [], levelObjects = [], background = (0, 0, 0), text = "", textLocation = (0, 0), textColor = (150, 150, 150)):
         # Mutable level objects and players
         self.players: list[player.Player] = players
         self.levelObjects: list[entity.Block] = levelObjects
@@ -19,9 +19,10 @@ class Level:
             self.origObjects.append(o.copy())
         
         # Aesthetics
-        self.background = background
+        self.background: tuple = background
         self.text: str = text
         self.textLocation: tuple = textLocation
+        self.textColor: tuple = textColor
     
     def isComplete(self) -> bool:
         for obj in self.levelObjects:
@@ -36,8 +37,9 @@ class Level:
         return(False)
     
     def display(self, screen):
-        # screen.fill(self.background)
-        u.transparentScreenText(self.textLocation[0], self.textLocation[1], screen, self.text, 70, (150, 150, 150))
+        screen.fill(self.background)
+        u.transparentScreenText(self.textLocation[0], self.textLocation[1], 
+                                screen, self.text, 45, self.textColor)
         for p in self.players:
             p.display(screen)
         for b in self.levelObjects:
@@ -66,6 +68,9 @@ class Level:
             result += "        " + o.toString() + ",\n"
         result += "    ],\n"
         result += "    background = " + str(self.background) + ",\n"
+        result += "    text = \"" + self.text + "\",\n"
+        result += "    textLocation = " + str(self.textLocation) + ",\n"
+        result += "    textColor = " + str(self.textColor) + ",\n"
         result += ")"
         return(result)
 
@@ -86,3 +91,11 @@ class Level:
         self.origObjects = []
         for o in self.levelObjects:
             self.origObjects.append(o.copy())
+    
+    def erase(self, x, y):
+        for o in self.levelObjects:
+            o.erase(x, y)
+        self.levelObjects = [entity for entity in self.levelObjects if not entity.dead]
+        self.players = [p for p in self.players if not 
+                                      (p.x == x and p.y == y)]
+        self.solidify()

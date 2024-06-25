@@ -11,6 +11,7 @@ colorsWorldA = {
     "coin" : (123, 104, 238),
     "cloud" : (220, 220, 220),
     "background" : (0, 0, 80),
+    "text" : (240, 240, 240),
 }
 
 colorsWorldB = {
@@ -20,6 +21,7 @@ colorsWorldB = {
     "coin" : (204, 68, 34),
     "cloud" : (234, 218, 181),
     "background" : (255, 102, 0),
+    "text" : (0, 0, 0),
 }
 
 colorsWorldC = {
@@ -29,6 +31,7 @@ colorsWorldC = {
     "coin" : (144, 69, 85),
     "cloud" : (236, 243, 158),
     "background" : (19, 42, 19),
+    "text" : (150, 150, 150),
 }
 
 GLOBALCOLORS = colorsWorldA

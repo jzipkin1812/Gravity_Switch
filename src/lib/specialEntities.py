@@ -114,31 +114,75 @@ class Antiplatform(Entity):
         return(Antiplatform(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2])))
     
 class Teleporter(Entity):
-    def __init__(self, x1, y1, x2, y2, color = (144, 169, 85)):
+    def __init__(self, x1, y1, x2, y2, uses = 0, color = (144, 169, 85)):
         super().__init__(x1, y1, x2, y2, color)
+        self.uses = uses
+        
     
     def display(self, screen):
-        u.betterRect(screen, self.x1, self.y1, self.x1 + GRID_SIZE, self.y1 + GRID_SIZE, self.color, 3)
-        u.betterRect(screen, self.x2, self.y2, self.x2 + GRID_SIZE, self.y2 + GRID_SIZE, self.color, 3)
+        x11 = self.x1
+        x12 = self.x1 + GRID_SIZE
+        y11 = self.y1
+        y12 = self.y1 + GRID_SIZE
+        
+        center1 = (x11 + GRID_SIZE / 2, y11 + GRID_SIZE / 2)
+        
+        x21 = self.x2
+        x22 = self.x2 + GRID_SIZE
+        y21 = self.y2
+        y22 = self.y2 + GRID_SIZE
+        
+        center2 = (x21 + GRID_SIZE / 2, y21 + GRID_SIZE / 2)
+        # Main square
+        width = 3
+        u.betterRect(screen, x11, y11, x12, y12, self.color, width)
+        u.betterRect(screen, x21, y21, x22, y22, self.color, width)
+        # Uses indicators
+        useWidth = 0
+        if self.uses > 3:
+            pygame.draw.polygon(screen, self.color, [(x11, y11), center1, (x11, y12)], useWidth)
+            pygame.draw.polygon(screen, self.color, [(x21, y21), center2, (x21, y22)], useWidth)
+        if self.uses > 2:
+            pygame.draw.polygon(screen, self.color, [(x12, y11), center1, (x11, y11)], useWidth)
+            pygame.draw.polygon(screen, self.color, [(x22, y21), center2, (x21, y21)], useWidth)
+        if self.uses > 1:
+            pygame.draw.polygon(screen, self.color, [(x12, y12), center1, (x12, y11)], useWidth)
+            pygame.draw.polygon(screen, self.color, [(x22, y22), center2, (x22, y21)], useWidth) 
+        if self.uses > 0:
+            pygame.draw.polygon(screen, self.color, [(x11, y12), center1, (x12, y12)], useWidth)
+            pygame.draw.polygon(screen, self.color, [(x21, y22), center2, (x22, y22)], useWidth)
+        
+    def erase(self, x, y):
+        if(self.x1 == x and self.y1 == y) or (self.x2 == x and self.y2 == y):
+            self.dead = True
+        
+            
     
     def collide(self, player: p.Player) -> bool:
         t1 = Entity(self.x1, self.y1, self.x1 + GRID_SIZE, self.y1 + GRID_SIZE)
         t2 = Entity(self.x2, self.y2, self.x2 + GRID_SIZE, self.y2 + GRID_SIZE)
+        did: bool = False
         
         if t1.willTouch(player):
             player.x = t2.x1
             player.y = t2.y1
-            return(True)
+            did = True
         elif t2.willTouch(player):
             player.x = t1.x1
             player.y = t1.y1
-            return(True)
+            did = True
         
-        return(False)
+        if (did):
+            self.uses -= 1
+            if self.uses == 0:
+                self.dead = True
+        
+        return did
     def toString(self):
-        return("s.Teleporter(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", " + str(self.color) + ")")
+        return("s.Teleporter(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", " \
+            + str(self.uses) + ", " + str(self.color) + ")")
     def copy(self):
-        return(Teleporter(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2])))
+        return(Teleporter(self.x1, self.y1, self.x2, self.y2, self.uses, (self.color[0], self.color[1], self.color[2])))
 
 
 class Lever(Entity):
@@ -148,7 +192,7 @@ class Lever(Entity):
         self.hollow = False
     def collide(self, player: p.Player) -> bool:
         # Hollowness
-        if(player.direction == "stop"):
+        if(not self.willTouch(player)):
             self.hollow = False
             return False
         elif self.hollow:

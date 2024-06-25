@@ -5,170 +5,233 @@ from . import specialEntities as s
 from .constants import *
 
 editorLevel = level.Level(
-)
-
-A1 = level.Level(
     players = [
-        p.Player(150, 150),
+        p.Player(50.0, 375.0,(89, 129, 45)),
     ],
     levelObjects = [
-        b.Entity(50, 50, 100, 600),
-        b.Entity(50, 50, 600, 100),
-        b.Entity(550, 50, 600, 600),
-        b.Entity(50, 550, 600, 600),
-        b.Entity(350, 275, 600, 325),
-        b.Coin(200, 325),
+        s.Lever(150, 425, 200, 600, "left"),
+        s.Lever(475, 425, 525, 600, "right"),
+        b.Coin(375, 175,(144, 69, 85)),
+        b.Entity(400, 0, 450, 100, (49, 87, 54)),
+        b.Entity(250, 0, 450, 50, (49, 87, 54)),
+        b.Entity(325, 600, 575, 650, (49, 87, 54)),
+        b.Entity(450, 175, 525, 225, (49, 87, 54)),
+        b.Entity(0, 600, 250, 650, (49, 87, 54)),
+        b.Coin(200, 325,(144, 69, 85)),
+        s.Teleporter(125, 50, 600, 575, 3, (144, 169, 85)),
+        b.Entity(150, 275, 200, 350, (49, 87, 54)),
+        b.Entity(575, 225, 650, 275, (49, 87, 54)),
+        b.Coin(475, 50,(144, 69, 85)),
+        b.Entity(450, 0, 650, 50, (49, 87, 54)),
+        b.Entity(325, 375, 375, 425, (49, 87, 54)),
+        s.NullCube(50, 150),
+        b.Coin(300, 625,(144, 69, 85)),
+        b.Entity(0, 475, 50, 600, (49, 87, 54)),
+        s.Lever(325, 425, 375, 600, "right"),
     ],
+    background = ((19, 42, 19),),
+    text = "8.The Three Gates",
+    textLocation = (100, 125),
+    textColor = (150, 150, 150),
+)
+A1 = level.Level(
+    players = [
+        p.Player(150.0, 150.0,(102, 205, 170)),
+    ],
+    levelObjects = [
+        b.Entity(50, 50, 100, 600, (100, 149, 237)),
+        b.Entity(50, 50, 600, 100, (100, 149, 237)),
+        b.Entity(550, 50, 600, 600, (100, 149, 237)),
+        b.Entity(50, 550, 600, 600, (100, 149, 237)),
+        b.Entity(350, 275, 600, 325, (100, 149, 237)),
+        b.Coin(200, 325,(123, 104, 238)),
+    ],
+    background = (0, 0, 80),
+    text = "1.Out of the Nest",
+    textLocation = (100, 600),
+    textColor = (240, 240, 240),
 )
 A2 = level.Level(
     players = [
-        p.Player(100, 100),
+        p.Player(100.0, 100.0,(102, 205, 170)),
     ],
     levelObjects = [
-        b.Coin(350, 100),
-        b.Entity(325, 250, 375, 375),
-        b.Entity(100, 325, 150, 375),
-        b.Entity(50, 550, 600, 600),
-        b.Entity(550, 475, 600, 600),
-        b.Coin(100, 425),
-        b.Coin(525, 325),
-        b.Entity(50, 325, 100, 550),
-        b.Entity(450, 50, 600, 100),
+        b.Coin(350, 100,(123, 104, 238)),
+        b.Entity(325, 250, 375, 375, (100, 149, 237)),
+        b.Entity(100, 325, 150, 375, (100, 149, 237)),
+        b.Entity(50, 550, 600, 600, (100, 149, 237)),
+        b.Entity(550, 475, 600, 600, (100, 149, 237)),
+        b.Coin(100, 425,(123, 104, 238)),
+        b.Coin(525, 325,(123, 104, 238)),
+        b.Entity(50, 325, 100, 550, (100, 149, 237)),
+        b.Entity(450, 50, 600, 100, (100, 149, 237)),
     ],
+    background = (0, 0, 80),
+    text = "2.To Infinity and Beyond",
+    textLocation = (0, 600),
+    textColor = (240, 240, 240),
 )
 A3 = level.Level(
     players = [
-        p.Player(100, 100),
+        p.Player(100.0, 100.0,(102, 205, 170)),
     ],
     levelObjects = [
-        b.Entity(50, 50, 100, 225),
-        b.Entity(50, 50, 225, 100),
-        b.Entity(50, 425, 100, 600),
-        b.Entity(50, 550, 225, 600),
+        b.Entity(50, 50, 100, 225, (100, 149, 237)),
+        b.Entity(50, 50, 225, 100, (100, 149, 237)),
+        b.Entity(50, 425, 100, 600, (100, 149, 237)),
+        b.Entity(50, 550, 225, 600, (100, 149, 237)),
         s.NullCube(325, 525),
-        b.Entity(425, 550, 600, 600),
-        b.Entity(550, 425, 600, 600),
-        b.Entity(550, 50, 600, 225),
-        b.Entity(425, 50, 600, 100),
+        b.Entity(425, 550, 600, 600, (100, 149, 237)),
+        b.Entity(550, 425, 600, 600, (100, 149, 237)),
+        b.Entity(550, 50, 600, 225, (100, 149, 237)),
+        b.Entity(425, 50, 600, 100, (100, 149, 237)),
         s.NullCube(325, 350),
-        b.Coin(475, 350),
+        b.Coin(475, 350,(123, 104, 238)),
     ],
+    background = (0, 0, 80),
+    text = "3.New Friends",
+    textLocation = (150, 150),
+    textColor = (240, 240, 240),
 )
 A4 = level.Level(
     players = [
-        p.Player(50, 500),
+        p.Player(50.0, 500.0,(102, 205, 170)),
     ],
     levelObjects = [
-        b.Entity(50, 525, 550, 575),
-        b.Entity(550, 375, 600, 575),
-        b.Entity(550, 50, 600, 175),
-        b.Entity(475, 50, 600, 100),
+        b.Entity(50, 525, 550, 575, (100, 149, 237)),
+        b.Entity(550, 375, 600, 575, (100, 149, 237)),
+        b.Entity(550, 50, 600, 175, (100, 149, 237)),
+        b.Entity(475, 50, 600, 100, (100, 149, 237)),
         s.NullCube(300, 100),
-        b.Entity(50, 350, 175, 400),
-        b.Coin(100, 325),
-        b.Entity(50, 150, 100, 400),
-        b.Entity(300, 275, 350, 400),
+        b.Entity(50, 350, 175, 400, (100, 149, 237)),
+        b.Coin(100, 325,(123, 104, 238)),
+        b.Entity(50, 150, 100, 400, (100, 149, 237)),
+        b.Entity(300, 275, 350, 400, (100, 149, 237)),
         s.NullCube(425, 175),
         s.NullCube(425, 250),
-        b.Coin(425, 325),
+        b.Coin(425, 325,(123, 104, 238)),
     ],
-)                                                      
+    background = (0, 0, 80),
+    text = "4.Use Wisely",
+    textLocation = (125, 575),
+    textColor = (240, 240, 240),
+)                                                  
 A5 = level.Level(
     players = [
-        p.Player(125, 575),
+        p.Player(125.0, 575.0,(102, 205, 170)),
     ],
     levelObjects = [
-        b.Entity(0, 350, 50, 650),
-        b.Entity(0, 600, 275, 650),
-        b.Entity(225, 350, 275, 650),
+        b.Entity(0, 350, 50, 650, (100, 149, 237)),
+        b.Entity(0, 600, 275, 650, (100, 149, 237)),
+        b.Entity(225, 350, 275, 650, (100, 149, 237)),
         s.Cloud(50, 350, 225, 375),
         s.Cloud(325, 475, 600, 500),
         s.Cloud(225, 200, 550, 225),
-        b.Coin(25, 175),
-        b.Entity(475, 275, 525, 400),
-        b.Entity(75, 50, 400, 100),
+        b.Coin(25, 175,(123, 104, 238)),
+        b.Entity(475, 275, 525, 400, (100, 149, 237)),
+        b.Entity(75, 50, 400, 100, (100, 149, 237)),
     ],
+    background = (0, 0, 80),
+    text = "5.Up in the Clouds",
+    textLocation = (75, 0),
+    textColor = (240, 240, 240),
 )
 A6 = level.Level(
     players = [
-        p.Player(325, 325),
+        p.Player(325.0, 325.0,(102, 205, 170)),
     ],
     levelObjects = [
-        b.Entity(0, 600, 650, 650),
-        b.Entity(0, 0, 200, 50),
-        b.Entity(0, 0, 50, 225),
+        b.Entity(0, 600, 650, 650, (100, 149, 237)),
+        b.Entity(0, 0, 200, 50, (100, 149, 237)),
+        b.Entity(0, 0, 50, 225, (100, 149, 237)),
         s.Cloud(50, 200, 200, 225),
-        b.Coin(250, 25),
-        b.Entity(325, 0, 500, 50),
-        b.Entity(275, 350, 400, 400),
-        b.Entity(275, 550, 400, 600),
-        b.Coin(250, 575),
-        b.Coin(400, 575),
+        b.Coin(250, 25,(123, 104, 238)),
+        b.Entity(325, 0, 500, 50, (100, 149, 237)),
+        b.Entity(275, 350, 400, 400, (100, 149, 237)),
+        b.Entity(275, 550, 400, 600, (100, 149, 237)),
+        b.Coin(250, 575,(123, 104, 238)),
+        b.Coin(400, 575,(123, 104, 238)),
         s.NullCube(100, 325),
         s.Cloud(400, 350, 525, 375),
         s.Cloud(400, 200, 525, 225),
-        b.Entity(600, 125, 650, 225),
+        b.Entity(600, 125, 650, 225, (100, 149, 237)),
         s.NullCube(400, 250),
     ],
+    background = (0, 0, 80),
+    text = "6.A True Challenge",
+    textLocation = (100, 450),
+    textColor = (240, 240, 240),
 )
 A7 = level.Level(
     players = [
-        p.Player(50, 575),
+        p.Player(50.0, 575.0,(102, 205, 170)),
     ],
     levelObjects = [
-        b.Entity(0, 0, 50, 650),
-        b.Entity(0, 0, 650, 50),
-        b.Entity(600, 0, 650, 350),
-        b.Entity(600, 525, 650, 650),
-        b.Entity(0, 600, 650, 650),
+        b.Entity(0, 0, 50, 650, (100, 149, 237)),
+        b.Entity(0, 0, 650, 50, (100, 149, 237)),
+        b.Entity(600, 0, 650, 350, (100, 149, 237)),
+        b.Entity(600, 525, 650, 650, (100, 149, 237)),
+        b.Entity(0, 600, 650, 650, (100, 149, 237)),
         s.Cloud(425, 400, 650, 425),
-        b.Entity(500, 150, 650, 200),
-        b.Coin(200, 350),
-        b.Entity(50, 50, 250, 100),
-        b.Entity(275, 550, 325, 600),
+        b.Entity(500, 150, 650, 200, (100, 149, 237)),
+        b.Coin(200, 350,(123, 104, 238)),
+        b.Entity(50, 50, 250, 100, (100, 149, 237)),
+        b.Entity(275, 550, 325, 600, (100, 149, 237)),
         s.NullCube(350, 350),
-        b.Coin(350, 250),
-        b.Coin(150, 375),
-        b.Entity(0, 375, 150, 425),
+        b.Coin(350, 250,(123, 104, 238)),
+        b.Coin(150, 375,(123, 104, 238)),
+        b.Entity(0, 375, 150, 425, (100, 149, 237)),
     ],
+    background = (0, 0, 80),
+    text = "7.Amoeba",
+    textLocation = (100, 150),
+    textColor = (240, 240, 240),
 )
 A8 = level.Level(
     players = [
-        p.Player(50, 575),
+        p.Player(50.0, 575.0,(102, 205, 170)),
     ],
     levelObjects = [
-        b.Entity(0, 600, 500, 650),
-        b.Entity(0, 225, 50, 600),
+        b.Entity(0, 600, 500, 650, (100, 149, 237)),
+        b.Entity(0, 225, 50, 600, (100, 149, 237)),
         s.Cloud(50, 225, 175, 250),
-        b.Entity(600, 225, 650, 650),
+        b.Entity(600, 225, 650, 650, (100, 149, 237)),
         s.Cloud(475, 225, 600, 250),
         s.NullCube(575, 325),
-        b.Coin(325, 325),
-        b.Coin(325, 575),
-        b.Coin(325, 200),
-        b.Entity(475, 0, 650, 50),
-        b.Coin(325, 50),
+        b.Coin(325, 325,(123, 104, 238)),
+        b.Coin(325, 575,(123, 104, 238)),
+        b.Coin(325, 200,(123, 104, 238)),
+        b.Entity(475, 0, 650, 50, (100, 149, 237)),
+        b.Coin(325, 50,(123, 104, 238)),
         s.NullCube(50, 50),
     ],
+    background = (0, 0, 80),
+    text = "8.Ladder",
+    textLocation = (225, 425),
+    textColor = (240, 240, 240),
 )
 A9 = level.Level(
     players = [
-        p.Player(125, 50),
+        p.Player(125.0, 50.0,(102, 205, 170)),
     ],
     levelObjects = [
-        b.Entity(0, 0, 300, 50),
+        b.Entity(0, 0, 300, 50, (100, 149, 237)),
         s.Cloud(50, 225, 250, 250),
-        b.Entity(0, 375, 50, 650),
-        b.Entity(0, 600, 650, 650),
-        b.Entity(600, 375, 650, 650),
-        b.Coin(375, 50),
-        b.Coin(375, 200),
-        b.Coin(375, 575),
+        b.Entity(0, 375, 50, 650, (100, 149, 237)),
+        b.Entity(0, 600, 650, 650, (100, 149, 237)),
+        b.Entity(600, 375, 650, 650, (100, 149, 237)),
+        b.Coin(375, 50,(123, 104, 238)),
+        b.Coin(375, 200,(123, 104, 238)),
+        b.Coin(375, 575,(123, 104, 238)),
         s.NullCube(575, 200),
         s.NullCube(575, 50),
-        b.Coin(575, 125),
-        b.Coin(575, 0),
+        b.Coin(575, 125,(123, 104, 238)),
+        b.Coin(575, 0,(123, 104, 238)),
     ],
+    background = (0, 0, 80),
+    text = "9.Redundancy",
+    textLocation = (125, 350),
+    textColor = (240, 240, 240),
 )
 A10 = level.Level(
     players = [
@@ -203,7 +266,7 @@ A10.background = (0, 0, 40)
 
 B1 = level.Level(
     players = [
-        p.Player(100, 525,(255, 255, 68)),
+        p.Player(100.0, 525.0,(255, 255, 68)),
     ],
     levelObjects = [
         s.Redirector(100, 250, "right"),
@@ -223,10 +286,13 @@ B1 = level.Level(
         b.Entity(550, 475, 600, 600, (85, 51, 51)),
     ],
     background = (255, 102, 0),
+    text = "1.Seek Guidance",
+    textLocation = (50, 600),
+    textColor = (0, 0, 0),
 )
 B2 = level.Level(
     players = [
-        p.Player(100, 525,(255, 255, 68)),
+        p.Player(100.0, 525.0,(255, 255, 68)),
     ],
     levelObjects = [
         b.Entity(50, 50, 100, 175, (85, 51, 51)),
@@ -244,10 +310,13 @@ B2 = level.Level(
         b.Coin(350, 25,(204, 68, 34)),
     ],
     background = (255, 102, 0),
+    text = "2.Brick and Mortar",
+    textLocation = (75, 600),
+    textColor = (0, 0, 0),
 )
 B3 = level.Level(
     players = [
-        p.Player(100, 525,(255, 255, 68)),
+        p.Player(100.0, 525.0,(255, 255, 68)),
     ],
     levelObjects = [
         b.Entity(50, 50, 100, 175, (85, 51, 51)),
@@ -268,10 +337,13 @@ B3 = level.Level(
         b.Entity(525, 550, 550, 600, (85, 51, 51)),
     ],
     background = (255, 102, 0),
+    text = "3.Synthesis",
+    textLocation = (200, 575),
+    textColor = (0, 0, 0),
 )
 B4 = level.Level(
     players = [
-        p.Player(350, 250,(255, 255, 68)),
+        p.Player(350.0, 250.0,(255, 255, 68)),
     ],
     levelObjects = [
         b.Entity(0, 0, 50, 400, (85, 51, 51)),
@@ -289,6 +361,9 @@ B4 = level.Level(
         b.Coin(150, 400,(204, 68, 34)),
     ],
     background = (255, 102, 0),
+    text = "4.Red Herring",
+    textLocation = (150, 100),
+    textColor = (0, 0, 0),
 )
 B5 = level.Level(
     players = [
@@ -312,6 +387,9 @@ B5 = level.Level(
         b.Coin(525, 350,(204, 68, 34)),
     ],
     background = (255, 102, 0),
+    text = "5.Centrifuge",
+    textLocation = (60, 600),
+    textColor = (0, 0, 0),
 )
 B6 = level.Level(
     players = [
@@ -339,8 +417,9 @@ B6 = level.Level(
         b.Coin(250, 250,(204, 68, 34)),
     ],
     background = (255, 102, 0),
-    text = "6. \"Staircase\"",
+    text = "6.Staircase",
     textLocation = (285, 590),
+    textColor = (0, 0, 0),
 )
 B7 = level.Level(
     players = [
@@ -368,12 +447,13 @@ B7 = level.Level(
         s.Antiplatform(50, 275, 400, 325),
     ],
     background = (255, 102, 0),
-    text = "7. \"Trapdoors\"",
-    textLocation = (50, 120),
+    text = "7.Trapdoors",
+    textLocation = (30, 120),
+    textColor = (0, 0, 0),
 )
 B8 = level.Level(
     players = [
-        p.Player(50, 50,(255, 255, 68)),
+        p.Player(50.0, 50.0,(255, 255, 68)),
     ],
     levelObjects = [
         b.Entity(0, 50, 50, 100, (85, 51, 51)),
@@ -396,10 +476,13 @@ B8 = level.Level(
         b.Coin(425, 325,(204, 68, 34)),
     ],
     background = (255, 102, 0),
+    text = "8.Sticky",
+    textLocation = (0, 150),
+    textColor = (0, 0, 0),
 )
 B9 = level.Level(
     players = [
-        p.Player(125, 200,(255, 255, 68)),
+        p.Player(125.0, 200.0,(255, 255, 68)),
     ],
     levelObjects = [
         b.Entity(0, 600, 650, 650, (85, 51, 51)),
@@ -428,6 +511,9 @@ B9 = level.Level(
         b.Coin(125, 450,(204, 68, 34)),
     ],
     background = (255, 102, 0),
+    text = "9.Prison",
+    textLocation = (225, 450),
+    textColor = (0, 0, 0),
 )
 B10 = level.Level(
     players = [
@@ -483,11 +569,14 @@ C1 = level.Level(
         b.Entity(100, 225, 125, 300, (49, 87, 54)),
         b.Entity(100, 275, 175, 300, (49, 87, 54)),
         b.Coin(325, 200,(144, 69, 85)),
-        s.Teleporter(325, 100, 325, 525, (144, 169, 85)),
+        s.Teleporter(325, 100, 325, 525, 0, (144, 169, 85)),
         b.Entity(450, 550, 650, 600, (49, 87, 54)),
         b.Entity(550, 450, 600, 650, (49, 87, 54)),
     ],
     background = ((19, 42, 19),),
+    text = "1.Anomaly",
+    textLocation = (250, 350),
+    textColor = (150, 150, 150),
 )
 C2 = level.Level(
     players = [
@@ -515,6 +604,9 @@ C2 = level.Level(
         b.Coin(175, 225,(144, 69, 85)),
     ],
     background = ((19, 42, 19),),
+    text = "2.Toy Box",
+    textLocation = (100, 100),
+    textColor = (150, 150, 150),
 )
 C3 = level.Level(
     players = [
@@ -527,7 +619,7 @@ C3 = level.Level(
         b.Entity(200, 175, 425, 225, (49, 87, 54)),
         s.Lever(400, 325, 600, 375, "up"),
         s.Lever(0, 350, 200, 400, "up"),
-        s.Teleporter(50, 475, 575, 50, (144, 169, 85)),
+        s.Teleporter(50, 475, 575, 50, 0, (144, 169, 85)),
         b.Coin(250, 600,(144, 69, 85)),
         b.Coin(450, 400,(144, 69, 85)),
         b.Coin(400, 300,(144, 69, 85)),
@@ -547,6 +639,9 @@ C3 = level.Level(
         b.Entity(600, 625, 625, 650, (49, 87, 54)),
     ],
     background = ((19, 42, 19),),
+    text = "3.Rotation",
+    textLocation = (125, 125),
+    textColor = (150, 150, 150),
 )
 C4 = level.Level(
     players = [
@@ -565,14 +660,147 @@ C4 = level.Level(
         b.Entity(325, 600, 475, 650, (49, 87, 54)),
         b.Entity(500, 0, 650, 50, (49, 87, 54)),
         b.Coin(575, 50,(144, 69, 85)),
-        s.Teleporter(325, 250, 50, 325, (144, 169, 85)),
+        s.Teleporter(325, 250, 50, 325, 0, (144, 169, 85)),
     ],
-    background = (19, 42, 19),
+    background = ((19, 42, 19),),
+    text = "4.Flip the Switch",
+    textLocation = (100, 425),
+    textColor = (150, 150, 150),
 )
-C5 = level.Level()
-C6 = level.Level()
-C7 = level.Level()
-C8 = level.Level()
+C5 = level.Level(
+    players = [
+        p.Player(50.0, 575.0,(89, 129, 45)),
+    ],
+    levelObjects = [
+        b.Entity(0, 525, 50, 650, (49, 87, 54)),
+        b.Entity(525, 600, 650, 650, (49, 87, 54)),
+        b.Entity(0, 0, 325, 50, (49, 87, 54)),
+        b.Entity(325, 0, 400, 25, (49, 87, 54)),
+        b.Entity(400, 0, 650, 50, (49, 87, 54)),
+        s.Lever(225, 50, 275, 250, "right"),
+        s.Lever(450, 50, 500, 250, "left"),
+        b.Entity(225, 250, 500, 300, (49, 87, 54)),
+        b.Entity(600, 300, 650, 350, (49, 87, 54)),
+        b.Entity(200, 425, 525, 475, (49, 87, 54)),
+        b.Entity(325, 375, 375, 425, (49, 87, 54)),
+        s.Teleporter(300, 300, 350, 50, 0, (144, 169, 85)),
+        b.Coin(375, 400,(144, 69, 85)),
+        s.Lever(100, 100, 150, 350, "left"),
+        b.Coin(150, 475,(144, 69, 85)),
+        b.Entity(0, 200, 50, 250, (49, 87, 54)),
+    ],
+    background = ((19, 42, 19),),
+    text = "5.Forest Temple",
+    textLocation = (200, 525),
+    textColor = (150, 150, 150),
+)
+C6 = level.Level(
+    players = [
+        p.Player(525.0, 200.0,(89, 129, 45)),
+    ],
+    levelObjects = [
+        b.Entity(25, 25, 75, 250, (49, 87, 54)),
+        b.Entity(25, 25, 350, 75, (49, 87, 54)),
+        b.Entity(300, 25, 350, 250, (49, 87, 54)),
+        b.Entity(25, 200, 350, 250, (49, 87, 54)),
+        b.Entity(125, 575, 150, 650, (49, 87, 54)),
+        b.Coin(100, 500,(144, 69, 85)),
+        b.Entity(400, 0, 425, 150, (49, 87, 54)),
+        b.Entity(250, 0, 275, 25, (49, 87, 54)),
+        b.Entity(100, 0, 125, 25, (49, 87, 54)),
+        b.Entity(0, 75, 25, 100, (49, 87, 54)),
+        b.Entity(0, 175, 25, 200, (49, 87, 54)),
+        s.Teleporter(350, 500, 175, 125, 4, (144, 169, 85)),
+        b.Entity(75, 75, 100, 125, (49, 87, 54)),
+        s.Lever(450, 400, 500, 525, "left"),
+        b.Coin(425, 400,(144, 69, 85)),
+        b.Entity(75, 525, 325, 575, (49, 87, 54)),
+        b.Entity(250, 575, 275, 650, (49, 87, 54)),
+        b.Entity(400, 525, 650, 575, (49, 87, 54)),
+        b.Entity(450, 575, 475, 650, (49, 87, 54)),
+        b.Entity(575, 575, 600, 650, (49, 87, 54)),
+        b.Entity(350, 150, 650, 200, (49, 87, 54)),
+        b.Entity(475, 50, 500, 150, (49, 87, 54)),
+        b.Entity(550, 0, 575, 150, (49, 87, 54)),
+        b.Entity(625, 75, 650, 150, (49, 87, 54)),
+        b.Entity(525, 125, 550, 150, (49, 87, 54)),
+        b.Entity(425, 75, 450, 150, (49, 87, 54)),
+        b.Entity(600, 100, 625, 150, (49, 87, 54)),
+        b.Entity(475, 575, 500, 600, (49, 87, 54)),
+        b.Entity(625, 575, 650, 625, (49, 87, 54)),
+        b.Entity(225, 575, 250, 625, (49, 87, 54)),
+        b.Entity(100, 575, 125, 600, (49, 87, 54)),
+    ],
+    background = ((19, 42, 19),),
+    text = "6.Expiration Date",
+    textLocation = (50, 300),
+    textColor = (150, 150, 150),
+)
+C7 = level.Level(
+    players = [
+        p.Player(150.0, 175.0,(89, 129, 45)),
+    ],
+    levelObjects = [
+        s.Teleporter(500, 125, 500, 550, 3, (144, 169, 85)),
+        b.Coin(175, 400,(144, 69, 85)),
+        b.Entity(525, 0, 575, 250, (49, 87, 54)),
+        b.Entity(0, 50, 150, 100, (49, 87, 54)),
+        b.Entity(0, 50, 50, 250, (49, 87, 54)),
+        b.Coin(175, 475,(144, 69, 85)),
+        b.Entity(600, 475, 650, 650, (49, 87, 54)),
+        b.Entity(525, 425, 575, 525, (49, 87, 54)),
+        b.Entity(525, 475, 650, 525, (49, 87, 54)),
+        s.Lever(50, 425, 525, 475, "down"),
+        b.Entity(0, 425, 50, 650, (49, 87, 54)),
+        b.Entity(0, 0, 75, 25, (49, 87, 54)),
+        b.Entity(525, 200, 650, 250, (49, 87, 54)),
+        b.Entity(600, 0, 625, 175, (49, 87, 54)),
+        b.Entity(225, 175, 325, 200, (49, 87, 54)),
+        b.Entity(250, 150, 325, 175, (49, 87, 54)),
+        b.Entity(175, 75, 225, 150, (49, 87, 54)),
+        b.Entity(175, 75, 325, 125, (49, 87, 54)),
+        b.Entity(100, 200, 200, 250, (49, 87, 54)),
+        b.Entity(200, 225, 275, 250, (49, 87, 54)),
+        b.Entity(100, 0, 575, 50, (49, 87, 54)),
+        b.Entity(75, 125, 125, 250, (49, 87, 54)),
+        b.Entity(275, 225, 325, 250, (49, 87, 54)),
+        b.Entity(275, 225, 325, 425, (49, 87, 54)),
+    ],
+    background = ((19, 42, 19),),
+    text = "7.Reflections",
+    textLocation = (75, 600),
+    textColor = (150, 150, 150),
+)
+C8 = level.Level(
+    players = [
+        p.Player(50.0, 375.0,(89, 129, 45)),
+    ],
+    levelObjects = [
+        s.Lever(150, 425, 200, 600, "left"),
+        s.Lever(475, 425, 525, 600, "right"),
+        b.Coin(375, 175,(144, 69, 85)),
+        b.Entity(400, 0, 450, 100, (49, 87, 54)),
+        b.Entity(250, 0, 450, 50, (49, 87, 54)),
+        b.Entity(325, 600, 575, 650, (49, 87, 54)),
+        b.Entity(450, 175, 525, 225, (49, 87, 54)),
+        b.Entity(0, 600, 250, 650, (49, 87, 54)),
+        b.Coin(200, 325,(144, 69, 85)),
+        s.Teleporter(125, 50, 600, 575, 3, (144, 169, 85)),
+        b.Entity(150, 275, 200, 350, (49, 87, 54)),
+        b.Entity(575, 225, 650, 275, (49, 87, 54)),
+        b.Coin(475, 50,(144, 69, 85)),
+        b.Entity(450, 0, 650, 50, (49, 87, 54)),
+        b.Entity(325, 375, 375, 425, (49, 87, 54)),
+        s.NullCube(50, 150),
+        b.Coin(300, 625,(144, 69, 85)),
+        b.Entity(0, 475, 50, 600, (49, 87, 54)),
+        s.Lever(325, 425, 375, 600, "right"),
+    ],
+    background = ((19, 42, 19),),
+    text = "8.The Three Gates",
+    textLocation = (100, 125),
+    textColor = (150, 150, 150),
+)
 C9 = level.Level()
 C10 = level.Level()
 

@@ -30,6 +30,7 @@ class Entity:
         
         bottom = round(player.y + player.size)
         tryDown = round(bottom + yv)
+        did = False
         
         if player.direction == "stop":   
             return(False)
@@ -37,20 +38,24 @@ class Entity:
         elif player.direction == "right" and right <= self.x1 <= tryRight and self.inYRange(player):
             player.x = self.x1 - player.size
             player.stop()
-            return(True)
+            did = True
         elif player.direction == "left" and tryLeft <= self.x2 <= left and self.inYRange(player):
             player.x = self.x2
             player.stop()
-            return(True)
+            did = True
         elif player.direction == "up" and top >= self.y2 >= tryUp and self.inXRange(player):
                 # print(self.inXRange(player))
                 player.y = self.y2
                 player.stop()
-                return(True)
+                did = True
         elif player.direction == "down" and tryDown >= self.y1 >= bottom and self.inXRange(player):
             player.y = self.y1 - player.size
             player.stop()
-            return(True)
+            did = True
+        
+        # if did:
+        #     self.color = (200, 0, 0)
+        return(did)
     def inYRange(self, player: p.Player) -> bool:
         isAbove = (player.y + player.size) <= self.y1
         isBelow = (player.y) >= self.y2
@@ -94,6 +99,11 @@ class Entity:
         
     def copy(self):
         return(Entity(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2])))
+
+    def erase(self, x, y):
+        if (self.x1 <= x <= self.x2 and self.y1 <= y <= self.y2):
+            self.dead = True
+        
         
 class Coin(Entity):
     def __init__(self, x, y, color = GLOBALCOLORS["coin"]):

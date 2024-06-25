@@ -13,14 +13,14 @@ def resize(image, multiplier):
     return(pygame.transform.scale(image, (int(width * multiplier), int(height * multiplier))))
 
 def screenText(x, y, screen, text = "Default", size = 100, color = [250, 250, 250], background = None):
-    tempFont = pygame.font.SysFont("msgothic", size)
+    tempFont = pygame.font.SysFont("Courier New", size)
     tempText = tempFont.render(text, True, color, background)
     screen.blit(tempText, (x, y))
     
 def transparentScreenText(x, y, screen, text = "Default", size = 100, color = [250, 250, 250]):
-    tempFont = pygame.font.SysFont("msgothic", size)
+    tempFont = pygame.font.SysFont("Courier New", size)
     tempText = tempFont.render(text, True, color)
-    tempText.set_alpha(0)  
+    tempText.set_alpha(90)  
     screen.blit(tempText, (x, y))
     
 def invert(direction: str) -> str:
