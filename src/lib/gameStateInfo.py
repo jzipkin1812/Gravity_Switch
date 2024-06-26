@@ -50,6 +50,7 @@ class GameStateInfo:
         self.levelDumpFile = open("levelDump.txt", "w")
         self.editDirection = "up"
         self.editUses = 0
+        self.doAdvance = True
         # Level select info
         self.scrollMod: int = 0
 
@@ -144,6 +145,8 @@ class GameStateInfo:
             print(event.key)
             if event.key == pygame.K_SPACE:
                 self.mode = "Gameplay"
+            if event.key == pygame.K_BACKSPACE:
+                self.doAdvance = not self.doAdvance
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 # title screen BUTTONS
@@ -271,7 +274,7 @@ class GameStateInfo:
         self.world = destination
         self.level = destination[num]
         self.level.reset()
-        self.advance = True
+        self.advance = self.doAdvance
         self.mode = "Gameplay"
         if destination == worldA:
             self.colors = colorsWorldA
