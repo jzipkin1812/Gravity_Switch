@@ -67,6 +67,7 @@ class GameStateInfo:
             self.level = self.world[self.levelNumber % len(self.world)] 
         elif (self.level.playerIsDead()):
             self.mode = "Game Over"
+            self.level.reset()
 
     def displayProperMode(self):
         self.modeDisplayDict[self.mode]()
