@@ -43,9 +43,9 @@ What you see in levelDump is literally the code needed to be executed to create 
 With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text into the terminal. (This feature uses Python's input() function.) The text should appear on screen.
 
 # New Features and Changelog
-## Version 1.2 (6/25/2024):
+## Version 1.2 (6/27/2024):
 * World C complete.
-* Added world D.
+* Added world D. Levels 1-6 are complete in this new world.
 * Added a new mechanic: Tar.
 ## Version 1.1 (6/24/2024):
 * Added all of world C except for levels 9 and 10. These levels are getting tough!
