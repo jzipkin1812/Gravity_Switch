@@ -16,7 +16,7 @@ directionDict = {
 
 }
 class Player:
-    def __init__(self, x, y, color = GLOBALCOLORS["player"], size = 25):
+    def __init__(self, x, y, color = GLOBALCOLORS["player"], size = 25, inverted = False):
         self.color: tuple = color
         self.x: float = x
         self.y: float = y
@@ -30,12 +30,17 @@ class Player:
         self.maxVelocity: int = 15
         self.vMod: float = 1
         
+        self.inverted: bool = inverted
+        
     
     def display(self, screen):
         u.betterRect(screen, self.x, self.y, self.x + self.size, self.y + self.size, self.color, 0)
     
     def keyMove(self, key):
-        self.direction = directionDict[key]
+        if not self.inverted:
+            self.direction = directionDict[key]
+        else:
+            self.direction = u.invert(directionDict[key])
         
     
     def getVmod(self, milliseconds):
@@ -66,10 +71,10 @@ class Player:
         self.xv = self.yv = 0
     
     def copy(self):
-        return(Player(self.x, self.y, (self.color[0], self.color[1], self.color[2]), self.size))
+        return(Player(self.x, self.y, (self.color[0], self.color[1], self.color[2]), self.size, self.inverted))
 
     def toString(self):
-        return("p.Player(" + str(self.x) + ", " + str(self.y) + "," + str(self.color) + ")")
+        return("p.Player(" + str(self.x) + ", " + str(self.y) + "," + str(self.color) + ", inverted = " + str(self.inverted) + ")")
 
     # #This is only for debug, so I can view the player stats
     # def __repr__(self):

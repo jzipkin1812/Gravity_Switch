@@ -209,7 +209,11 @@ class GameStateInfo:
                 self.level.levelObjects.append(special.Tar(a[0], a[1], 
                                                             b[0], b[1], self.editDirection))
             elif event.key == pygame.K_p:
-                self.level.players.append(player.Player(a[0], a[1], self.colors["player"], self.gridSize))
+                self.level.players.append(player.Player(a[0], a[1], self.colors["player"], self.gridSize, False))
+            elif event.key == pygame.K_v:
+                self.level.players.append(player.Player(a[0], a[1], self.colors["inverted"], self.gridSize, True))    
+                
+                
             elif event.key == pygame.K_c:
                 self.level.levelObjects.append(entity.Coin(a[0], a[1], self.colors["coin"]))
             elif event.key == pygame.K_n:
@@ -285,6 +289,8 @@ class GameStateInfo:
             self.colors = colorsWorldC
         elif destination == worldD:
             self.colors = colorsWorldD
+        elif destination == worldChallenge:
+            self.colors = colorsWorldChallenge
                    
         
         

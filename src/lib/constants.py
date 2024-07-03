@@ -7,6 +7,7 @@ GAME_SPEED = 0.45
 colorsWorldA = {
     "platform" : (100, 149, 237),
     "player" : (102, 205, 170),
+    "inverted" : (205, 170, 102),
     "special" : (250, 0, 200),
     "coin" : (123, 104, 238),
     "cloud" : (220, 220, 220),
@@ -17,6 +18,7 @@ colorsWorldA = {
 colorsWorldB = {
     "platform" : (85, 51, 51),
     "player" : (255, 255, 68),
+    "inverted" : (68, 255, 255),
     "special" : (240, 25, 5),
     "coin" : (204, 68, 34),
     "cloud" : (234, 218, 181),
@@ -27,6 +29,7 @@ colorsWorldB = {
 colorsWorldC = {
     "platform" : (49, 87, 54),
     "player" : (89, 129, 45),
+    "inverted" : (45, 89, 129),
     "special" : (144, 169, 85),
     "coin" : (144, 69, 85),
     "cloud" : (236, 243, 158),
@@ -37,12 +40,25 @@ colorsWorldC = {
 colorsWorldD = {
     "platform" : (113, 113, 140),
     "player" : (60, 60, 60),
+    "inverted" : (255, 255, 224),
     "special" : (144, 169, 85),
     "coin" : (128, 0, 128),
     "cloud" : (255, 255, 224),
     "background" : (93, 136, 226),
     "text" : (30, 30, 30),
 }
+
+colorsWorldChallenge = {
+    "platform" : (255, 255, 224),
+    "player" : (245, 0, 0),
+    "inverted" : (0, 0, 245),
+    "special" : (144, 169, 85),
+    "coin" : (20, 240, 20),
+    "cloud" : (220, 220, 220),
+    "background" : (20, 20, 20),
+    "text" : (255, 255, 255),
+}
+
 
 GLOBALCOLORS = colorsWorldA
 
@@ -99,4 +115,11 @@ levelSelectWorldD = [
 (374, 1929),
 (267, 1856),
 (237, 1982),
+]
+
+levelSelectWorldChallenge = [
+(311, 413),
+(45, 697),
+(77, 1418),
+(142, 1829),
 ]

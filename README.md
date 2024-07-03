@@ -21,9 +21,10 @@ Press the space key to create a rectangular platform, defined by the two editor 
 Press the backspace button and any object touching the primary pointer will be deleted. Be careful; multiple objects can be deleted at once if they all touch the primary pointer. To conveniently delete the most recently created object, press z.
 ## Other Objects
 Non-platform objects take up only one 25x25 pixel square each, so they only depend on the primary (red) editor pointer. Here are all such objects:
-* Player: p (there can be multiple...stay tuned for a world based on this concept, or make your own challenges with it now!)
+* Player: p
 * Goal square / Coin: c
 * Null cube (from Space Station): n
+* Reverse Player (from Dark Matter Mountains): v
 ## Directed Objects
 Some objects face a direction. To set the direction of an object you are about to place, use an arrow key. Then,
 * Redirector (from Volcanic Delta): i 
@@ -43,9 +44,13 @@ What you see in levelDump is literally the code needed to be executed to create 
 With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text into the terminal. (This feature uses Python's input() function.) The text should appear on screen.
 
 # New Features and Changelog
-## Version 1.2 (6/27/2024):
+## Version 1.3 (7/3/2024):
+* Added a new mechanic: Reverse players. 
+* Added world D-8 and removed D-5 to make room for another new level - D-5 was not well-designed.
+* Added the Space Station challenge level.
+## Version 1.2 (6/30/2024):
 * World C complete.
-* Added world D. Levels 1-6 are complete in this new world.
+* Added world D. Levels 1-7 are complete in this new world.
 * Added a new mechanic: Tar.
 ## Version 1.1 (6/24/2024):
 * Added all of world C except for levels 9 and 10. These levels are getting tough!
