@@ -454,7 +454,7 @@ B8 = level.Level(
 )
 B9 = level.Level(
     players = [
-        p.Player(125.0, 200.0,(255, 255, 68)),
+        p.Player(125.0, 200.0,(255, 255, 68), inverted = False),
     ],
     levelObjects = [
         b.Entity(0, 600, 650, 650, (85, 51, 51)),
@@ -465,10 +465,10 @@ B9 = level.Level(
         s.Redirector(50, 50, "right"),
         b.Coin(125, 50,(204, 68, 34)),
         b.Entity(225, 225, 275, 275, (85, 51, 51)),
-        s.Antiplatform(50, 225, 225, 275),
-        s.Antiplatform(225, 50, 275, 225),
-        s.Antiplatform(425, 50, 475, 375),
-        s.Antiplatform(425, 375, 600, 425),
+        s.Antiplatform(50, 225, 225, 275, (85, 51, 51)),
+        s.Antiplatform(225, 50, 275, 225, (85, 51, 51)),
+        s.Antiplatform(425, 50, 475, 375, (85, 51, 51)),
+        s.Antiplatform(425, 375, 600, 425, (85, 51, 51)),
         s.Redirector(575, 575, "left"),
         s.Redirector(50, 575, "up"),
         s.Redirector(325, 575, "left"),
@@ -478,9 +478,8 @@ B9 = level.Level(
         b.Coin(400, 50,(204, 68, 34)),
         b.Coin(475, 50,(204, 68, 34)),
         s.Redirector(575, 50, "down"),
-        s.Antiplatform(50, 375, 100, 425),
+        s.Antiplatform(50, 375, 100, 425, (85, 51, 51)),
         b.Coin(50, 450,(204, 68, 34)),
-        b.Coin(125, 450,(204, 68, 34)),
     ],
     background = (255, 102, 0),
     text = "9.Prison",
