@@ -1271,7 +1271,46 @@ ChallengeA = level.Level(
     textLocation = (75, 600),
     textColor = (255, 255, 255),
 )
-ChallengeB = level.Level()
+ChallengeB = level.Level(
+    players = [
+        p.Player(400.0, 275.0,(245, 0, 0), inverted = False),
+    ],
+    levelObjects = [
+        b.Coin(400, 175,(20, 240, 20)),
+        b.Coin(500, 275,(20, 240, 20)),
+        b.Coin(300, 275,(20, 240, 20)),
+        b.Coin(400, 375,(20, 240, 20)),
+        s.Antiplatform(325, 200, 375, 375, (255, 255, 224)),
+        s.Antiplatform(325, 200, 500, 250, (255, 255, 224)),
+        s.Antiplatform(450, 200, 500, 375, (255, 255, 224)),
+        s.Antiplatform(325, 325, 500, 375, (255, 255, 224)),
+        s.Antiplatform(0, 125, 200, 175, (255, 255, 224)),
+        s.Antiplatform(150, 0, 200, 175, (255, 255, 224)),
+        s.Redirector(50, 50, "right"),
+        s.Redirector(400, 0, "down"),
+        s.Redirector(575, 50, "left"),
+        b.Entity(100, 275, 200, 300, (255, 255, 224)),
+        s.Redirector(425, 0, "left"),
+        s.Redirector(375, 0, "right"),
+        s.Redirector(400, 500, "right"),
+        b.Entity(375, 600, 550, 650, (255, 255, 224)),
+        b.Entity(600, 475, 650, 600, (255, 255, 224)),
+        b.Entity(0, 375, 50, 650, (255, 255, 224)),
+        s.Redirector(200, 600, "left"),
+        s.Redirector(75, 450, "up"),
+        s.Redirector(575, 525, "left"),
+        s.Redirector(125, 525, "up"),
+        b.Entity(600, 200, 650, 375, (255, 255, 224)),
+        b.Entity(600, 200, 650, 375, (255, 255, 224)),
+        s.Redirector(50, 250, "right"),
+        s.Redirector(50, 175, "down"),
+        s.Antiplatform(275, 475, 325, 600, (255, 255, 224)),
+    ],
+    background = (20, 20, 20),
+    text = "!.Enclosure",
+    textLocation = (250, 100),
+    textColor = (255, 255, 255),
+)
 ChallengeC = level.Level()
 ChallengeD = level.Level()
 

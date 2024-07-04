@@ -109,7 +109,7 @@ class Antiplatform(Entity):
         else:
             u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 3)
     def toString(self):
-        return("s.Antiplatform(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ")")
+        return("s.Antiplatform(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", " + str(self.color) + ")")
     def copy(self):
         return(Antiplatform(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2])))
     

@@ -201,7 +201,7 @@ class GameStateInfo:
                                                             b[0], b[1], self.editUses))
             elif event.key == pygame.K_a:
                 self.level.levelObjects.append(special.Antiplatform(a[0], a[1], 
-                                                            b[0], b[1]))
+                                                            b[0], b[1], self.colors["platform"]))
             elif event.key == pygame.K_o:
                 self.level.levelObjects.append(special.Cloud(a[0], a[1], 
                                                             b[0], b[1]))
