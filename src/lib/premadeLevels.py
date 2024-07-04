@@ -1236,7 +1236,6 @@ ChallengeA = level.Level(
         p.Player(50.0, 550.0,(245, 0, 0), inverted = False),
     ],
     levelObjects = [
-        b.Entity(0, 450, 50, 650, (255, 255, 224)),
         s.NullCube(225, 550),
         s.NullCube(325, 550),
         s.NullCube(525, 550),
@@ -1264,6 +1263,7 @@ ChallengeA = level.Level(
         s.Cloud(275, 400, 350, 425),
         b.Entity(325, 0, 375, 50, (255, 255, 224)),
         b.Entity(600, 250, 650, 300, (255, 255, 224)),
+        b.Entity(100, 150, 150, 200, (255, 255, 224)),
     ],
     background = (20, 20, 20),
     text = "!.Morse Code",

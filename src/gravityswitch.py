@@ -1,10 +1,7 @@
 #GRAVITY SWITCH 2.0 Main File
 #By Javin Zipkin
 import pygame
-import random
 from lib import gameStateInfo as gs
-from lib import player
-from lib import entity
 from lib import utility as u
 import math
 from lib import constants as c
@@ -34,15 +31,12 @@ while not mainStatus.quit:
     mainStatus.mouseY = mouseY = pygame.mouse.get_pos()[1]
     for event in pygame.event.get(): 
         mainStatus.process(event)
-    
     # All game logic
     mainStatus.update()
-
     # Debug: Display mouse position x and y
     # u.screenText(10, 10, screen, "x: " + str(mouseX) + " / y: " + str(mouseY), 15)
     # # Debug: Display FPS
     # u.screenText(10, 40, screen, "FPS: " + str(int(clock.get_fps())), 15)
-    
     pygame.display.flip()
 
 mainStatus.levelDumpFile.write(mainStatus.level.toString())

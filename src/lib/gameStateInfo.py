@@ -137,6 +137,9 @@ class GameStateInfo:
                     p.keyMove(event.key)
             elif event.key == pygame.K_ESCAPE:
                 self.mode = "Title Screen"
+            elif event.key == pygame.K_SLASH:
+                self.level.reset()
+                self.mode = "Level Editor"
     
     def processTitle(self, event: pygame.event.Event):
         #PLAY: (81, 183) to (322, 265)
@@ -247,6 +250,9 @@ class GameStateInfo:
             
             elif event.key == pygame.K_ESCAPE:
                 self.mode = "Title Screen"
+            elif event.key == pygame.K_SLASH:
+                self.mode = "Gameplay"
+                self.level.solidify()
         
         if event.type == pygame.MOUSEBUTTONDOWN:
             # Middle Mouse: Swap modes and solidify level contents
