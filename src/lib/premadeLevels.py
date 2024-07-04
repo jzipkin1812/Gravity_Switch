@@ -819,7 +819,7 @@ C10 = level.Level(
         b.Entity(0, 600, 100, 650, (49, 87, 54)),
         s.Antiplatform(0, 425, 175, 475),
         s.Lever(450, 350, 500, 650, "left"),
-        s.Teleporter(50, 250, 575, 475, 0, (144, 169, 85)),
+        s.Teleporter(50, 250, 575, 475, 3, (144, 169, 85)),
         s.Redirector(225, 0, "down"),
         s.NullCube(225, 50),
         s.Redirector(425, 0, "left"),
