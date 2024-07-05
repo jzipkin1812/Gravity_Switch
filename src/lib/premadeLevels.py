@@ -1272,11 +1272,12 @@ ChallengeA = level.Level(
 )
 ChallengeB = level.Level(
     players = [
-        p.Player(200.0, 50.0,(245, 0, 0), inverted = False),
+        p.Player(400.0, 275.0,(245, 0, 0), inverted = False),
     ],
     levelObjects = [
         b.Coin(400, 175,(20, 240, 20)),
         b.Coin(500, 275,(20, 240, 20)),
+        b.Coin(300, 275,(20, 240, 20)),
         b.Coin(400, 375,(20, 240, 20)),
         s.Antiplatform(325, 200, 375, 375, (255, 255, 224)),
         s.Antiplatform(325, 200, 500, 250, (255, 255, 224)),
@@ -1301,7 +1302,6 @@ ChallengeB = level.Level(
         s.Antiplatform(275, 475, 325, 600, (255, 255, 224)),
         s.Antiplatform(0, 125, 200, 175, (255, 255, 224)),
         b.Entity(600, 200, 650, 375, (255, 255, 224)),
-        b.Entity(200, 0, 250, 50, (255, 255, 224)),
     ],
     background = (20, 20, 20),
     text = "!.Enclosure",
