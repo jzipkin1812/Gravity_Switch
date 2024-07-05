@@ -46,7 +46,7 @@ With your primary pointer on the top-left location of where you want your text, 
 # New Features and Changelog
 ## Version 1.3 (7/3/2024):
 * Added a new mechanic: Reverse players. 
-* Added world D-8 and removed D-5 to make room for another new level - D-5 was not well-designed.
+* Added up to D-9 and removed D-5 to make room for another new level - D-5 was not well-designed.
 * Added the Space Station and Volcanic Delta challenge levels.
 ## Version 1.2 (6/30/2024):
 * World C complete.
