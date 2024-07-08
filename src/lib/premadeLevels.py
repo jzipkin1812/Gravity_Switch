@@ -1207,12 +1207,84 @@ D9 = level.Level(
     textLocation = (250, 25),
     textColor = (30, 30, 30),
 )
-D10 = level.Level()
+D10 = level.Level(
+    players = [
+        p.Player(150.0, 575.0,(60, 60, 60), inverted = False),
+        p.Player(450.0, 400.0,(255, 255, 224), inverted = True),
+    ],
+    levelObjects = [
+        b.Entity(300, 0, 350, 650, (113, 113, 140)),
+        b.Entity(100, 600, 200, 650, (113, 113, 140)),
+        b.Entity(125, 75, 200, 125, (113, 113, 140)),
+        b.Entity(0, 125, 50, 200, (113, 113, 140)),
+        b.Entity(50, 300, 100, 350, (113, 113, 140)),
+        b.Entity(350, 125, 400, 175, (113, 113, 140)),
+        s.Tar(275, 225, 300, 300, "right"),
+        b.Entity(600, 175, 650, 275, (113, 113, 140)),
+        b.Entity(0, 525, 50, 650, (113, 113, 140)),
+        s.Tar(50, 525, 75, 650, "left"),
+        b.Entity(575, 0, 650, 50, (113, 113, 140)),
+        b.Entity(625, 50, 650, 175, (113, 113, 140)),
+        s.Tar(600, 50, 625, 175, "right"),
+        b.Coin(550, 100,(128, 0, 128)),
+        s.Teleporter(275, 125, 350, 400, 0, (144, 169, 85)),
+        b.Entity(425, 425, 500, 475, (113, 113, 140)),
+        s.NullCube(575, 400),
+        b.Entity(200, 0, 300, 50, (113, 113, 140)),
+        b.Entity(150, 0, 200, 25, (113, 113, 140)),
+        b.Coin(50, 50,(128, 0, 128)),
+        b.Entity(450, 475, 500, 500, (113, 113, 140)),
+        b.Entity(625, 275, 650, 325, (113, 113, 140)),
+        b.Entity(350, 0, 375, 125, (113, 113, 140)),
+        b.Entity(0, 175, 25, 225, (113, 113, 140)),
+        b.Coin(150, 275,(128, 0, 128)),
+        b.Coin(225, 575,(128, 0, 128)),
+        s.NullCube(575, 600),
+        b.Coin(350, 525,(128, 0, 128)),
+    ],
+    background = (103, 116, 176),
+    text = "",
+    textLocation = (0, 0),
+    textColor = (150, 150, 150),
+)
 
 worldD = [D1, D2, D3, D4, D5, D6, D7, D8, D9, D10]
 
-for l in worldD:
-    l.background = colorsWorldD["background"]
+E1 = level.Level(
+    players = [
+        p.Player(150.0, 75.0,(100, 149, 237), inverted = False),
+    ],
+    levelObjects = [
+        s.BeatBlock(525, 50, 575, 200, "red"),
+        s.BeatBlock(325, 300, 375, 450, "red"),
+        s.BeatBlock(0, 400, 275, 450, "blue"),
+        s.BeatBlock(0, 300, 50, 400, "red"),
+        b.Entity(0, 0, 125, 50, (205, 133, 63)),
+        b.Entity(200, 0, 375, 50, (205, 133, 63)),
+        b.Entity(475, 600, 650, 650, (205, 133, 63)),
+        b.Entity(0, 550, 50, 650, (205, 133, 63)),
+        b.Coin(150, 575,(255, 165, 0)),
+        b.Coin(425, 450,(255, 165, 0)),
+        b.Entity(600, 525, 650, 600, (205, 133, 63)),
+    ],
+    background = (240, 223, 121),
+    text = "1.Beat the Heat",
+    textLocation = (175, 225),
+    textColor = (0, 0, 255),
+)
+E2 = level.Level()
+E3 = level.Level()
+E4 = level.Level()
+E5 = level.Level()
+E6 = level.Level()
+E7 = level.Level()
+E8 = level.Level()
+E9 = level.Level()
+E10 = level.Level()
+worldE = [E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]
+
+for l in worldE:
+    l.background = colorsWorldE["background"]
 
 ChallengeA = level.Level(
     players = [
@@ -1274,13 +1346,11 @@ ChallengeB = level.Level(
         b.Entity(100, 275, 200, 300, (255, 255, 224)),
         s.Redirector(425, 0, "left"),
         s.Redirector(375, 0, "right"),
-        s.Redirector(400, 500, "right"),
         b.Entity(375, 600, 550, 650, (255, 255, 224)),
         b.Entity(600, 475, 650, 600, (255, 255, 224)),
         b.Entity(0, 375, 50, 650, (255, 255, 224)),
         s.Redirector(200, 600, "left"),
         s.Redirector(75, 450, "up"),
-        s.Redirector(575, 525, "left"),
         s.Redirector(125, 525, "up"),
         s.Redirector(50, 250, "right"),
         s.Antiplatform(275, 475, 325, 600, (255, 255, 224)),
@@ -1294,8 +1364,9 @@ ChallengeB = level.Level(
 )
 ChallengeC = level.Level()
 ChallengeD = level.Level()
+ChallengeE = level.Level()
 
-worldChallenge = [ChallengeA, ChallengeB, ChallengeC, ChallengeD]
+worldChallenge = [ChallengeA, ChallengeB, ChallengeC, ChallengeD, ChallengeE]
 for l in worldChallenge:
     l.background = colorsWorldChallenge["background"]
 worldInfo = [
@@ -1303,5 +1374,6 @@ worldInfo = [
     (worldB, levelSelectWorldB),
     (worldC, levelSelectWorldC),
     (worldD, levelSelectWorldD),
+    (worldE, levelSelectWorldE),
     (worldChallenge, levelSelectWorldChallenge)
 ]

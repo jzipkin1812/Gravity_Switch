@@ -205,6 +205,13 @@ class GameStateInfo:
             elif event.key == pygame.K_o:
                 self.level.levelObjects.append(special.Cloud(a[0], a[1], 
                                                             b[0], b[1]))
+            elif event.key == pygame.K_COMMA:
+                self.level.levelObjects.append(special.BeatBlock(a[0], a[1], 
+                                                            b[0], b[1], "blue"))
+            elif event.key == pygame.K_PERIOD:
+                self.level.levelObjects.append(special.BeatBlock(a[0], a[1], 
+                                                            b[0], b[1], "red"))
+                
             elif event.key == pygame.K_l:
                 self.level.levelObjects.append(special.Lever(a[0], a[1], 
                                                             b[0], b[1], self.editDirection))
@@ -295,6 +302,8 @@ class GameStateInfo:
             self.colors = colorsWorldC
         elif destination == worldD:
             self.colors = colorsWorldD
+        elif destination == worldE:
+            self.colors = colorsWorldE
         elif destination == worldChallenge:
             self.colors = colorsWorldChallenge
                    

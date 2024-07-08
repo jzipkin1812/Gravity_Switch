@@ -242,3 +242,38 @@ class Tar(Entity):
         return("s.Tar(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" + self.direction + "\")")
     def copy(self):
         return(Tar(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2])))
+
+class BeatBlock(Entity):
+    solidParity = "blue"
+    def inverse(p: str) -> str:
+        if p == "blue":
+            return "red"
+        else:
+            return "blue"
+        
+    def __init__(self, x1, y1, x2, y2, parity = "blue"):
+        if parity == "blue":
+            color = (0, 0, 205)
+        else:
+            color = (240, 89, 132)
+        super().__init__(x1, y1, x2, y2, color)
+        self.parity = parity
+    def isOn(self):
+        return(BeatBlock.solidParity == self.parity)
+    def collide(self, player: p.Player) -> bool:
+        if self.isOn():
+            result = super().collide(player)
+            if result:
+                BeatBlock.solidParity = BeatBlock.inverse(BeatBlock.solidParity)
+            return(result)
+        else:   
+            return(False)
+    def display(self, screen):
+        if self.isOn():
+            super().display(screen)
+        else:
+            u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 3)
+    def toString(self):
+        return("s.BeatBlock(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" + self.parity + "\")")
+    def copy(self):
+        return(BeatBlock(self.x1, self.y1, self.x2, self.y2, self.parity))

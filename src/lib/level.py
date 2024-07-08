@@ -1,6 +1,7 @@
 from . import entity
 from . import player
 from . import utility as u
+from . import specialEntities as s
 from .constants import *
 
 class Level:
@@ -82,6 +83,8 @@ class Level:
         self.levelObjects = []
         for oo in self.origObjects:
             self.levelObjects.append(oo.copy())
+            
+        s.BeatBlock.solidParity = "blue" 
     
     def solidify(self):
         self.origPlayers = []

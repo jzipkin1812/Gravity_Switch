@@ -17,6 +17,8 @@ The secondary editor pointer (white circle) absolutely MUST be below and to the 
 Press the space key to create a rectangular platform, defined by the two editor pointers. The primary (red) editor pointer is the top left corner of your platform and the secondary (white) editor pointer is the bottom right corner of your platform. Similarly,
 * To create clouds (from Space Station), press: o 
 * To create antiplatforms (from Volcanic Delta), press: a
+* Blue Beat Block (from Brownian Motion Beach): , 
+* Pink Beat Block (from Brownian Motion Beach): .
 ## Erasing and Undoing
 Press the backspace button and any object touching the primary pointer will be deleted. Be careful; multiple objects can be deleted at once if they all touch the primary pointer. To conveniently delete the most recently created object, press z.
 ## Other Objects
@@ -44,6 +46,11 @@ What you see in levelDump is literally the code needed to be executed to create 
 With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text into the terminal. (This feature uses Python's input() function.) The text should appear on screen.
 
 # New Features and Changelog
+## Version 1.4 (7/8/2024):
+* Finished D-10. World D now complete.
+* Started world E with E-1.
+* Added a new mechanic: Beat Blocks.
+* Improved many level designs including the existing challenge levels.
 ## Version 1.3 (7/3/2024):
 * Added a new mechanic: Reverse players. 
 * Added up to D-9 and removed D-5 to make room for another new level - D-5 was not well-designed.
@@ -64,6 +71,7 @@ With your primary pointer on the top-left location of where you want your text, 
 * There is still no save file, so everything is unlocked right at the start.
 * All mechanics and objects from the original 2018 game are implemented.
 ## Plans for Future Versions
-* Finish world D.
-* Add a challenge level or two.
+* Finish world E.
+* Add Falling Sand.
+* Finish challenge levels.
 * Fix the editor pointer bug mentioned above.
