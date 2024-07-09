@@ -1261,7 +1261,7 @@ D10 = level.Level(
         s.NullCube(575, 600),
         b.Coin(350, 525,(128, 0, 128)),
     ],
-    background = (103, 116, 176),
+    background = (83, 96, 156),
     text = "",
     textLocation = (0, 0),
     textColor = (150, 150, 150),
