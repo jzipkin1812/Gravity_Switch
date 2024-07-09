@@ -5,6 +5,25 @@ from . import specialEntities as s
 from .constants import *
 
 editorLevel = level.Level(
+    players = [
+        p.Player(150.0, 200.0,(100, 149, 237), inverted = False),
+    ],
+    levelObjects = [
+        s.Quicksand(325, 200, 400, 275, "up"),
+        b.Entity(0, 425, 650, 475, (205, 133, 63)),
+        b.Entity(0, 0, 50, 100, (205, 133, 63)),
+        b.Entity(25, 0, 100, 50, (205, 133, 63)),
+        b.Entity(550, 0, 650, 50, (205, 133, 63)),
+        b.Entity(600, 50, 650, 100, (205, 133, 63)),
+        b.Entity(0, 375, 50, 425, (205, 133, 63)),
+        b.Entity(600, 375, 650, 425, (205, 133, 63)),
+        b.Entity(250, 0, 400, 50, (205, 133, 63)),
+        b.Entity(550, 225, 650, 275, (205, 133, 63)),
+    ],
+    background = (240, 223, 121),
+    text = "",
+    textLocation = (0, 0),
+    textColor = (150, 150, 150),
 )
 A1 = level.Level(
     players = [
@@ -1272,7 +1291,38 @@ E1 = level.Level(
     textLocation = (175, 225),
     textColor = (0, 0, 255),
 )
-E2 = level.Level()
+E2 = level.Level(
+    players = [
+        p.Player(100.0, 575.0,(100, 149, 237), inverted = False),
+    ],
+    levelObjects = [
+        b.Entity(0, 525, 50, 650, (205, 133, 63)),
+        b.Entity(50, 600, 200, 650, (205, 133, 63)),
+        b.Entity(0, 275, 50, 375, (205, 133, 63)),
+        s.BeatBlock(350, 0, 400, 75, "red"),
+        b.Entity(300, 150, 525, 200, (205, 133, 63)),
+        b.Entity(500, 0, 650, 125, (205, 133, 63)),
+        b.Entity(550, 125, 650, 200, (205, 133, 63)),
+        b.Entity(0, 475, 150, 525, (205, 133, 63)),
+        s.BeatBlock(250, 325, 325, 375, "red"),
+        s.BeatBlock(550, 200, 600, 250, "blue"),
+        b.Entity(225, 75, 275, 150, (205, 133, 63)),
+        b.Entity(225, 75, 475, 125, (205, 133, 63)),
+        s.BeatBlock(375, 425, 425, 650, "red"),
+        s.BeatBlock(200, 325, 250, 550, "blue"),
+        b.Entity(225, 500, 250, 550, (205, 133, 63)),
+        b.Entity(550, 300, 650, 425, (205, 133, 63)),
+        b.Entity(600, 425, 650, 650, (205, 133, 63)),
+        b.Coin(425, 50,(255, 165, 0)),
+        b.Coin(50, 450,(255, 165, 0)),
+        b.Entity(125, 0, 200, 50, (205, 133, 63)),
+        s.BeatBlock(0, 150, 50, 275, "red"),
+    ],
+    background = (240, 223, 121),
+    text = "2.No Diving",
+    textLocation = (150, 225),
+    textColor = (0, 0, 255),
+)
 E3 = level.Level()
 E4 = level.Level()
 E5 = level.Level()

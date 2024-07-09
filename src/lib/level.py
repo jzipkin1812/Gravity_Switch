@@ -54,7 +54,9 @@ class Level:
         for p in self.players:
             p.getVmod(milliseconds)
             for b in self.levelObjects:
-                b.collide(p)
+                did = b.collide(p)
+                if did and type(b) == s.Quicksand:
+                    print("Collided with quicksand")
             p.updateMove(milliseconds)
     def toString(self) -> str:
         result: str = "level.Level(\n    players = [\n"

@@ -277,3 +277,54 @@ class BeatBlock(Entity):
         return("s.BeatBlock(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" + self.parity + "\")")
     def copy(self):
         return(BeatBlock(self.x1, self.y1, self.x2, self.y2, self.parity))
+    
+class Quicksand(Entity):
+    def __init__(self, x1, y1, x2, y2, direction = "down", color = (139, 69, 19)):
+        super().__init__(x1, y1, x2, y2, color)
+        self.direction = direction
+        self.activated = False
+        self.settled = False
+        
+        self.xv = 0
+        self.yv = 0
+        
+        self.accel: float = .025
+        self.maxVelocity: int = 15
+        self.vMod: float = 1
+        
+    def isOn(self):
+        return(BeatBlock.solidParity == self.parity)
+    def collide(self, player: p.Player) -> bool:
+        did = super().collide(player)
+        if did and (player.direction != u.invert(self.direction)):
+            self.activated = True
+        return(did)
+
+    def toString(self):
+        return("s.Quicksand(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" + self.direction + "\")")
+    def copy(self):
+        return(Quicksand(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2])))
+
+    def getVmod(self, milliseconds):
+        self.vMod = (milliseconds) * GAME_SPEED
+        
+    def updateMove(self, milliseconds):
+        accelMod = self.accel * (milliseconds) * GAME_SPEED
+        # self.vMod = (milliseconds) * GAME_SPEED
+        
+        self.x1 += self.xv * self.vMod
+        self.y1 += self.yv * self.vMod
+        
+        self.x2 += self.xv * self.vMod
+        self.y2 += self.yv * self.vMod
+        
+        if self.direction == "stop":
+            self.xv = self.yv = 0
+        elif self.direction == "up":
+            self.yv = max(self.yv - accelMod, -1 * self.maxVelocity)
+        elif self.direction == "down":
+            self.yv = min(self.yv + accelMod, self.maxVelocity)
+        elif self.direction == "left":
+            self.xv = max(self.xv - accelMod, -1 * self.maxVelocity)
+        elif self.direction == "right":
+            self.xv = min(self.xv + accelMod, self.maxVelocity)
