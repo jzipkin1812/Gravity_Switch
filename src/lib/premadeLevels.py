@@ -1293,7 +1293,7 @@ E1 = level.Level(
 )
 E2 = level.Level(
     players = [
-        p.Player(100.0, 575.0,(100, 149, 237), inverted = False),
+        p.Player(575.0, 575.0,(100, 149, 237), inverted = False),
     ],
     levelObjects = [
         b.Entity(0, 525, 50, 650, (205, 133, 63)),
@@ -1308,15 +1308,14 @@ E2 = level.Level(
         s.BeatBlock(550, 200, 600, 250, "blue"),
         b.Entity(225, 75, 275, 150, (205, 133, 63)),
         b.Entity(225, 75, 475, 125, (205, 133, 63)),
-        s.BeatBlock(375, 425, 425, 650, "red"),
-        s.BeatBlock(200, 325, 250, 550, "blue"),
-        b.Entity(225, 500, 250, 550, (205, 133, 63)),
         b.Entity(550, 300, 650, 425, (205, 133, 63)),
         b.Entity(600, 425, 650, 650, (205, 133, 63)),
         b.Coin(425, 50,(255, 165, 0)),
         b.Coin(50, 450,(255, 165, 0)),
         b.Entity(125, 0, 200, 50, (205, 133, 63)),
         s.BeatBlock(0, 150, 50, 275, "red"),
+        s.BeatBlock(200, 325, 250, 550, "blue"),
+        s.BeatBlock(375, 500, 425, 650, "red"),
     ],
     background = (240, 223, 121),
     text = "2.No Diving",
