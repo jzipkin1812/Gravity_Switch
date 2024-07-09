@@ -1346,7 +1346,32 @@ E3 = level.Level(
     textLocation = (325, 425),
     textColor = (0, 0, 255),
 )
-E4 = level.Level()
+E4 = level.Level(
+    players = [
+        p.Player(50.0, 500.0,(100, 149, 237), inverted = False),
+    ],
+    levelObjects = [
+        s.Quicksand(50, 125, 125, 200, "right"),
+        s.BeatBlock(300, 0, 350, 275, "blue"),
+        b.Entity(350, 0, 650, 50, (205, 133, 63)),
+        b.Entity(0, 475, 50, 525, (205, 133, 63)),
+        b.Entity(0, 0, 125, 50, (205, 133, 63)),
+        b.Entity(600, 450, 650, 650, (205, 133, 63)),
+        b.Entity(600, 125, 650, 200, (205, 133, 63)),
+        b.Coin(275, 575,(255, 165, 0)),
+        s.BeatBlock(450, 525, 600, 575, "blue"),
+        s.BeatBlock(0, 125, 50, 350, "red"),
+        s.BeatBlock(0, 125, 50, 350, "red"),
+        b.Coin(50, 50,(255, 165, 0)),
+        s.BeatBlock(350, 525, 450, 575, "red"),
+        s.BeatBlock(350, 525, 450, 575, "red"),
+        b.Entity(0, 525, 125, 650, (205, 133, 63)),
+    ],
+    background = (240, 223, 121),
+    text = "4.Aqueduct",
+    textLocation = (175, 350),
+    textColor = (0, 0, 255),
+)
 E5 = level.Level()
 E6 = level.Level()
 E7 = level.Level()

@@ -21,7 +21,7 @@ Press the space key to create a rectangular platform, defined by the two editor 
 * Pink Beat Block (from Brownian Motion Beach): .
 ## Erasing and Undoing
 Press the backspace button and any object touching the primary pointer will be deleted. Be careful; multiple objects can be deleted at once if they all touch the primary pointer. To conveniently delete the most recently created object, press z.
-## Other Objects
+## Small Objects
 Non-platform objects take up only one 25x25 pixel square each, so they only depend on the primary (red) editor pointer. Here are all such objects:
 * Player: p
 * Goal square / Coin: c
