@@ -42,16 +42,18 @@ Simply click the mouse wheel again to exit editor mode and start playing. You ca
 ## Saving and Sharing your level
 While in editor mode, press the w button to write your current level to a file. The file it will be saved to is "levelDump.txt", located in the src folder. When closing the game, the current level will also be saved for you just in case. You'll find everything you saved during your last playthrough of the game in levelDump.txt at once. 
 ### How to read and use levelDump.txt and premadeLevels.py
-What you see in levelDump is literally the code needed to be executed to create that level. If you go to /lib/premadeLevels.py, you'll see that this format is used by the game. Feel free to send such code to a friend, and they can paste it in to editorLevel in that file. Then, when pressing the level editor button, they'll see your level!
+What you see in levelDump is literally the code needed to be executed to create that level. If you go to /lib/premadeLevels.py, you'll see that this format is used by the game. Feel free to send such code to a friend, and they can paste it in to editorLevel in that file. Then, when pressing the level editor button, they'll see your level! Note that there is no 'completion' screen for editorLevel, so if a friend completes your level and subsequently dies (this is a core strategy of many main game levels, since after collecting the last coin you immediately win) they'll still get a death screen.
+### Advanced Tricks
+You can directly edit your level's code to make tweaks that the editor doesn't support. For example, the 'color' field of any object in the level, as well as the color value for the background and text color, may be changed freely. You may also change the x and y coordinates of objects to make adjustments finer than the grid size.
 ## Adding text to your level
 With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text into the terminal. (This feature uses Python's input() function.) The text should appear on screen.
 
 # New Features and Changelog
 ## Version 1.4 (7/8/2024):
 * Finished D-10. World D now complete.
-* Started world E with E-1 through E-3
+* Started world E with E-1 through E-5.
 * Added a new mechanic: Beat Blocks.
-* Added a new mechanic: Quicksand
+* Added a new mechanic: Quicksand.
 * Improved many level designs including the existing challenge levels.
 ## Version 1.3 (7/3/2024):
 * Added a new mechanic: Reverse players. 

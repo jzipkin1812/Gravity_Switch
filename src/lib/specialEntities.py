@@ -377,7 +377,8 @@ class Quicksand(Entity):
         # Ignore collisions with certain types.
         if not (type(other) == Entity or 
                 (type(other) == BeatBlock and other.isOn()) or
-                type(other) == Quicksand and other.settled):
+                type(other) == Quicksand and not other.activated or 
+                type(other) == Antiplatform and other.solid):
             return
         
         xv = self.xv * self.vMod

@@ -5,25 +5,6 @@ from . import specialEntities as s
 from .constants import *
 
 editorLevel = level.Level(
-    players = [
-        p.Player(150.0, 200.0,(100, 149, 237), inverted = False),
-    ],
-    levelObjects = [
-        s.Quicksand(325, 200, 400, 275, "up"),
-        b.Entity(0, 425, 650, 475, (205, 133, 63)),
-        b.Entity(0, 0, 50, 100, (205, 133, 63)),
-        b.Entity(25, 0, 100, 50, (205, 133, 63)),
-        b.Entity(550, 0, 650, 50, (205, 133, 63)),
-        b.Entity(600, 50, 650, 100, (205, 133, 63)),
-        b.Entity(0, 375, 50, 425, (205, 133, 63)),
-        b.Entity(600, 375, 650, 425, (205, 133, 63)),
-        b.Entity(250, 0, 400, 50, (205, 133, 63)),
-        b.Entity(550, 225, 650, 275, (205, 133, 63)),
-    ],
-    background = (240, 223, 121),
-    text = "",
-    textLocation = (0, 0),
-    textColor = (150, 150, 150),
 )
 A1 = level.Level(
     players = [
@@ -1324,26 +1305,37 @@ E2 = level.Level(
 )
 E3 = level.Level(
     players = [
-        p.Player(50.0, 250.0,(100, 149, 237), inverted = False),
+        p.Player(50.0, 50.0,(100, 149, 237), inverted = False),
     ],
     levelObjects = [
-        b.Entity(0, 0, 50, 275, (205, 133, 63)),
-        s.Quicksand(325, 75, 425, 175, "down"),
-        b.Entity(600, 0, 650, 375, (205, 133, 63)),
-        b.Entity(550, 325, 650, 375, (205, 133, 63)),
-        s.Quicksand(150, 225, 250, 325, "right"),
-        b.Entity(0, 275, 100, 325, (205, 133, 63)),
-        b.Entity(325, 325, 425, 375, (205, 133, 63)),
-        b.Entity(0, 325, 50, 375, (205, 133, 63)),
-        b.Entity(225, 425, 275, 650, (205, 133, 63)),
-        b.Entity(325, 475, 650, 650, (205, 133, 63)),
-        b.Entity(50, 0, 650, 75, (205, 133, 63)),
-        b.Coin(50, 575,(255, 165, 0)),
-        b.Entity(0, 600, 100, 650, (205, 133, 63)),
+        b.Entity(0, 0, 50, 100, (205, 133, 63)),
+        b.Entity(275, 75, 325, 175, (205, 133, 63)),
+        b.Coin(100, 525,(255, 165, 0)),
+        b.Coin(175, 300,(255, 165, 0)),
+        s.Quicksand(350, 175, 400, 400, "down"),
+        s.BeatBlock(0, 500, 50, 550, "red"),
+        b.Entity(200, 550, 350, 650, (205, 133, 63)),
+        b.Entity(0, 550, 50, 650, (205, 133, 63)),
+        s.BeatBlock(50, 600, 200, 650, "blue"),
+        b.Entity(450, 50, 650, 75, (205, 133, 63)),
+        s.BeatBlock(500, 175, 550, 400, "blue"),
+        b.Coin(475, 575,(255, 165, 0)),
+        s.BeatBlock(600, 125, 650, 225, "red"),
+        b.Entity(150, 100, 250, 175, (205, 133, 63)),
+        s.BeatBlock(50, 0, 150, 50, "blue"),
+        b.Entity(150, 0, 650, 50, (205, 133, 63)),
+        b.Entity(175, 50, 225, 75, (205, 133, 63)),
+        s.BeatBlock(0, 250, 50, 325, "blue"),
+        b.Entity(150, 200, 350, 250, (205, 133, 63)),
+        b.Entity(150, 325, 350, 400, (205, 133, 63)),
+        s.BeatBlock(600, 400, 650, 450, "red"),
+        s.Quicksand(350, 75, 550, 125, "down"),
+        s.BeatBlock(350, 600, 550, 650, "blue"),
+        b.Entity(550, 550, 650, 650, (205, 133, 63)),
     ],
     background = (240, 223, 121),
-    text = "3.Quicksand",
-    textLocation = (325, 425),
+    text = "5.Jenga",
+    textLocation = (125, 425),
     textColor = (0, 0, 255),
 )
 E4 = level.Level(
@@ -1372,7 +1364,41 @@ E4 = level.Level(
     textLocation = (175, 350),
     textColor = (0, 0, 255),
 )
-E5 = level.Level()
+E5 = level.Level(
+    players = [
+        p.Player(50.0, 50.0,(100, 149, 237), inverted = False),
+    ],
+    levelObjects = [
+        s.Quicksand(350, 75, 575, 125, "down"),
+        b.Entity(0, 0, 50, 100, (205, 133, 63)),
+        b.Entity(275, 75, 325, 175, (205, 133, 63)),
+        s.BeatBlock(350, 600, 575, 650, "blue"),
+        b.Coin(100, 525,(255, 165, 0)),
+        b.Coin(175, 300,(255, 165, 0)),
+        s.Quicksand(350, 175, 400, 400, "down"),
+        s.BeatBlock(0, 500, 50, 550, "red"),
+        b.Entity(200, 550, 350, 650, (205, 133, 63)),
+        b.Entity(0, 550, 50, 650, (205, 133, 63)),
+        s.BeatBlock(50, 600, 200, 650, "blue"),
+        b.Entity(575, 550, 650, 650, (205, 133, 63)),
+        b.Entity(450, 50, 650, 75, (205, 133, 63)),
+        s.BeatBlock(500, 175, 550, 400, "blue"),
+        b.Coin(475, 575,(255, 165, 0)),
+        s.BeatBlock(600, 125, 650, 225, "red"),
+        b.Entity(150, 100, 250, 175, (205, 133, 63)),
+        s.BeatBlock(50, 0, 150, 50, "blue"),
+        b.Entity(150, 0, 650, 50, (205, 133, 63)),
+        b.Entity(175, 50, 225, 75, (205, 133, 63)),
+        s.BeatBlock(0, 250, 50, 325, "blue"),
+        b.Entity(150, 200, 350, 250, (205, 133, 63)),
+        b.Entity(150, 325, 350, 400, (205, 133, 63)),
+        s.BeatBlock(600, 400, 650, 450, "red"),
+    ],
+    background = (240, 223, 121),
+    text = "5.Jenga",
+    textLocation = (125, 425),
+    textColor = (0, 0, 255),
+)
 E6 = level.Level()
 E7 = level.Level()
 E8 = level.Level()
