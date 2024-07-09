@@ -5,6 +5,7 @@ from . import specialEntities as s
 from .constants import *
 
 editorLevel = level.Level(
+
 )
 A1 = level.Level(
     players = [
@@ -1305,37 +1306,27 @@ E2 = level.Level(
 )
 E3 = level.Level(
     players = [
-        p.Player(50.0, 50.0,(100, 149, 237), inverted = False),
+        p.Player(50.0, 250.0,(100, 149, 237), inverted = False),
     ],
     levelObjects = [
-        b.Entity(0, 0, 50, 100, (205, 133, 63)),
-        b.Entity(275, 75, 325, 175, (205, 133, 63)),
-        b.Coin(100, 525,(255, 165, 0)),
-        b.Coin(175, 300,(255, 165, 0)),
-        s.Quicksand(350, 175, 400, 400, "down"),
-        s.BeatBlock(0, 500, 50, 550, "red"),
-        b.Entity(200, 550, 350, 650, (205, 133, 63)),
-        b.Entity(0, 550, 50, 650, (205, 133, 63)),
-        s.BeatBlock(50, 600, 200, 650, "blue"),
-        b.Entity(450, 50, 650, 75, (205, 133, 63)),
-        s.BeatBlock(500, 175, 550, 400, "blue"),
-        b.Coin(475, 575,(255, 165, 0)),
-        s.BeatBlock(600, 125, 650, 225, "red"),
-        b.Entity(150, 100, 250, 175, (205, 133, 63)),
-        s.BeatBlock(50, 0, 150, 50, "blue"),
-        b.Entity(150, 0, 650, 50, (205, 133, 63)),
-        b.Entity(175, 50, 225, 75, (205, 133, 63)),
-        s.BeatBlock(0, 250, 50, 325, "blue"),
-        b.Entity(150, 200, 350, 250, (205, 133, 63)),
-        b.Entity(150, 325, 350, 400, (205, 133, 63)),
-        s.BeatBlock(600, 400, 650, 450, "red"),
-        s.Quicksand(350, 75, 550, 125, "down"),
-        s.BeatBlock(350, 600, 550, 650, "blue"),
-        b.Entity(550, 550, 650, 650, (205, 133, 63)),
+        b.Entity(0, 0, 50, 275, (205, 133, 63)),
+        s.Quicksand(325, 75, 425, 175, "down"),
+        b.Entity(600, 0, 650, 375, (205, 133, 63)),
+        b.Entity(550, 325, 650, 375, (205, 133, 63)),
+        s.Quicksand(150, 225, 250, 325, "right"),
+        b.Entity(0, 275, 100, 325, (205, 133, 63)),
+        b.Entity(325, 325, 425, 375, (205, 133, 63)),
+        b.Entity(0, 325, 50, 375, (205, 133, 63)),
+        b.Entity(325, 475, 650, 650, (205, 133, 63)),
+        b.Entity(50, 0, 650, 75, (205, 133, 63)),
+        b.Coin(50, 575,(255, 165, 0)),
+        b.Entity(0, 600, 100, 650, (205, 133, 63)),
+        b.Entity(225, 475, 275, 650, (205, 133, 63)),
+        s.Quicksand(225, 425, 275, 475, "right"),
     ],
     background = (240, 223, 121),
-    text = "5.Jenga",
-    textLocation = (125, 425),
+    text = "3.Quicksand",
+    textLocation = (325, 425),
     textColor = (0, 0, 255),
 )
 E4 = level.Level(
@@ -1486,7 +1477,56 @@ ChallengeB = level.Level(
     textColor = (255, 255, 255),
 )
 ChallengeC = level.Level()
-ChallengeD = level.Level()
+
+# Maybe the hardest level...
+# U R D L R U D R U L
+ChallengeD = level.Level(
+    players = [
+        p.Player(375.0, 325.0,(245, 0, 0), inverted = False),
+        p.Player(175.0, 225.0,(245, 0, 0), inverted = False),
+        p.Player(575.0, 575.0,(245, 0, 0), inverted = False),
+        p.Player(50.0, 575.0,(0, 0, 245), inverted = True),
+        p.Player(300.0, 50.0,(0, 0, 245), inverted = True),
+    ],
+    levelObjects = [
+        b.Entity(350, 25, 375, 650, (255, 255, 224)),
+        b.Entity(0, 425, 375, 450, (255, 255, 224)),
+        b.Entity(350, 350, 650, 375, (255, 255, 224)),
+        b.Coin(375, 200,(20, 240, 20)),
+        b.Coin(500, 325,(20, 240, 20)),
+        b.Coin(375, 500,(20, 240, 20)),
+        b.Coin(275, 400,(20, 240, 20)),
+        s.Tar(375, 550, 400, 650, "left"),
+        b.Coin(25, 225,(20, 240, 20)),
+        b.Coin(50, 525,(20, 240, 20)),
+        b.Entity(475, 600, 650, 650, (255, 255, 224)),
+        b.Coin(575, 500,(20, 240, 20)),
+        b.Entity(600, 375, 650, 600, (255, 255, 224)),
+        s.Tar(575, 150, 600, 350, "right"),
+        b.Entity(600, 150, 650, 350, (255, 255, 224)),
+        s.Tar(375, 50, 400, 125, "left"),
+        b.Entity(0, 0, 50, 200, (255, 255, 224)),
+        b.Entity(0, 350, 50, 650, (255, 255, 224)),
+        b.Entity(0, 600, 250, 650, (255, 255, 224)),
+        b.Coin(300, 300,(20, 240, 20)),
+        b.Entity(150, 0, 650, 50, (255, 255, 224)),
+        b.Entity(325, 50, 375, 650, (255, 255, 224)),
+        b.Coin(175, 150,(20, 240, 20)),
+        b.Entity(0, 175, 325, 225, (255, 255, 224)),
+        s.Tar(50, 150, 125, 175, "down"),
+        b.Coin(300, 125,(20, 240, 20)),
+        b.Coin(500, 400,(20, 240, 20)),
+        s.Tar(375, 400, 450, 425, "up"),
+        b.Entity(375, 375, 600, 400, (255, 255, 224)),
+        b.Entity(50, 450, 325, 475, (255, 255, 224)),
+        b.Coin(275, 475,(20, 240, 20)),
+        b.Coin(225, 575,(20, 240, 20)),
+    ],
+    background = (20, 20, 20),
+    text = "!.Family",
+    textLocation = (425, 50),
+    textColor = (255, 255, 255),
+)
 ChallengeE = level.Level()
 
 worldChallenge = [ChallengeA, ChallengeB, ChallengeC, ChallengeD, ChallengeE]
