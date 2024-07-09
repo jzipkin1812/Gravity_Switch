@@ -258,7 +258,7 @@ class BeatBlock(Entity):
             color = (240, 89, 132)
         super().__init__(x1, y1, x2, y2, color)
         self.parity = parity
-    def isOn(self):
+    def isOn(self) -> bool:
         return(BeatBlock.solidParity == self.parity)
     def collide(self, player: p.Player) -> bool:
         if self.isOn():
@@ -279,6 +279,9 @@ class BeatBlock(Entity):
         return(BeatBlock(self.x1, self.y1, self.x2, self.y2, self.parity))
     
 class Quicksand(Entity):
+    someoneMoving = False
+
+    
     def __init__(self, x1, y1, x2, y2, direction = "down", color = (139, 69, 19)):
         super().__init__(x1, y1, x2, y2, color)
         self.direction = direction
@@ -295,10 +298,39 @@ class Quicksand(Entity):
     def isOn(self):
         return(BeatBlock.solidParity == self.parity)
     def collide(self, player: p.Player) -> bool:
+        noCrush = (player.direction != u.invert(self.direction))
         did = super().collide(player)
-        if did and (player.direction != u.invert(self.direction)):
+        if (did) and noCrush and (not self.settled):
             self.activated = True
         return(did)
+    
+    def display(self, screen):
+        super().display(screen)
+        if not (self.settled or self.activated):
+            self.drawSpikes(screen)
+    
+    def drawSpikes(self, screen):
+        if self.direction == "up":
+            for x in range(self.x1, self.x2, GRID_SIZE):
+                pygame.draw.polygon(screen, self.color, [(x, self.y1), 
+                                                         (x + GRID_SIZE / 2, self.y1 - GRID_SIZE / 2), 
+                                                         (x + GRID_SIZE, self.y1)])
+        if self.direction == "down":
+            for x in range(self.x1, self.x2, GRID_SIZE):
+                pygame.draw.polygon(screen, self.color, [(x, self.y2), 
+                                                         (x + GRID_SIZE / 2, self.y2 + GRID_SIZE / 2), 
+                                                         (x + GRID_SIZE, self.y2)])
+        if self.direction == "left":
+            for y in range(self.y1, self.y2, GRID_SIZE):
+                pygame.draw.polygon(screen, self.color, [(self.x1, y), 
+                                                         (self.x1 - GRID_SIZE / 2, y + GRID_SIZE / 2), 
+                                                         (self.x1, y + GRID_SIZE)])
+        if self.direction == "right":
+            for y in range(self.y1, self.y2, GRID_SIZE):
+                pygame.draw.polygon(screen, self.color, [(self.x2, y), 
+                                                         (self.x2 + GRID_SIZE / 2, y + GRID_SIZE / 2), 
+                                                         (self.x2, y + GRID_SIZE)])
+
 
     def toString(self):
         return("s.Quicksand(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" + self.direction + "\")")
@@ -309,17 +341,26 @@ class Quicksand(Entity):
         self.vMod = (milliseconds) * GAME_SPEED
         
     def updateMove(self, milliseconds):
+        if (self.settled) or (not self.activated):
+            return
+        else:
+            Quicksand.someoneMoving = True
+
         accelMod = self.accel * (milliseconds) * GAME_SPEED
-        # self.vMod = (milliseconds) * GAME_SPEED
         
-        self.x1 += self.xv * self.vMod
-        self.y1 += self.yv * self.vMod
-        
-        self.x2 += self.xv * self.vMod
-        self.y2 += self.yv * self.vMod
+        if self.direction == "right" or self.direction == "left":
+            self.x1 += self.xv * self.vMod
+            self.x2 += self.xv * self.vMod
+        if self.direction == "up" or self.direction == "down":
+            self.y1 += self.yv * self.vMod
+            self.y2 += self.yv * self.vMod
         
         if self.direction == "stop":
             self.xv = self.yv = 0
+            self.x1 = round(self.x1)
+            self.y1 = round(self.y1)
+            self.x2 = round(self.x2)
+            self.y2 = round(self.y2)
         elif self.direction == "up":
             self.yv = max(self.yv - accelMod, -1 * self.maxVelocity)
         elif self.direction == "down":
@@ -328,3 +369,74 @@ class Quicksand(Entity):
             self.xv = max(self.xv - accelMod, -1 * self.maxVelocity)
         elif self.direction == "right":
             self.xv = min(self.xv + accelMod, self.maxVelocity)
+    
+    def quicksandCollide(self, other: Entity) -> bool:
+        # Ignore collisions if this isn't moving.
+        if (self.settled) or (not self.activated):
+            return
+        # Ignore collisions with certain types.
+        if not (type(other) == Entity or 
+                (type(other) == BeatBlock and other.isOn()) or
+                type(other) == Quicksand and other.settled):
+            return
+        
+        xv = self.xv * self.vMod
+        yv = self.yv * self.vMod
+
+        xSize = self.x2 - self.x1
+        ySize = self.y2 - self.y1
+        
+        right = round(self.x2)
+        tryRight = round(right + xv)
+        
+        left = round(self.x1)
+        tryLeft = round(left + xv)
+        
+        top = round(self.y1)
+        tryUp = round(top + yv)
+        
+        bottom = round(self.y2)
+        tryDown = round(bottom + yv)
+        did = False
+
+        if self.direction == "right" and right <= other.x1 <= tryRight and self.qInYRange(other):
+            self.x1 = other.x1 - xSize
+            self.x2 = other.x1
+            did = True
+        elif self.direction == "left" and tryLeft <= other.x2 <= left and self.qInYRange(other):
+            self.x1 = other.x2
+            self.x2 = other.x2 + xSize
+            did = True
+        elif self.direction == "up" and top >= other.y2 >= tryUp and self.qInXRange(other):
+            self.y1 = other.y2
+            self.y2 = other.y2 + ySize
+            did = True
+        elif self.direction == "down" and tryDown >= other.y1 >= bottom and self.qInXRange(other):
+            self.y1 = other.y1 - ySize
+            self.y2 = other.y1
+            did = True
+
+        if did:
+            self.activated = False
+            self.settled  = True
+            self.roundToGrid()
+        return(did)
+
+    def qInYRange(self, other: Entity) -> bool:
+        isAbove = (other.y2 <= self.y1)
+        isBelow = (other.y1 >= self.y2)
+        return not(isAbove or isBelow)
+    def qInXRange(self, other: Entity) -> bool:
+        isLeft = (other.x2 <= self.x1)
+        isRight = (other.x1 >= self.x2)
+        return not(isLeft or isRight) 
+    
+    def roundToGrid(self):
+        def myround(num):
+            return GRID_SIZE * round(num / GRID_SIZE)
+        self.x1 = myround(self.x1)
+        self.y1 = myround(self.y1)
+        self.x2 = myround(self.x2)
+        self.y2 = myround(self.y2)
+    
+  

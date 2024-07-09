@@ -103,6 +103,9 @@ class Entity:
     def erase(self, x, y):
         if (self.x1 <= x <= self.x2 and self.y1 <= y <= self.y2):
             self.dead = True
+
+    def isOn(self):
+        return(False)
         
         
 class Coin(Entity):

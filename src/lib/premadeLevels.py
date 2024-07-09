@@ -1323,7 +1323,30 @@ E2 = level.Level(
     textLocation = (150, 225),
     textColor = (0, 0, 255),
 )
-E3 = level.Level()
+E3 = level.Level(
+    players = [
+        p.Player(50.0, 250.0,(100, 149, 237), inverted = False),
+    ],
+    levelObjects = [
+        b.Entity(0, 0, 50, 275, (205, 133, 63)),
+        s.Quicksand(325, 75, 425, 175, "down"),
+        b.Entity(600, 0, 650, 375, (205, 133, 63)),
+        b.Entity(550, 325, 650, 375, (205, 133, 63)),
+        s.Quicksand(150, 225, 250, 325, "right"),
+        b.Entity(0, 275, 100, 325, (205, 133, 63)),
+        b.Entity(325, 325, 425, 375, (205, 133, 63)),
+        b.Entity(0, 325, 50, 375, (205, 133, 63)),
+        b.Entity(225, 425, 275, 650, (205, 133, 63)),
+        b.Entity(325, 475, 650, 650, (205, 133, 63)),
+        b.Entity(50, 0, 650, 75, (205, 133, 63)),
+        b.Coin(50, 575,(255, 165, 0)),
+        b.Entity(0, 600, 100, 650, (205, 133, 63)),
+    ],
+    background = (240, 223, 121),
+    text = "3.Quicksand",
+    textLocation = (325, 425),
+    textColor = (0, 0, 255),
+)
 E4 = level.Level()
 E5 = level.Level()
 E6 = level.Level()

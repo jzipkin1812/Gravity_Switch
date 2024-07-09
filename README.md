@@ -32,6 +32,7 @@ Some objects face a direction. To set the direction of an object you are about t
 * Redirector (from Volcanic Delta): i 
 * Lever (from Non-Euclidean Rainforest): l
 * Tar (from Dark Matter Mountains): r
+* Quicksand (from Brownian Motion Beach): q
 ## Teleporters
 Use the t key to create a set of two teleporters. The top-left corners of each part of the teleporter are determined by the two editor pointers. It is recommended to only have one set, since they all look the same, but multiple sets will function just fine.
 ### Limited-Use Teleporters
@@ -48,8 +49,9 @@ With your primary pointer on the top-left location of where you want your text, 
 # New Features and Changelog
 ## Version 1.4 (7/8/2024):
 * Finished D-10. World D now complete.
-* Started world E with E-1.
+* Started world E with E-1 through E-3
 * Added a new mechanic: Beat Blocks.
+* Added a new mechanic: Quicksand
 * Improved many level designs including the existing challenge levels.
 ## Version 1.3 (7/3/2024):
 * Added a new mechanic: Reverse players. 
