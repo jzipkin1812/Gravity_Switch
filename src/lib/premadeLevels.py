@@ -1361,7 +1361,6 @@ E5 = level.Level(
     ],
     levelObjects = [
         b.Entity(0, 0, 50, 100, (205, 133, 63)),
-        b.Entity(275, 75, 325, 175, (205, 133, 63)),
         b.Coin(100, 525,(255, 165, 0)),
         b.Coin(175, 300,(255, 165, 0)),
         s.Quicksand(350, 175, 400, 400, "down"),
@@ -1384,13 +1383,46 @@ E5 = level.Level(
         s.Quicksand(350, 75, 550, 125, "down"),
         s.BeatBlock(350, 600, 550, 650, "blue"),
         b.Entity(550, 550, 650, 650, (205, 133, 63)),
+        b.Entity(275, 150, 350, 175, (205, 133, 63)),
+        b.Entity(275, 75, 325, 175, (205, 133, 63)),
     ],
     background = (240, 223, 121),
     text = "5.Jenga",
     textLocation = (125, 425),
     textColor = (0, 0, 255),
 )
-E6 = level.Level()
+E6 = level.Level(
+    players = [
+        p.Player(50.0, 550.0,(100, 149, 237), inverted = False),
+    ],
+    levelObjects = [
+        s.BeatBlock(0, 325, 250, 375, "red"),
+        s.Quicksand(50, 250, 125, 325, "right"),
+        b.Entity(150, 600, 200, 650, (205, 133, 63)),
+        s.BeatBlock(525, 400, 650, 450, "red"),
+        b.Coin(325, 225,(255, 165, 0)),
+        s.BeatBlock(525, 200, 650, 250, "blue"),
+        s.BeatBlock(600, 550, 650, 600, "red"),
+        b.Entity(200, 425, 525, 475, (205, 133, 63)),
+        b.Entity(450, 375, 525, 425, (205, 133, 63)),
+        s.BeatBlock(0, 200, 225, 250, "blue"),
+        b.Entity(0, 375, 50, 475, (205, 133, 63)),
+        b.Entity(375, 0, 650, 50, (205, 133, 63)),
+        b.Entity(0, 525, 50, 650, (205, 133, 63)),
+        s.BeatBlock(0, 75, 200, 125, "red"),
+        s.BeatBlock(0, 475, 275, 525, "blue"),
+        b.Coin(575, 350,(255, 165, 0)),
+        b.Entity(600, 275, 650, 325, (205, 133, 63)),
+        s.Quicksand(400, 150, 475, 200, "left"),
+        b.Entity(200, 375, 250, 425, (205, 133, 63)),
+        b.Entity(425, 325, 475, 425, (205, 133, 63)),
+        b.Entity(0, 125, 25, 200, (205, 133, 63)),
+    ],
+    background = (240, 223, 121),
+    text = "6.Another Ladder",
+    textLocation = (200, 600),
+    textColor = (0, 0, 255),
+)
 E7 = level.Level()
 E8 = level.Level()
 E9 = level.Level()

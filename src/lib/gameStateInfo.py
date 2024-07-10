@@ -65,6 +65,7 @@ class GameStateInfo:
             self.level.reset()
             self.levelNumber += 1
             self.level = self.world[self.levelNumber % len(self.world)] 
+            self.level.reset()
         elif (self.level.playerIsDead()):
             self.mode = "Game Over"
             self.level.reset()
@@ -73,13 +74,10 @@ class GameStateInfo:
         self.modeDisplayDict[self.mode]()
     def displayTitle(self):
         self.screen.blit(titleImage, (0,0))
-    def displayBackground(self):
-        self.screen.fill(self.level.background)
     def displayLevelSelect(self):
         self.screen.blit(levelSelectImage, (0, self.scrollMod))
     
     def displayLevel(self):
-        self.displayBackground()
         self.level.display(self.screen)
         
     def displayGameOver(self):
@@ -91,7 +89,6 @@ class GameStateInfo:
     
     def displayLevelEditor(self):
         self.advance = False
-        self.displayBackground()
         self.level.display(self.screen)
         # 25 pixel grid
         for i in range(0, SCREEN_SIZE, self.gridSize):
@@ -146,7 +143,6 @@ class GameStateInfo:
         #LVL SELECT: (354, 322) to (597, 402)
 
         if event.type == pygame.KEYDOWN:
-            print(event.key)
             if event.key == pygame.K_SPACE:
                 self.mode = "Gameplay"
             if event.key == pygame.K_BACKSPACE:

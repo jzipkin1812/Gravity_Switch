@@ -21,8 +21,6 @@ while not mainStatus.quit:
     clock.tick()
     mainStatus.tickTime = clock.get_time() 
 
-    # Background handling
-    screen.fill((0, 0, 0))
     # All displays
     mainStatus.displayProperMode()
     
