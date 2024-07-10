@@ -78,22 +78,25 @@ class GameStateInfo:
         self.screen.blit(levelSelectImage, (0, self.scrollMod))
     
     def displayLevel(self):
+
         self.level.display(self.screen)
-        
+        if pygame.key.get_pressed()[pygame.K_LSHIFT]:
+            self.displayGrid()
     def displayGameOver(self):
         self.screen.fill((0, 0, 0))
         self.screenText(50, 50, "Game Over...", 25)
         self.screenText(50, 150, "You flew off into infinity!", 25)
         self.screenText(50, 250, "Press any key to restart.", 25)
 
-    
-    def displayLevelEditor(self):
-        self.advance = False
-        self.level.display(self.screen)
+    def displayGrid(self):
         # 25 pixel grid
         for i in range(0, SCREEN_SIZE, self.gridSize):
             pygame.draw.line(self.screen, (75, 75, 75), (i, 0), (i, SCREEN_HEIGHT))
             pygame.draw.line(self.screen, (75, 75, 75), (0, i), (SCREEN_WIDTH, i))
+    def displayLevelEditor(self):
+        self.advance = False
+        self.level.display(self.screen)
+        self.displayGrid()
         # editor pointers
         pygame.draw.circle(self.screen, (255, 0, 0), self.point1, 5)
         pygame.draw.circle(self.screen, (255, 255, 255), self.point2, 5)

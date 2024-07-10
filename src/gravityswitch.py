@@ -31,10 +31,8 @@ while not mainStatus.quit:
         mainStatus.process(event)
     # All game logic
     mainStatus.update()
-    # Debug: Display mouse position x and y
-    # u.screenText(10, 10, screen, "x: " + str(mouseX) + " / y: " + str(mouseY), 15)
     # Debug: Display FPS
-    # u.screenText(10, 40, screen, "FPS: " + str(int(clock.get_fps())), 15)
+    u.screenText(10, 10, screen, "FPS: " + str(int(clock.get_fps())), 15)
     pygame.display.flip()
 
 mainStatus.levelDumpFile.write(mainStatus.level.toString())

@@ -582,7 +582,7 @@ C2 = level.Level(
 )
 C3 = level.Level(
     players = [
-        p.Player(50.0, 50.0,(89, 129, 45)),
+        p.Player(50.0, 50.0,(89, 129, 45), inverted = False),
     ],
     levelObjects = [
         b.Entity(0, 0, 50, 100, (49, 87, 54)),
@@ -609,6 +609,7 @@ C3 = level.Level(
         b.Entity(600, 625, 625, 650, (49, 87, 54)),
         b.Coin(400, 275,(144, 69, 85)),
         s.Lever(400, 300, 600, 350, "up"),
+        b.Entity(475, 400, 525, 450, (49, 87, 54)),
     ],
     background = ((19, 42, 19),),
     text = "3.Rotation",
@@ -1423,7 +1424,43 @@ E6 = level.Level(
     textLocation = (200, 600),
     textColor = (0, 0, 255),
 )
-E7 = level.Level()
+E7 = level.Level(
+    players = [
+        p.Player(250.0, 325.0,(100, 149, 237), inverted = False),
+    ],
+    levelObjects = [
+        s.Quicksand(50, 50, 150, 150, "down"),
+        b.Entity(150, 100, 225, 150, (205, 133, 63)),
+        s.Quicksand(50, 375, 300, 425, "down"),
+        b.Entity(550, 0, 650, 50, (205, 133, 63)),
+        b.Entity(50, 0, 225, 50, (205, 133, 63)),
+        b.Entity(300, 0, 450, 50, (205, 133, 63)),
+        b.Entity(450, 100, 550, 150, (205, 133, 63)),
+        s.Quicksand(300, 225, 350, 275, "down"),
+        b.Entity(0, 0, 50, 150, (205, 133, 63)),
+        b.Entity(300, 375, 350, 425, (205, 133, 63)),
+        s.Quicksand(25, 250, 50, 300, "left"),
+        b.Coin(600, 600,(255, 165, 0)),
+        s.Quicksand(350, 325, 450, 375, "down"),
+        s.Quicksand(25, 425, 50, 650, "left"),
+        s.Quicksand(300, 475, 350, 525, "left"),
+        b.Entity(350, 575, 450, 600, (205, 133, 63)),
+        b.Coin(625, 425,(255, 165, 0)),
+        s.Quicksand(550, 375, 625, 525, "up"),
+        s.Quicksand(150, 150, 250, 225, "right"),
+        b.Entity(625, 475, 650, 500, (205, 133, 63)),
+        b.Entity(550, 625, 625, 650, (205, 133, 63)),
+        b.Entity(175, 625, 225, 650, (205, 133, 63)),
+        s.Quicksand(225, 25, 300, 50, "up"),
+        b.Coin(50, 550,(255, 165, 0)),
+        b.Coin(425, 100,(255, 165, 0)),
+        s.Quicksand(600, 50, 625, 150, "right"),
+    ],
+    background = (240, 223, 121),
+    text = "7.Pharaoh's Tomb",
+    textLocation = (150, 50),
+    textColor = (0, 0, 255),
+)
 E8 = level.Level()
 E9 = level.Level()
 E10 = level.Level()
