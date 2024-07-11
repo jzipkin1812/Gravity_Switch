@@ -27,15 +27,16 @@ class GameStateInfo:
             "Gameplay" : self.displayLevel,
             "Level Editor" : self.displayLevelEditor,
             "Game Over" : self.displayGameOver,
-            "Level Select" : self.displayLevelSelect
+            "Level Select" : self.displayLevelSelect,
+            "How To Play" : self.displayHowToPlay,
         }
         self.modeInputDict = {
             "Title Screen" : self.processTitle,
             "Gameplay" : self.processGameplay,
             "Level Editor" : self.processEditor,
             "Game Over" : self.processGameOver,
-            "Level Select" : self.processLevelSelect
-            
+            "Level Select" : self.processLevelSelect,
+            "How To Play" : self.processHowToPlay,
         }
         # Gameplay statuses
         self.world: list[level.Level] = worldA
@@ -62,14 +63,19 @@ class GameStateInfo:
         self.level.update(self.timer.get_time())
         
         if (self.level.isComplete()) and self.advance:
-            self.level.reset()
-            self.levelNumber += 1
-            self.level = self.world[self.levelNumber % len(self.world)] 
-            self.level.reset()
+            self.nextLevel()
         elif (self.level.playerIsDead()):
             self.mode = "Game Over"
             self.level.reset()
-
+    def nextLevel(self):
+        self.level.reset()
+        self.levelNumber += 1
+        
+        if self.levelNumber >= 10:
+            self.world = nextWorld(self.world)
+            self.levelNumber = 0
+        
+        self.beamDown(self.world, self.levelNumber)
     def displayProperMode(self):
         self.modeDisplayDict[self.mode]()
     def displayTitle(self):
@@ -83,11 +89,7 @@ class GameStateInfo:
         if pygame.key.get_pressed()[pygame.K_LSHIFT]:
             self.displayGrid()
     def displayGameOver(self):
-        self.screen.fill((0, 0, 0))
-        self.screenText(50, 50, "Game Over...", 25)
-        self.screenText(50, 150, "You flew off into infinity!", 25)
-        self.screenText(50, 250, "Press any key to restart.", 25)
-
+        self.screen.blit(gameOverImage, (0, 0))
     def displayGrid(self):
         # 25 pixel grid
         for i in range(0, SCREEN_SIZE, self.gridSize):
@@ -146,8 +148,8 @@ class GameStateInfo:
         #LVL SELECT: (354, 322) to (597, 402)
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                self.mode = "Gameplay"
+            # if event.key == pygame.K_SPACE:
+            #     self.mode = "Gameplay"
             if event.key == pygame.K_BACKSPACE:
                 self.doAdvance = not self.doAdvance
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -155,6 +157,8 @@ class GameStateInfo:
                 # title screen BUTTONS
                 if 81 <= self.mouseX <= 322 and 183 <= self.mouseY <= 265:
                     self.mode = "Gameplay"
+                    if self.level is A1:
+                        self.mode = "How To Play"
                 elif 354 <= self.mouseX <= 597 and 322 <= self.mouseY <= 402:
                     self.mode = "Level Select"
                 elif 155 <= self.mouseX <= 395 and 457 <= self.mouseY <= 538:
@@ -309,6 +313,13 @@ class GameStateInfo:
         elif destination == worldChallenge:
             self.colors = colorsWorldChallenge
                    
-        
+    def displayHowToPlay(self):
+        self.screen.blit(howToPlayImage, (0, 0))
+    def processHowToPlay(self, event: pygame.event.Event):
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                self.mode = "Gameplay"
+            elif event.key == pygame.K_ESCAPE:
+                self.mode = "Title Screen"
         
         

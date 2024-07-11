@@ -289,7 +289,7 @@ B2 = level.Level(
 )
 B3 = level.Level(
     players = [
-        p.Player(100.0, 525.0,(255, 255, 68)),
+        p.Player(100.0, 525.0,(255, 255, 68), inverted = False),
     ],
     levelObjects = [
         b.Entity(50, 50, 100, 175, (85, 51, 51)),
@@ -298,16 +298,16 @@ B3 = level.Level(
         b.Entity(50, 550, 175, 600, (85, 51, 51)),
         b.Entity(550, 475, 600, 600, (85, 51, 51)),
         b.Coin(100, 375,(204, 68, 34)),
-        s.Antiplatform(50, 250, 250, 300),
-        s.Antiplatform(250, 50, 300, 550),
-        s.Antiplatform(425, 50, 475, 475),
-        s.Antiplatform(475, 425, 600, 475),
+        s.Antiplatform(50, 250, 250, 300, (85, 51, 51)),
+        s.Antiplatform(250, 50, 300, 550, (85, 51, 51)),
+        s.Antiplatform(425, 50, 475, 475, (85, 51, 51)),
+        s.Antiplatform(475, 425, 600, 475, (85, 51, 51)),
         b.Coin(350, 100,(204, 68, 34)),
         s.Redirector(525, 225, "down"),
         s.Redirector(525, 100, "left"),
         s.Redirector(350, 475, "up"),
         b.Coin(525, 525,(204, 68, 34)),
-        b.Entity(525, 550, 550, 600, (85, 51, 51)),
+        b.Entity(500, 550, 600, 600, (85, 51, 51)),
     ],
     background = (255, 102, 0),
     text = "3.Synthesis",
@@ -1297,8 +1297,8 @@ E2 = level.Level(
         b.Coin(50, 450,(255, 165, 0)),
         b.Entity(125, 0, 200, 50, (205, 133, 63)),
         s.BeatBlock(0, 150, 50, 275, "red"),
-        s.BeatBlock(200, 325, 250, 550, "blue"),
         s.BeatBlock(375, 500, 425, 650, "red"),
+        s.BeatBlock(200, 425, 250, 550, "blue"),
     ],
     background = (240, 223, 121),
     text = "2.No Diving",
@@ -1408,7 +1408,6 @@ E6 = level.Level(
         b.Entity(450, 375, 525, 425, (205, 133, 63)),
         s.BeatBlock(0, 200, 225, 250, "blue"),
         b.Entity(0, 375, 50, 475, (205, 133, 63)),
-        b.Entity(375, 0, 650, 50, (205, 133, 63)),
         b.Entity(0, 525, 50, 650, (205, 133, 63)),
         s.BeatBlock(0, 75, 200, 125, "red"),
         s.BeatBlock(0, 475, 275, 525, "blue"),
@@ -1418,6 +1417,7 @@ E6 = level.Level(
         b.Entity(200, 375, 250, 425, (205, 133, 63)),
         b.Entity(425, 325, 475, 425, (205, 133, 63)),
         b.Entity(0, 125, 25, 200, (205, 133, 63)),
+        b.Entity(300, 0, 650, 50, (205, 133, 63)),
     ],
     background = (240, 223, 121),
     text = "6.Another Ladder",
@@ -1439,7 +1439,6 @@ E7 = level.Level(
         s.Quicksand(300, 225, 350, 275, "down"),
         b.Entity(0, 0, 50, 150, (205, 133, 63)),
         b.Entity(300, 375, 350, 425, (205, 133, 63)),
-        s.Quicksand(25, 250, 50, 300, "left"),
         b.Coin(600, 600,(255, 165, 0)),
         s.Quicksand(350, 325, 450, 375, "down"),
         s.Quicksand(25, 425, 50, 650, "left"),
@@ -1452,9 +1451,10 @@ E7 = level.Level(
         b.Entity(550, 625, 625, 650, (205, 133, 63)),
         b.Entity(175, 625, 225, 650, (205, 133, 63)),
         s.Quicksand(225, 25, 300, 50, "up"),
-        b.Coin(50, 550,(255, 165, 0)),
         b.Coin(425, 100,(255, 165, 0)),
         s.Quicksand(600, 50, 625, 150, "right"),
+        s.Quicksand(25, 225, 50, 325, "left"),
+        b.Coin(300, 425,(255, 165, 0)),
     ],
     background = (240, 223, 121),
     text = "7.Pharaoh's Tomb",
@@ -1609,3 +1609,16 @@ worldInfo = [
     (worldE, levelSelectWorldE),
     (worldChallenge, levelSelectWorldChallenge)
 ]
+def nextWorld(w):
+    if w == worldA:
+        return(worldB)
+    elif w == worldB:
+        return(worldC)
+    elif w == worldC:
+        return(worldD)
+    elif w == worldD:
+        return(worldE)
+    elif w == worldChallenge:
+        return(worldChallenge)
+    else:
+        return(worldA)
