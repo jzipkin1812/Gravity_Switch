@@ -49,6 +49,9 @@ You can directly edit your level's code to make tweaks that the editor doesn't s
 With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text into the terminal. (This feature uses Python's input() function.) The text should appear on screen.
 
 # New Features and Changelog
+## Version 1.5 (7/10/2024):
+* Added new "How to Play" and "Game Over" screens.
+* The player can now see the grid by holding Lshift at any time.
 ## Version 1.4 (7/8/2024):
 * Finished D-10. World D now complete.
 * Started world E with E-1 through E-5.
