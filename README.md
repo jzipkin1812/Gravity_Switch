@@ -1,14 +1,15 @@
-# Gravity_Switch
+# Gravity Switch
 New and improved Gravity Switch game, all the way back from 2018! The main file is gravityswitch.py. Before running, make sure you have the latest version of Pygame AND make sure you are in the /src folder in your terminal or things will break.
 
 # Controls
 Use the mouse to navigate menus. Use ESC to return to the main menu. Use the arrows to play. Use the r key to restart the current level at any time.
 
 # Level Editor Guide
-As of right now, the level editor is a developer tool, not a fully implemented feature. Nonetheless, it is easy to use. 
+The Level Editor allows you to create your own stage or modify any of the stages from the main game. You can easily convert your creation to actual source code (whoah!) to share with friends.
 ## Swapping to Editor Mode
 While playing any level in the game, click (not scroll, click) the mouse wheel to enter the editor mode. You will see a grid layed out across the screen to help you. Also note that modifying any level from the main game doesn't permanently affect it; if you close the game and reopen it, the original level will be present, so feel free to toy around with the main game levels as much as you want! Perhaps create a remixed version?
 The Level Editor button on the title screen simply takes you to a blank level. Nothing special about it.
+If you open the editor while in a main stage level, you will no longer advance to the next stage upon completing it.
 ## Navigating the editor
 Use the left mouse button to select the location of the editor pointer. This looks like a small red circle. It points to the top left of whichever grid space you click. Once you have chosen a location for the editor pointer, you will use the keyboard to place objects there. You will also need to use the right mouse button similarly to select the location of the secondary mouse pointer. This is, in contrast, a small white circle, at the bottom right corner of whichever grid space you click. 
 ## CAUTION!!!!!!
