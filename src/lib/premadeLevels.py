@@ -1459,7 +1459,32 @@ E7 = level.Level(
     textLocation = (150, 50),
     textColor = (0, 0, 255),
 )
-E8 = level.Level()
+E8 = level.Level(
+    players = [
+        p.Player(275.0, 575.0,(100, 149, 237), inverted = False),
+    ],
+    levelObjects = [
+        s.BeatBlock(175, 600, 400, 650, "blue"),
+        s.Teleporter(475, 50, 475, 475, 0, (144, 169, 85)),
+        s.BeatBlock(0, 450, 50, 525, "blue"),
+        b.Coin(475, 525,(255, 165, 0)),
+        s.Quicksand(175, 50, 400, 100, "down"),
+        b.Entity(0, 0, 100, 50, (205, 133, 63)),
+        s.Quicksand(550, 500, 650, 550, "down"),
+        s.BeatBlock(600, 225, 650, 500, "red"),
+        s.BeatBlock(175, 175, 400, 225, "blue"),
+        s.NullCube(200, 225),
+        b.Coin(50, 150,(255, 165, 0)),
+        s.NullCube(50, 225),
+        s.Quicksand(600, 50, 625, 100, "right"),
+        s.Quicksand(550, 25, 600, 50, "up"),
+        b.Entity(0, 50, 50, 175, (205, 133, 63)),
+    ],
+    background = (240, 223, 121),
+    text = "8.Third Dimension",
+    textLocation = (100, 350),
+    textColor = (0, 0, 255),
+)
 E9 = level.Level()
 E10 = level.Level()
 worldE = [E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]
