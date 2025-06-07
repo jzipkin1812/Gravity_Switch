@@ -1461,6 +1461,39 @@ E7 = level.Level(
 )
 E8 = level.Level(
     players = [
+        p.Player(125.0, 450.0,(100, 149, 237), inverted = False),
+    ],
+    levelObjects = [
+        b.Entity(525, 600, 650, 600, (205, 133, 63)),
+        b.Entity(500, 600, 650, 650, (205, 133, 63)),
+        s.Tar(500, 575, 600, 600, "down"),
+        s.Quicksand(525, 0, 650, 125, "left"),
+        s.NullCube(275, 125),
+        s.BeatBlock(225, 375, 275, 550, "blue"),
+        s.Tar(200, 375, 225, 550, "right"),
+        s.BeatBlock(0, 375, 50, 650, "red"),
+        s.Quicksand(50, 25, 225, 50, "up"),
+        s.BeatBlock(425, 325, 550, 375, "red"),
+        b.Entity(50, 600, 150, 650, (205, 133, 63)),
+        b.Entity(225, 225, 350, 275, (205, 133, 63)),
+        b.Coin(125, 200,(255, 165, 0)),
+        s.Tar(575, 125, 600, 225, "right"),
+        b.Coin(300, 575,(255, 165, 0)),
+        s.NullCube(50, 500),
+        b.Coin(575, 50,(255, 165, 0)),
+        b.Entity(0, 0, 50, 50, (205, 133, 63)),
+        b.Entity(0, 175, 50, 375, (205, 133, 63)),
+        s.BeatBlock(600, 375, 650, 550, "red"),
+        b.Entity(600, 550, 650, 600, (205, 133, 63)),
+        b.Entity(600, 125, 650, 375, (205, 133, 63)),
+    ],
+    background = (240, 223, 121),
+    text = "8.Riptide",
+    textLocation = (150, 600),
+    textColor = (0, 0, 255),
+)
+E9 = level.Level(
+    players = [
         p.Player(275.0, 575.0,(100, 149, 237), inverted = False),
     ],
     levelObjects = [
@@ -1481,11 +1514,11 @@ E8 = level.Level(
         b.Entity(0, 50, 50, 175, (205, 133, 63)),
     ],
     background = (240, 223, 121),
-    text = "8.Third Dimension",
+    text = "9.Third Dimension",
     textLocation = (100, 350),
     textColor = (0, 0, 255),
 )
-E9 = level.Level()
+
 E10 = level.Level()
 worldE = [E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]
 

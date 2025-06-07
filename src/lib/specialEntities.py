@@ -226,7 +226,8 @@ class Tar(Entity):
         self.direction = direction
     def collide(self, player: p.Player) -> bool:
         # Players stick to tar
-        if(self.isTouching(player) and player.direction == u.invert(self.direction)):
+        if(self.isTouching(player) and player.direction == u.invert(self.direction) and 
+           (abs(player.xv) < 1) and (abs(player.yv) < 1)):
             player.stop()
         
     def display(self, screen):
