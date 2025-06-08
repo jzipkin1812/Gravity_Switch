@@ -1,5 +1,5 @@
 # Gravity Switch
-New and improved Gravity Switch game, all the way back from 2018! The main file is gravityswitch.py. Before running, make sure you have the latest version of Pygame AND make sure you are in the /src folder in your terminal or things will break.
+New and improved Gravity Switch game, all the way back from 2018! The main file is gravityswitch.py. Before running, make sure you have the latest version of Pygame. Run gravityswitch.py from either the root or src directory.
 
 # Controls
 Use the mouse to navigate menus. Use ESC to return to the main menu. Use the arrows to play. Use the r key to restart the current level at any time.
@@ -49,7 +49,11 @@ You can directly edit your level's code to make tweaks that the editor doesn't s
 ## Adding text to your level
 With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text into the terminal. (This feature uses Python's input() function.) The text should appear on screen.
 
-# New Features and Changelog
+# Changelog
+## Version 1.6 (6/7/2025):
+* Remembered that this project still exists.
+* Fixed file paths so that the program works for all operating systems and you don't have to run from src.
+* Finished World E.
 ## Version 1.5 (7/10/2024):
 * Added new "How to Play" and "Game Over" screens.
 * The player can now see the grid by holding Lshift at any time.
@@ -79,7 +83,7 @@ With your primary pointer on the top-left location of where you want your text, 
 * There is still no save file, so everything is unlocked right at the start.
 * All mechanics and objects from the original 2018 game are implemented.
 ## Plans for Future Versions
-* Finish world E.
-* Add Falling Sand.
 * Finish challenge levels.
 * Fix the editor pointer bug mentioned above.
+* Lock levels until you finish the previous ones.
+* Add an ending screen after E-10.
