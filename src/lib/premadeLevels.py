@@ -1701,6 +1701,7 @@ ChallengeC = level.Level(
         b.Entity(600, 200, 650, 325, (255, 255, 224)),
         b.Entity(500, 600, 650, 650, (255, 255, 224)),
         s.Lever(400, 200, 600, 250, "up", (255, 255, 224)),
+        b.Coin(0, 0)
     ],
     background = (20, 20, 20),
     text = "!.Particle Accelerator",
