@@ -1688,7 +1688,25 @@ ChallengeB = level.Level(
     textLocation = (250, 100),
     textColor = (255, 255, 255),
 )
-ChallengeC = level.Level()
+ChallengeC = level.Level(
+    players = [
+        p.Player(300.0, 300.0,(245, 0, 0), inverted = False),
+    ],
+    levelObjects = [
+        s.Teleporter(175, 300, 450, 300, 0, (0, 255, 255)),
+        b.Entity(250, 600, 375, 650, (255, 255, 224)),
+        s.Lever(125, 475, 175, 650, "left", (255, 255, 224)),
+        b.Entity(0, 550, 50, 650, (255, 255, 224)),
+        s.Lever(0, 250, 100, 300, "down", (255, 255, 224)),
+        b.Entity(600, 200, 650, 325, (255, 255, 224)),
+        b.Entity(500, 600, 650, 650, (255, 255, 224)),
+        s.Lever(400, 200, 600, 250, "up", (255, 255, 224)),
+    ],
+    background = (20, 20, 20),
+    text = "!.Particle Accelerator",
+    textLocation = (0, 600),
+    textColor = (255, 255, 255),
+)
 
 # Maybe the hardest level...
 # U R D L R U D R U L
@@ -1739,7 +1757,19 @@ ChallengeD = level.Level(
     textLocation = (425, 50),
     textColor = (255, 255, 255),
 )
-ChallengeE = level.Level()
+ChallengeE = level.Level(
+    players = [
+        p.Player(400.0, 275.0,(245, 0, 0), inverted = False),
+    ],
+    levelObjects = [
+        b.Coin(400, 175,(20, 240, 20)),
+        b.Coin(400, 375,(20, 240, 20)),
+    ],
+    background = (20, 20, 20),
+    text = "World E-! is not finished...",
+    textLocation = (0, 400),
+    textColor = (255, 255, 255),
+)
 
 worldChallenge = [ChallengeA, ChallengeB, ChallengeC, ChallengeD, ChallengeE]
 for l in worldChallenge:
