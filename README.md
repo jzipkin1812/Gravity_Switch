@@ -50,10 +50,12 @@ You can directly edit your level's code to make tweaks that the editor doesn't s
 With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text into the terminal. (This feature uses Python's input() function.) The text should appear on screen.
 
 # Changelog
-## Version 1.6 (6/7/2025):
+## Version 1.6 (6/8/2025):
 * Remembered that this project still exists.
 * Fixed file paths so that the program works for all operating systems and you don't have to run from src.
 * Finished World E.
+* Added World C's challenge level. 
+* Challenge levels now send you back to the level select screen when complete.
 ## Version 1.5 (7/10/2024):
 * Added new "How to Play" and "Game Over" screens.
 * The player can now see the grid by holding Lshift at any time.
@@ -83,7 +85,8 @@ With your primary pointer on the top-left location of where you want your text, 
 * There is still no save file, so everything is unlocked right at the start.
 * All mechanics and objects from the original 2018 game are implemented.
 ## Plans for Future Versions
-* Finish challenge levels.
+* Finish challenge level for world E.
 * Fix the editor pointer bug mentioned above.
 * Lock levels until you finish the previous ones.
 * Add an ending screen after E-10.
+* I have ideas for a world F...?

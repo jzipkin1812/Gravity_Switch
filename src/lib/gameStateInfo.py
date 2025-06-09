@@ -64,6 +64,9 @@ class GameStateInfo:
         
         if (self.level.isComplete()) and self.advance:
             self.nextLevel()
+            # Completing challenge levels sends you back to the level select screen.
+            if (self.world == worldChallenge):
+                self.mode = "Level Select"
         elif (self.level.playerIsDead()):
             self.mode = "Game Over"
             self.level.reset()

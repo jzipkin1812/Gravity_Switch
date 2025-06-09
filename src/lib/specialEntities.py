@@ -85,7 +85,8 @@ class Cloud(Entity):
             return(True)
         return(False)
     def toString(self):
-        return("s.Cloud(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ")")
+        return("s.Cloud(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) +
+               ", " + str(self.color) + ")")
     def copy(self):
         return(Cloud(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2])))
 
@@ -109,7 +110,8 @@ class Antiplatform(Entity):
         else:
             u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 3)
     def toString(self):
-        return("s.Antiplatform(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", " + str(self.color) + ")")
+        return("s.Antiplatform(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + 
+               ", " + str(self.y2) + ", " + str(self.color) + ")")
     def copy(self):
         return(Antiplatform(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2])))
     
@@ -215,7 +217,8 @@ class Lever(Entity):
         elif self.direction == "left":
             u.betterRect(screen, self.x1, self.y1, (self.x2 + self.x1) // 2, self.y2, self.color, 0)
     def toString(self):
-        return("s.Lever(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" + self.direction + "\")")
+        return("s.Lever(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" 
+               + self.direction + "\"" + ", " + str(self.color) +  ")")
     def copy(self):
         return(Lever(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2])))
     
