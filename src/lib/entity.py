@@ -101,9 +101,9 @@ class Entity:
             player.y = self.y1 - player.size
             player.stop()
             did = True
-        
+        # Debug: Marks platforms red when hit to tell me whether they can be removed without consequence
         # if did:
-        #     self.color = (200, 0, 0)
+        #     self.color = (255, 0, 0)
         return(did)
     def inYRange(self, player: p.Player) -> bool:
         isAbove = (player.y + player.size) <= self.y1

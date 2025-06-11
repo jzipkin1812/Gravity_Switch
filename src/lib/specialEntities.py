@@ -88,6 +88,19 @@ class Redirector(Entity):
         self.direction = direction
     def collide(self, player: p.Player) -> bool:
         if self.willTouch(player):
+            # TODO: Improve this?
+            # For big players (world F onward) collision is more complex as
+            # we want to center the player on the redirector
+            # if(player.size > GRID_SIZE ):
+            #     if(player.direction == "left" or player.direction == "right"):
+            #         player.x = self.x1 - GRID_SIZE
+            #         player.y = self.y1
+            #     elif(player.direction == "up" or player.direction == "down"):
+            #         player.x = self.x1
+            #         player.y = self.y1 - GRID_SIZE
+            #     player.stop()
+            #     player.direction = self.direction
+            #     return(True)
             player.x = self.x1
             player.y = self.y1
             player.stop()
@@ -566,6 +579,7 @@ class Stone(Entity):
         # Ignore collisions if this isn't moving.
         if self.direction == "stop":
             return False
+        
         # Ignore collisions with certain types.
         if not (type(other) == Entity or 
                 (type(other) == BeatBlock and other.isOn()) or
@@ -573,6 +587,8 @@ class Stone(Entity):
                 type(other) == Stone or
                 type(other) == Antiplatform and other.solid):
             return False
+        
+        
         
         xv = self.xv * self.vMod
         yv = self.yv * self.vMod
@@ -593,19 +609,27 @@ class Stone(Entity):
         tryDown = round(bottom + yv)
         did = False
 
-        if self.direction == "right" and right <= other.x1 <= tryRight and self.qInYRange(other):
+        # If the pushing player collides with an object, we also stop.
+        if(other.isTouching(self.playerPushing)):
+            self.direction = "stop"
+            self.playerPushing.direction = "stop"
+            self.playerPushing.roundToGrid()
+            self.roundToGrid()
+            return(did)
+
+        if self.direction == "right" and ((right <= other.x1 <= tryRight and self.qInYRange(other)) or (did)):
             self.x1 = other.x1 - xSize
             self.x2 = other.x1
             did = True
-        elif self.direction == "left" and tryLeft <= other.x2 <= left and self.qInYRange(other):
+        elif self.direction == "left" and ((tryLeft <= other.x2 <= left and self.qInYRange(other)) or (did)):
             self.x1 = other.x2
             self.x2 = other.x2 + xSize
             did = True
-        elif self.direction == "up" and top >= other.y2 >= tryUp and self.qInXRange(other):
+        elif self.direction == "up" and ((top >= other.y2 >= tryUp and self.qInXRange(other)) or (did)):
             self.y1 = other.y2
             self.y2 = other.y2 + ySize
             did = True
-        elif self.direction == "down" and tryDown >= other.y1 >= bottom and self.qInXRange(other):
+        elif self.direction == "down" and ((tryDown >= other.y1 >= bottom and self.qInXRange(other)) or (did)):
             self.y1 = other.y1 - ySize
             self.y2 = other.y1
             did = True

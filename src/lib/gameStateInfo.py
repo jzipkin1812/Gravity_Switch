@@ -54,7 +54,7 @@ class GameStateInfo:
         self.editUses = 0
         self.doAdvance = True
         # Level select info
-        self.scrollMod: int = -2500
+        self.scrollMod: int = 0
 
     def update(self):
         self.frames += 1
