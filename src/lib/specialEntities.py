@@ -3,6 +3,7 @@ from . import player as p
 from .entity import *
 from .constants import *
 import pygame
+import math
 
 class NullCube(Entity):
     def __init__(self, x, y, color = (250, 0, 200)):
@@ -322,9 +323,6 @@ class BeatBlock(Entity):
         return(BeatBlock(self.x1, self.y1, self.x2, self.y2, self.parity))
     
 class Quicksand(Entity):
-    someoneMoving = False
-
-    
     def __init__(self, x1, y1, x2, y2, direction = "down", color = (139, 69, 19)):
         super().__init__(x1, y1, x2, y2, color)
         self.direction = direction
@@ -386,9 +384,6 @@ class Quicksand(Entity):
     def updateMove(self, milliseconds):
         if (self.settled) or (not self.activated):
             return
-        else:
-            Quicksand.someoneMoving = True
-
         accelMod = self.accel * (milliseconds) * GAME_SPEED
         
         if self.direction == "right" or self.direction == "left":
@@ -421,6 +416,7 @@ class Quicksand(Entity):
         if not (type(other) == Entity or 
                 (type(other) == BeatBlock and other.isOn()) or
                 type(other) == Quicksand and not other.activated or 
+                type(other) == Stone or
                 type(other) == Antiplatform and other.solid):
             return
         
@@ -463,6 +459,161 @@ class Quicksand(Entity):
         if did:
             self.activated = False
             self.settled  = True
+            self.roundToGrid()
+        return(did)
+
+    def qInYRange(self, other: Entity) -> bool:
+        isAbove = (other.y2 <= self.y1)
+        isBelow = (other.y1 >= self.y2)
+        return not(isAbove or isBelow)
+    def qInXRange(self, other: Entity) -> bool:
+        isLeft = (other.x2 <= self.x1)
+        isRight = (other.x1 >= self.x2)
+        return not(isLeft or isRight) 
+    
+    def roundToGrid(self):
+        def myround(num):
+            return GRID_SIZE * round(num / GRID_SIZE)
+        self.x1 = myround(self.x1)
+        self.y1 = myround(self.y1)
+        self.x2 = myround(self.x2)
+        self.y2 = myround(self.y2)
+
+class Stone(Entity):
+    def __init__(self, x1, y1, x2, y2, color = (150, 150, 150)):
+        super().__init__(x1, y1, x2, y2, color)
+        
+        self.xv = 0
+        self.yv = 0
+        
+        self.accel: float = 0
+        self.maxVelocity: int = 15
+        self.vMod: float = 1
+
+        self.playerPushing = None
+        self.direction : str = "stop"
+
+        avgLength = math.sqrt((x2 - x1) * (y2 - y1))
+        modLength = 225 - avgLength
+        
+
+        self.startSpeed = max(0.2, min(1, (modLength / 225.0)))
+        # print(avgLength, self.startSpeed)
+
+    def display(self, screen, unused = False):
+        super().display(screen, False)
+        
+    def collide(self, player: p.Player) -> bool:
+        # Always collide
+        pastDir = player.direction
+        did = super().collide(player)
+        # Push if heavy, otherwise just collide
+        if (did) and (player.size > GRID_SIZE):
+            self.direction = pastDir
+            self.playerPushing = player
+            player.direction = "freeze"
+            # Set constant velocity for push
+            if(self.direction == "down"):
+                self.yv = self.startSpeed
+            elif(self.direction == "up"):
+                self.yv = -1 * self.startSpeed
+            elif(self.direction == "left"):
+                self.xv = -1 * self.startSpeed
+            elif(self.direction == "right"):
+                self.xv = self.startSpeed
+        return(did)
+    
+    def toString(self):
+        return("s.Stone(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ")")
+    def copy(self):
+        return(Stone(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2])))
+
+    def getVmod(self, milliseconds):
+        self.vMod = (milliseconds) * GAME_SPEED
+        
+    def updateMove(self, milliseconds):
+        if (self.direction == "stop"):
+            return
+        accelMod = self.accel * (milliseconds) * GAME_SPEED
+        
+        if self.direction == "right" or self.direction == "left":
+            self.x1 += self.xv * self.vMod
+            self.x2 += self.xv * self.vMod
+            # Player carries with it
+            self.playerPushing.x += self.xv * self.vMod
+        if self.direction == "up" or self.direction == "down":
+            self.y1 += self.yv * self.vMod
+            self.y2 += self.yv * self.vMod
+            # Player carries with it
+            self.playerPushing.y += self.yv * self.vMod
+        
+        if self.direction == "stop":
+            self.xv = self.yv = 0
+            self.x1 = round(self.x1)
+            self.y1 = round(self.y1)
+            self.x2 = round(self.x2)
+            self.y2 = round(self.y2)
+        elif self.direction == "up":
+            self.yv = max(self.yv - accelMod, -1 * self.maxVelocity)
+        elif self.direction == "down":
+            self.yv = min(self.yv + accelMod, self.maxVelocity)
+        elif self.direction == "left":
+            self.xv = max(self.xv - accelMod, -1 * self.maxVelocity)
+        elif self.direction == "right":
+            self.xv = min(self.xv + accelMod, self.maxVelocity)
+    
+    def stoneCollide(self, other: Entity) -> bool:
+        # Ignore collisions if this isn't moving.
+        if self.direction == "stop":
+            return False
+        # Ignore collisions with certain types.
+        if not (type(other) == Entity or 
+                (type(other) == BeatBlock and other.isOn()) or
+                (type(other) == Quicksand and not other.activated) or 
+                type(other) == Stone or
+                type(other) == Antiplatform and other.solid):
+            return False
+        
+        xv = self.xv * self.vMod
+        yv = self.yv * self.vMod
+
+        xSize = self.x2 - self.x1
+        ySize = self.y2 - self.y1
+        
+        right = round(self.x2)
+        tryRight = round(right + xv)
+        
+        left = round(self.x1)
+        tryLeft = round(left + xv)
+        
+        top = round(self.y1)
+        tryUp = round(top + yv)
+        
+        bottom = round(self.y2)
+        tryDown = round(bottom + yv)
+        did = False
+
+        if self.direction == "right" and right <= other.x1 <= tryRight and self.qInYRange(other):
+            self.x1 = other.x1 - xSize
+            self.x2 = other.x1
+            did = True
+        elif self.direction == "left" and tryLeft <= other.x2 <= left and self.qInYRange(other):
+            self.x1 = other.x2
+            self.x2 = other.x2 + xSize
+            did = True
+        elif self.direction == "up" and top >= other.y2 >= tryUp and self.qInXRange(other):
+            self.y1 = other.y2
+            self.y2 = other.y2 + ySize
+            did = True
+        elif self.direction == "down" and tryDown >= other.y1 >= bottom and self.qInXRange(other):
+            self.y1 = other.y1 - ySize
+            self.y2 = other.y1
+            did = True
+
+        if did:
+            self.direction = "stop"
+            self.playerPushing.direction = "stop"
+            self.playerPushing.roundToGrid()
             self.roundToGrid()
         return(did)
 

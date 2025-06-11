@@ -63,6 +63,13 @@ class Level:
                         if not (otherPlatform is b):
                             b.quicksandCollide(otherPlatform)
                     b.updateMove(milliseconds)
+                elif type(b) == s.Stone:
+                    # Stones moves and collides with other entities
+                    b.getVmod(milliseconds)
+                    for otherPlatform in self.levelObjects:
+                        if not (otherPlatform is b):
+                            b.stoneCollide(otherPlatform)
+                    b.updateMove(milliseconds)
 
             p.updateMove(milliseconds)
     def toString(self) -> str:

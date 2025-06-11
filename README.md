@@ -20,6 +20,7 @@ Press the space key to create a rectangular platform, defined by the two editor 
 * To create antiplatforms (from Volcanic Delta), press: a
 * Blue Beat Block (from Brownian Motion Beach): , 
 * Pink Beat Block (from Brownian Motion Beach): .
+* Stone (from Disassociated Dreamscape): s
 ## Erasing and Undoing
 Press the backspace button and any object touching the primary pointer will be deleted. Be careful; multiple objects can be deleted at once if they all touch the primary pointer. To conveniently delete the most recently created object, press z.
 ## Small Objects
@@ -28,7 +29,7 @@ Non-platform objects take up only one 25x25 pixel square each, so they only depe
 * Goal square / Coin: c
 * Null cube (from Space Station): n
 * Reverse Player (from Dark Matter Mountains): v
-* Resizer (from Disassociated Dreamscape): s
+* Resizer (from Disassociated Dreamscape): d
 ## Directed Objects
 Some objects face a direction. To set the direction of an object you are about to place, use an arrow key. Then,
 * Redirector (from Volcanic Delta): i 
@@ -52,10 +53,12 @@ With your primary pointer on the top-left location of where you want your text, 
 
 # Changelog
 ## Version 1.7 (6/10/2025):
-* World F added. Only F-1 is implemented. Have fun!
+* World F added.
 * New graphics features added.
 * Small bugfix related to coin collisions fixed.
-* Resizers added. (Press S to use in editor)
+* Resizers added.
+* Stones added.
+
 ## Version 1.6 (6/8/2025):
 * Remembered that this project still exists.
 * Fixed file paths so that the program works for all operating systems and you don't have to run from src.

@@ -54,7 +54,7 @@ class GameStateInfo:
         self.editUses = 0
         self.doAdvance = True
         # Level select info
-        self.scrollMod: int = 0
+        self.scrollMod: int = -2500
 
     def update(self):
         self.frames += 1
@@ -240,8 +240,12 @@ class GameStateInfo:
                 self.level.levelObjects.append(entity.Coin(a[0], a[1], self.colors["coin"]))
             elif event.key == pygame.K_n:
                 self.level.levelObjects.append(special.NullCube(a[0], a[1]))
-            elif event.key == pygame.K_s:
+            elif event.key == pygame.K_d:
                 self.level.levelObjects.append(special.Resizer(a[0], a[1], 3))
+            elif event.key == pygame.K_s:
+                self.level.levelObjects.append(special.Stone(a[0], a[1], 
+                                                            b[0], b[1]))
+
             # Text Location
             elif event.key == pygame.K_TAB:
                 self.level.textLocation = (a[0], a[1])

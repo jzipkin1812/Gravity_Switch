@@ -76,6 +76,12 @@ class Player:
     def toString(self):
         return("p.Player(" + str(self.x) + ", " + str(self.y) + "," + str(self.color) + ", inverted = " + str(self.inverted) + ")")
 
+    def roundToGrid(self):
+        def myround(num):
+            return GRID_SIZE * round(num / GRID_SIZE)
+        self.x = myround(self.x)
+        self.y = myround(self.y)
+
     # #This is only for debug, so I can view the player stats
     # def __repr__(self):
     #     return(str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) \
