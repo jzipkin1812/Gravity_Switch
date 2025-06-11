@@ -227,4 +227,5 @@ A10 = level.Level(
         s.Cloud(225, 175, 400, 200),
         b.Coin(50, 150),
     ],
+    background = (0, 0, 30),
 )
