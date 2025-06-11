@@ -175,7 +175,7 @@ class GameStateInfo:
     def processLevelSelect(self, event: pygame.event.Event):        
         if event.type == pygame.MOUSEWHEEL:
             self.scrollMod += 20 * event.y
-            self.scrollMod = max(min(0, self.scrollMod), -2600 + SCREEN_HEIGHT)
+            self.scrollMod = max(min(0, self.scrollMod), -3247 + SCREEN_HEIGHT)
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 self.mode = "Title Screen"
