@@ -1,3 +1,4 @@
+import pygame
 from . import utility as u
 from . import player as p
 from .constants import *
@@ -12,8 +13,56 @@ class Entity:
         self.required = False
 
     
-    def display(self, screen):
-        u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 0)
+    def display(self, screen, gridlike = False):
+        if(gridlike):
+            self.displayGridlike(screen)
+        else:
+            u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 0)
+
+    def displayGridlike(self, screen):
+        spacing = GRID_SIZE / 2
+        lineWidth = 2
+        width = abs(self.x2 - self.x1)
+        height = abs(self.y2 - self.y1)
+
+        left = self.x1
+        top = self.y1
+        right = self.x2
+        bottom = self.y2
+        y = top
+        while y < bottom:
+            dx = min(width, bottom - y)
+            pygame.draw.line(screen, self.color, (left, y), (left + dx, y + dx), lineWidth)
+            y += spacing
+        while y > top:
+            dx = min(width, y - top)
+            pygame.draw.line(screen, self.color, (left, y), (left + dx, y - dx), lineWidth)
+            y -= spacing
+
+        
+        x = left
+        while x < right:
+            dy = min(height, right - x)
+            pygame.draw.line(screen, self.color, (x, top), (x + dy, top + dy), lineWidth)
+            x += spacing
+        while x > left:
+            dy = min(height, x - left)
+            pygame.draw.line(screen, self.color, (x, top), (x - dy, top + dy), lineWidth)
+            x -= spacing
+        
+        x = left
+        while x < right:
+            dy = min(height, right - x)
+            pygame.draw.line(screen, self.color, (x, bottom), (x + dy, bottom - dy), lineWidth)
+            x += spacing
+        while x > left:
+            dy = min(height, x - left)
+            pygame.draw.line(screen, self.color, (x, bottom), (x - dy, bottom - dy), lineWidth)
+            x -= spacing
+
+
+        
+        u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 2)
     
     def collide(self, player: p.Player) -> bool:
         xv = player.xv * player.vMod
@@ -106,6 +155,9 @@ class Entity:
 
     def isOn(self):
         return(False)
+    
+    def order(self) -> int:
+        return(1)
         
         
 class Coin(Entity):
@@ -118,11 +170,12 @@ class Coin(Entity):
             return(True)
         else:
             return(False)
-    def display(self, screen):
+    def display(self, screen, gridlike = False):
         # print(self.color)
         u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 0)
     def toString(self):
         return("b.Coin(" + str(self.x1) + ", " + str(self.y1) + "," + str((self.color[0], self.color[1], self.color[2])) + ")")
     def copy(self):
         return(Coin(self.x1, self.y1, (self.color[0], self.color[1], self.color[2])))
-    
+    def order(self) -> int:
+        return(2)

@@ -18,7 +18,8 @@ class Level:
         self.origObjects: list[entity.Block] = []
         for o in levelObjects:
             self.origObjects.append(o.copy())
-        
+        # Sort objects
+        self.levelObjects.sort(key = lambda obj: obj.order())
         # Aesthetics
         self.background: tuple = background
         self.text: str = text
@@ -37,14 +38,14 @@ class Level:
                 return(True)
         return(False)
     
-    def display(self, screen):
+    def display(self, screen, gridPlatforms = False):
         screen.fill(self.background)
         u.transparentScreenText(self.textLocation[0], self.textLocation[1], 
                                 screen, self.text, 45, self.textColor)
         for p in self.players:
             p.display(screen)
         for b in self.levelObjects:
-            b.display(screen)
+            b.display(screen, gridPlatforms)
         
     def update(self, milliseconds = 1):
         # print(milliseconds)
@@ -91,6 +92,8 @@ class Level:
         self.levelObjects = []
         for oo in self.origObjects:
             self.levelObjects.append(oo.copy())
+
+        self.levelObjects.sort(key = lambda obj: obj.order())
             
         s.BeatBlock.solidParity = "blue" 
     
@@ -102,6 +105,7 @@ class Level:
         self.origObjects = []
         for o in self.levelObjects:
             self.origObjects.append(o.copy())
+        self.levelObjects.sort(key = lambda obj: obj.order())
     
     def erase(self, x, y):
         for o in self.levelObjects:

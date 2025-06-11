@@ -52,7 +52,7 @@ class GameStateInfo:
         self.levelDumpFile = open("levelDump.txt", "w")
         self.editDirection = "up"
         self.editUses = 0
-        self.doAdvance = True
+        self.doAdvance = False
         # Level select info
         self.scrollMod: int = 0
 
@@ -89,7 +89,7 @@ class GameStateInfo:
     
     def displayLevel(self):
 
-        self.level.display(self.screen)
+        self.level.display(self.screen, (self.world == worldF))
         if pygame.key.get_pressed()[pygame.K_LSHIFT]:
             self.displayGrid()
     def displayGameOver(self):
@@ -101,11 +101,12 @@ class GameStateInfo:
             pygame.draw.line(self.screen, (75, 75, 75), (0, i), (SCREEN_WIDTH, i))
     def displayLevelEditor(self):
         self.advance = False
-        self.level.display(self.screen)
+        self.level.display(self.screen, self.world == worldF)
         self.displayGrid()
         # editor pointers
         pygame.draw.circle(self.screen, (255, 0, 0), self.point1, 5)
         pygame.draw.circle(self.screen, (255, 255, 255), self.point2, 5)
+        
     
     def process(self, event: pygame.event.Event):
         # Clicking x button
@@ -181,6 +182,7 @@ class GameStateInfo:
                 self.mode = "Title Screen"
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
+                # print(f"({self.mouseX}, {self.mouseY - self.scrollMod})")
                 self.selectLevel()
 
     def processEditor(self, event: pygame.event.Event):
@@ -238,6 +240,8 @@ class GameStateInfo:
                 self.level.levelObjects.append(entity.Coin(a[0], a[1], self.colors["coin"]))
             elif event.key == pygame.K_n:
                 self.level.levelObjects.append(special.NullCube(a[0], a[1]))
+            elif event.key == pygame.K_s:
+                self.level.levelObjects.append(special.Resizer(a[0], a[1], 3))
             # Text Location
             elif event.key == pygame.K_TAB:
                 self.level.textLocation = (a[0], a[1])
@@ -314,8 +318,14 @@ class GameStateInfo:
             self.colors = colorsWorldD
         elif destination == worldE:
             self.colors = colorsWorldE
+        elif destination == worldF:
+            self.colors = colorsWorldF
         elif destination == worldChallenge:
             self.colors = colorsWorldChallenge
+        # In developer mode, the level's background should be set
+        if (not self.doAdvance):
+            self.level.background = self.colors["background"]
+            self.level.solidify()
                    
     def displayHowToPlay(self):
         self.screen.blit(howToPlayImage, (0, 0))

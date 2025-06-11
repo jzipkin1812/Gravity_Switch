@@ -59,6 +59,18 @@ colorsWorldE = {
     "text" : (0, 0, 255),
 }
 
+colorsWorldF = {
+    "platform" : (198, 255, 0),
+    "player" : (255, 0, 171),
+    "inverted" : (0, 255, 104),
+    "special" : (255, 243, 179),
+    "coin" : (255, 255, 0),
+    "cloud" : (255, 255, 224),
+    "background" : (125, 28, 148),
+    "text" : (255, 243, 179),
+}
+
+
 colorsWorldChallenge = {
     "platform" : (255, 255, 224),
     "player" : (245, 0, 0),
@@ -71,7 +83,7 @@ colorsWorldChallenge = {
 }
 
 
-GLOBALCOLORS = colorsWorldA
+GLOBALCOLORS = colorsWorldF
 
 LEVEL_SQUARE_SIZE = 75
 levelSelectWorldA = [
@@ -139,6 +151,19 @@ levelSelectWorldE = [
 (477, 2277),
 (506, 2403),
 (373, 2497),
+]
+
+levelSelectWorldF = [
+(65, 2613),
+(102, 2733),
+(65, 2848),
+(140, 2957),
+(205, 2855),
+(248, 2973),
+(320, 2859),
+(353, 2977),
+(436, 2874),
+(522, 2777),
 ]
 
 levelSelectWorldChallenge = [

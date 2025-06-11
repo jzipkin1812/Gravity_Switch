@@ -16,12 +16,51 @@ class NullCube(Entity):
             return(True)
         else:
             return(False)
-    def display(self, screen):
+    def display(self, screen, gridlike = False):
         u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 3)
     def toString(self):
         return("s.NullCube(" + str(self.x1) + ", " + str(self.y1) + ")")
     def copy(self):
         return(NullCube(self.x1, self.y1, (self.color[0], self.color[1], self.color[2])))
+    
+
+class Resizer(Entity):
+    def __init__(self, x, y, multiplier = 3, color = (255, 243, 179)):
+        super().__init__(x, y, x + GRID_SIZE * multiplier, y + GRID_SIZE * multiplier, color)
+        self.multiplier = multiplier
+        self.small = GRID_SIZE
+        self.large = GRID_SIZE * multiplier
+        self.x3 = self.x1 +     int((self.x2 - self.x1) / 3.0)
+        self.x4 = self.x1 + 2 * int((self.x2 - self.x1) / 3.0)
+        self.y3 = self.y1 +     int((self.y2 - self.y1) / 3.0)
+        self.y4 = self.y1 + 2 * int((self.y2 - self.y1) / 3.0)
+
+
+    def collide(self, player: p.Player) -> bool:
+        if self.willTouch(player):
+            # Case 1: Embiggen
+            if(player.size < self.large):
+                player.x = self.x1
+                player.y = self.y1
+                player.size = self.large
+                # player.stop()
+            else:
+                player.x = self.x3
+                player.y = self.y3
+                player.size = self.small
+                # player.stop()
+            return(True)
+        else:
+            return(False)
+    
+    def display(self, screen, gridlike = False):
+        u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 2)
+        u.betterRect(screen, self.x3, self.y3, self.x4, self.y4, self.color, 2)
+    def toString(self):
+        return("s.Resizer(" + str(self.x1) + ", " + str(self.y1) + ", " + 
+               str(self.multiplier) + "," + str(self.color) + ")")
+    def copy(self):
+        return(Resizer(self.x1, self.y1, self.multiplier, (self.color[0], self.color[1], self.color[2])))
 
 class Teleporter(Entity):
     def __init__(self, x, y, color = (250, 0, 200)):
@@ -35,7 +74,7 @@ class Teleporter(Entity):
             return(True)
         else:
             return(False)
-    def display(self, screen):
+    def display(self, screen, gridlike = False):
         u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 3)
     def toString(self):
         return("s.NullCube(" + str(self.x1) + ", " + str(self.y1) + ")")
@@ -55,7 +94,7 @@ class Redirector(Entity):
             return(True)
         else:
             return(False)
-    def display(self, screen):
+    def display(self, screen, gridlike = False):
         centerX = self.x1 + GRID_SIZE / 2
         centerY = self.y1 + GRID_SIZE / 2
         u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 3)
@@ -104,7 +143,7 @@ class Antiplatform(Entity):
         else:
             if not self.willTouch(player):
                 self.solid = True
-    def display(self, screen):
+    def display(self, screen, gridlike = False):
         if self.solid:
             super().display(screen)
         else:
@@ -121,7 +160,7 @@ class Teleporter(Entity):
         self.uses = uses
         
     
-    def display(self, screen):
+    def display(self, screen, gridlike = False):
         x11 = self.x1
         x12 = self.x1 + GRID_SIZE
         y11 = self.y1
@@ -206,7 +245,7 @@ class Lever(Entity):
         elif self.willTouch(player):
             self.direction = u.invert(self.direction)
             self.hollow = True
-    def display(self, screen):
+    def display(self, screen, gridlike = False):
         u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 2)
         if self.direction == "up":
             u.betterRect(screen, self.x1, self.y1, self.x2, (self.y1 + self.y2) // 2, self.color, 0)
@@ -233,7 +272,7 @@ class Tar(Entity):
            (abs(player.xv) < 1) and (abs(player.yv) < 1)):
             player.stop()
         
-    def display(self, screen):
+    def display(self, screen, gridlike = False):
         if self.direction == "up":
             u.betterRect(screen, self.x1, self.y1, self.x2, (self.y1 + self.y2) // 2, self.color, 0)
         elif self.direction == "down":
@@ -272,7 +311,7 @@ class BeatBlock(Entity):
             return(result)
         else:   
             return(False)
-    def display(self, screen):
+    def display(self, screen, gridlike = False):
         if self.isOn():
             super().display(screen)
         else:
@@ -308,7 +347,7 @@ class Quicksand(Entity):
             self.activated = True
         return(did)
     
-    def display(self, screen):
+    def display(self, screen, gridlike = False):
         super().display(screen)
         if not (self.settled or self.activated):
             self.drawSpikes(screen)

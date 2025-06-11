@@ -28,6 +28,7 @@ Non-platform objects take up only one 25x25 pixel square each, so they only depe
 * Goal square / Coin: c
 * Null cube (from Space Station): n
 * Reverse Player (from Dark Matter Mountains): v
+* Resizer (from Deconstructed Dreamscape): s
 ## Directed Objects
 Some objects face a direction. To set the direction of an object you are about to place, use an arrow key. Then,
 * Redirector (from Volcanic Delta): i 
@@ -50,6 +51,11 @@ You can directly edit your level's code to make tweaks that the editor doesn't s
 With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text into the terminal. (This feature uses Python's input() function.) The text should appear on screen.
 
 # Changelog
+## Version 1.7 (6/10/2025):
+* World F added. Only F-1 is implemented. Have fun!
+* New graphics features added.
+* Small bugfix related to coin collisions fixed.
+* Resizers added. (Press S to use in editor)
 ## Version 1.6 (6/8/2025):
 * Remembered that this project still exists.
 * Fixed file paths so that the program works for all operating systems and you don't have to run from src.
@@ -88,5 +94,5 @@ With your primary pointer on the top-left location of where you want your text, 
 * Finish challenge level for world E.
 * Fix the editor pointer bug mentioned above.
 * Lock levels until you finish the previous ones.
-* Add an ending screen after E-10.
-* I have ideas for a world F...?
+* Add an ending screen after F-10.
+* Allow different multipliers for resizers.
