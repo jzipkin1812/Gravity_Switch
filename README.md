@@ -58,7 +58,6 @@ With your primary pointer on the top-left location of where you want your text, 
 * Small bugfix related to coin collisions fixed.
 * Resizers added.
 * Stones added.
-
 ## Version 1.6 (6/8/2025):
 * Remembered that this project still exists.
 * Fixed file paths so that the program works for all operating systems and you don't have to run from src.
