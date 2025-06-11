@@ -3,7 +3,6 @@
 import pygame
 from lib import gameStateInfo as gs
 from lib import utility as u
-import math
 from lib import constants as c
 
 pygame.mixer.pre_init(44100, -16, 2, 2048)

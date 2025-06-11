@@ -1,11 +1,12 @@
 import pygame
-from .premadeLevels import *
+from .worlds import *
 from . import level
 from . import player
 from . import entity
 from . import specialEntities as special 
 from .constants import *
 from .loadAssets import *
+
 class GameStateInfo:
     def __init__(self, pygameScreen):
         # Pygame variables
