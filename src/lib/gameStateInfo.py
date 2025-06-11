@@ -52,7 +52,7 @@ class GameStateInfo:
         self.levelDumpFile = open("levelDump.txt", "w")
         self.editDirection = "up"
         self.editUses = 0
-        self.doAdvance = False
+        self.doAdvance = True
         # Level select info
         self.scrollMod: int = 0
 
