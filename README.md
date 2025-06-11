@@ -28,7 +28,7 @@ Non-platform objects take up only one 25x25 pixel square each, so they only depe
 * Goal square / Coin: c
 * Null cube (from Space Station): n
 * Reverse Player (from Dark Matter Mountains): v
-* Resizer (from Deconstructed Dreamscape): s
+* Resizer (from Disassociated Dreamscape): s
 ## Directed Objects
 Some objects face a direction. To set the direction of an object you are about to place, use an arrow key. Then,
 * Redirector (from Volcanic Delta): i 
