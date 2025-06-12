@@ -16,9 +16,6 @@ class Entity:
         self.required = False
         self.timestamp = Entity.globalCtr
         Entity.globalCtr += 1
-        print("Created timestamp", self.timestamp)
-
-    
     def display(self, screen, gridlike = False):
         if(gridlike):
             self.displayGridlike(screen)
