@@ -3,6 +3,9 @@ from . import utility as u
 from . import player as p
 from .constants import *
 class Entity:
+    # This monotonically increasing counter
+    # tracks how recently items have been added to a level.
+    globalCtr = 0
     def __init__(self, x1, y1, x2, y2, color = (100, 149, 237)):
         self.x1 = x1
         self.y1 = y1
@@ -11,6 +14,9 @@ class Entity:
         self.color = color
         self.dead = False
         self.required = False
+        self.timestamp = Entity.globalCtr
+        Entity.globalCtr += 1
+        print("Created timestamp", self.timestamp)
 
     
     def display(self, screen, gridlike = False):
@@ -147,8 +153,10 @@ class Entity:
             return(True)
         
     def copy(self):
-        return(Entity(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2])))
-
+        result = (Entity(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2])))
+        result.timestamp = self.timestamp
+        return(result)
+    
     def erase(self, x, y):
         if (self.x1 <= x <= self.x2 and self.y1 <= y <= self.y2):
             self.dead = True
@@ -176,6 +184,8 @@ class Coin(Entity):
     def toString(self):
         return("b.Coin(" + str(self.x1) + ", " + str(self.y1) + "," + str((self.color[0], self.color[1], self.color[2])) + ")")
     def copy(self):
-        return(Coin(self.x1, self.y1, (self.color[0], self.color[1], self.color[2])))
+        result = Coin(self.x1, self.y1, (self.color[0], self.color[1], self.color[2]))
+        result.timestamp = self.timestamp
+        return(result)
     def order(self) -> int:
         return(2)

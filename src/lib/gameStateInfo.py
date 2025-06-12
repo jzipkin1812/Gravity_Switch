@@ -201,7 +201,10 @@ class GameStateInfo:
             # Undo
             if event.key == pygame.K_z:
                 if len(self.level.levelObjects) > 0:
-                    self.level.levelObjects.pop()
+                    self.level.levelObjects.sort(key = lambda obj: obj.timestamp)
+                    result : entity.Entity = self.level.levelObjects.pop()
+                    print("Undid object with timestamp", result.timestamp)
+                    self.level.levelObjects.sort(key = lambda obj: obj.order())
             elif event.key == pygame.K_SPACE:
                 self.level.levelObjects.append(entity.Entity(a[0], a[1], 
                                                             b[0], b[1], self.colors["platform"]))

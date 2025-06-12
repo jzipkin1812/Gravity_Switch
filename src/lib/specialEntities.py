@@ -22,7 +22,9 @@ class NullCube(Entity):
     def toString(self):
         return("s.NullCube(" + str(self.x1) + ", " + str(self.y1) + ")")
     def copy(self):
-        return(NullCube(self.x1, self.y1, (self.color[0], self.color[1], self.color[2])))
+        result = NullCube(self.x1, self.y1, (self.color[0], self.color[1], self.color[2]))
+        result.timestamp = self.timestamp
+        return(result)
     
 
 class Resizer(Entity):
@@ -61,7 +63,9 @@ class Resizer(Entity):
         return("s.Resizer(" + str(self.x1) + ", " + str(self.y1) + ", " + 
                str(self.multiplier) + "," + str(self.color) + ")")
     def copy(self):
-        return(Resizer(self.x1, self.y1, self.multiplier, (self.color[0], self.color[1], self.color[2])))
+        result = (Resizer(self.x1, self.y1, self.multiplier, (self.color[0], self.color[1], self.color[2])))
+        result.timestamp = self.timestamp
+        return(result)
 
 class Teleporter(Entity):
     def __init__(self, x, y, color = (250, 0, 200)):
@@ -80,7 +84,9 @@ class Teleporter(Entity):
     def toString(self):
         return("s.NullCube(" + str(self.x1) + ", " + str(self.y1) + ")")
     def copy(self):
-        return(NullCube(self.x1, self.y1, (self.color[0], self.color[1], self.color[2])))
+        result = NullCube(self.x1, self.y1, (self.color[0], self.color[1], self.color[2]))
+        result.timestamp = self.timestamp
+        return(result)
 
 class Redirector(Entity):
     def __init__(self, x, y, direction = "up", color = (250, 200, 0)):
@@ -123,7 +129,9 @@ class Redirector(Entity):
     def toString(self):
         return("s.Redirector(" + str(self.x1) + ", " + str(self.y1) + ", \"" + self.direction + "\")")
     def copy(self):
-        return(Redirector(self.x1, self.y1, self.direction, (self.color[0], self.color[1], self.color[2])))
+        result = Redirector(self.x1, self.y1, self.direction, (self.color[0], self.color[1], self.color[2]))
+        result.timestamp = self.timestamp
+        return(result)
    
 class Cloud(Entity):
     def __init__(self, x1, y1, x2, y2, color = (200, 200, 200)):
@@ -141,7 +149,9 @@ class Cloud(Entity):
         return("s.Cloud(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) +
                ", " + str(self.color) + ")")
     def copy(self):
-        return(Cloud(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2])))
+        result = Cloud(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2]))
+        result.timestamp = self.timestamp
+        return(result)
 
 class Antiplatform(Entity):
     def __init__(self, x1, y1, x2, y2, color = (85, 51, 51)):
@@ -166,7 +176,9 @@ class Antiplatform(Entity):
         return("s.Antiplatform(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + 
                ", " + str(self.y2) + ", " + str(self.color) + ")")
     def copy(self):
-        return(Antiplatform(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2])))
+        result = Antiplatform(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2]))
+        result.timestamp = self.timestamp
+        return(result)
     
 class Teleporter(Entity):
     def __init__(self, x1, y1, x2, y2, uses = 0, color = (144, 169, 85)):
@@ -237,7 +249,9 @@ class Teleporter(Entity):
         return("s.Teleporter(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", " \
             + str(self.uses) + ", " + str(self.color) + ")")
     def copy(self):
-        return(Teleporter(self.x1, self.y1, self.x2, self.y2, self.uses, (self.color[0], self.color[1], self.color[2])))
+        result = Teleporter(self.x1, self.y1, self.x2, self.y2, self.uses, (self.color[0], self.color[1], self.color[2]))
+        result.timestamp = self.timestamp
+        return(result)
 
 
 class Lever(Entity):
@@ -273,7 +287,9 @@ class Lever(Entity):
         return("s.Lever(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" 
                + self.direction + "\"" + ", " + str(self.color) +  ")")
     def copy(self):
-        return(Lever(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2])))
+        result = Lever(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2]))
+        result.timestamp = self.timestamp
+        return(result)
     
 
 class Tar(Entity):
@@ -298,7 +314,9 @@ class Tar(Entity):
     def toString(self):
         return("s.Tar(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" + self.direction + "\")")
     def copy(self):
-        return(Tar(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2])))
+        result = Tar(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2]))
+        result.timestamp = self.timestamp
+        return(result)
 
 class BeatBlock(Entity):
     solidParity = "blue"
@@ -333,7 +351,9 @@ class BeatBlock(Entity):
     def toString(self):
         return("s.BeatBlock(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" + self.parity + "\")")
     def copy(self):
-        return(BeatBlock(self.x1, self.y1, self.x2, self.y2, self.parity))
+        result = (BeatBlock(self.x1, self.y1, self.x2, self.y2, self.parity))
+        result.timestamp = self.timestamp
+        return(result)
     
 class Quicksand(Entity):
     def __init__(self, x1, y1, x2, y2, direction = "down", color = (139, 69, 19)):
@@ -389,7 +409,9 @@ class Quicksand(Entity):
     def toString(self):
         return("s.Quicksand(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" + self.direction + "\")")
     def copy(self):
-        return(Quicksand(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2])))
+        result = (Quicksand(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2])))
+        result.timestamp = self.timestamp
+        return(result)
 
     def getVmod(self, milliseconds):
         self.vMod = (milliseconds) * GAME_SPEED
@@ -491,29 +513,6 @@ class Quicksand(Entity):
         self.y1 = myround(self.y1)
         self.x2 = myround(self.x2)
         self.y2 = myround(self.y2)
-def draw_dashed_line(surface, color, start_pos, end_pos, dash_length=10, space_length=5, width=1):
-    # Calculate direction vector
-    x1, y1 = start_pos
-    x2, y2 = end_pos
-    dx = x2 - x1
-    dy = y2 - y1
-    distance = math.hypot(dx, dy)
-    angle = math.atan2(dy, dx)
-
-    # Normalize direction vector
-    dash_space = dash_length + space_length
-    num_dashes = int(distance // dash_space)
-
-    for i in range(num_dashes + 1):
-        start_x = x1 + (i * dash_space) * math.cos(angle)
-        start_y = y1 + (i * dash_space) * math.sin(angle)
-        end_x = start_x + dash_length * math.cos(angle)
-        end_y = start_y + dash_length * math.sin(angle)
-
-        if math.hypot(end_x - x1, end_y - y1) > distance:
-            break  # Avoid overshooting
-
-        pygame.draw.line(surface, color, (start_x, start_y), (end_x, end_y), width)
 
 class Stone(Entity):
     def __init__(self, x1, y1, x2, y2, color = (150, 150, 150)):
@@ -541,10 +540,10 @@ class Stone(Entity):
         d = 3
         borderWidth = 2
         borderColor = (self.color[0]/d, self.color[1]/d, self.color[2]/d)
-        draw_dashed_line(screen, borderColor, (self.x1, self.y1), (self.x1, self.y2), 5, 5, borderWidth)
-        draw_dashed_line(screen, borderColor, (self.x2, self.y1), (self.x2, self.y2), 5, 5, borderWidth)
-        draw_dashed_line(screen, borderColor, (self.x1, self.y1), (self.x2, self.y1), 5, 5, borderWidth)
-        draw_dashed_line(screen, borderColor, (self.x1, self.y2), (self.x2, self.y2), 5, 5, borderWidth)
+        u.dashedLine(screen, borderColor, (self.x1, self.y1), (self.x1, self.y2), 5, 5, borderWidth)
+        u.dashedLine(screen, borderColor, (self.x2, self.y1), (self.x2, self.y2), 5, 5, borderWidth)
+        u.dashedLine(screen, borderColor, (self.x1, self.y1), (self.x2, self.y1), 5, 5, borderWidth)
+        u.dashedLine(screen, borderColor, (self.x1, self.y2), (self.x2, self.y2), 5, 5, borderWidth)
         # u.betterRect(screen, self.x1, self.y1, self.x2, self.y2,
         #               (self.color[0]/d, self.color[1]/d, self.color[2]/d), borderWidth)
         
@@ -571,7 +570,9 @@ class Stone(Entity):
     def toString(self):
         return("s.Stone(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ")")
     def copy(self):
-        return(Stone(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2])))
+        result = (Stone(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2])))
+        result.timestamp = self.timestamp
+        return(result)
 
     def getVmod(self, milliseconds):
         self.vMod = (milliseconds) * GAME_SPEED

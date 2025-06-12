@@ -31,3 +31,28 @@ def invert(direction: str) -> str:
         "right" : "left",
     }
     return(inverted[direction])
+
+def dashedLine(surface, color, startPos, endPos, dashLength=10, spaceLength=5, width=1):
+    # Calculate direction vector
+    x1, y1 = startPos
+    x2, y2 = endPos
+    dx = x2 - x1
+    dy = y2 - y1
+    distance = math.hypot(dx, dy)
+    angle = math.atan2(dy, dx)
+
+    # Normalize direction vector
+    dash_space = dashLength + spaceLength
+    num_dashes = int(distance // dash_space)
+
+    for i in range(num_dashes + 1):
+        startX = x1 + (i * dash_space) * math.cos(angle)
+        startY = y1 + (i * dash_space) * math.sin(angle)
+        endX = startX + dashLength * math.cos(angle)
+        endY = startY + dashLength * math.sin(angle)
+
+        if math.hypot(endX - x1, endY - y1) > distance:
+            break  # Avoid overshooting
+
+        pygame.draw.line(surface, color, (startX, startY), (endX, endY), width)
+
