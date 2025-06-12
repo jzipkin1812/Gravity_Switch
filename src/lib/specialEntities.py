@@ -491,6 +491,29 @@ class Quicksand(Entity):
         self.y1 = myround(self.y1)
         self.x2 = myround(self.x2)
         self.y2 = myround(self.y2)
+def draw_dashed_line(surface, color, start_pos, end_pos, dash_length=10, space_length=5, width=1):
+    # Calculate direction vector
+    x1, y1 = start_pos
+    x2, y2 = end_pos
+    dx = x2 - x1
+    dy = y2 - y1
+    distance = math.hypot(dx, dy)
+    angle = math.atan2(dy, dx)
+
+    # Normalize direction vector
+    dash_space = dash_length + space_length
+    num_dashes = int(distance // dash_space)
+
+    for i in range(num_dashes + 1):
+        start_x = x1 + (i * dash_space) * math.cos(angle)
+        start_y = y1 + (i * dash_space) * math.sin(angle)
+        end_x = start_x + dash_length * math.cos(angle)
+        end_y = start_y + dash_length * math.sin(angle)
+
+        if math.hypot(end_x - x1, end_y - y1) > distance:
+            break  # Avoid overshooting
+
+        pygame.draw.line(surface, color, (start_x, start_y), (end_x, end_y), width)
 
 class Stone(Entity):
     def __init__(self, x1, y1, x2, y2, color = (150, 150, 150)):
@@ -515,6 +538,15 @@ class Stone(Entity):
 
     def display(self, screen, unused = False):
         super().display(screen, False)
+        d = 3
+        borderWidth = 2
+        borderColor = (self.color[0]/d, self.color[1]/d, self.color[2]/d)
+        draw_dashed_line(screen, borderColor, (self.x1, self.y1), (self.x1, self.y2), 5, 5, borderWidth)
+        draw_dashed_line(screen, borderColor, (self.x2, self.y1), (self.x2, self.y2), 5, 5, borderWidth)
+        draw_dashed_line(screen, borderColor, (self.x1, self.y1), (self.x2, self.y1), 5, 5, borderWidth)
+        draw_dashed_line(screen, borderColor, (self.x1, self.y2), (self.x2, self.y2), 5, 5, borderWidth)
+        # u.betterRect(screen, self.x1, self.y1, self.x2, self.y2,
+        #               (self.color[0]/d, self.color[1]/d, self.color[2]/d), borderWidth)
         
     def collide(self, player: p.Player) -> bool:
         # Always collide
@@ -580,6 +612,17 @@ class Stone(Entity):
         if self.direction == "stop":
             return False
         
+        # Stones don't care at all about coins,
+        # but the player pushing them should be able to collide with coins
+        # while frozen.
+        # To process this collision, we temporarily (e.g. just within this function)
+        # set the direction of the player.
+        if(type(other) == Coin):
+            self.playerPushing.direction = self.direction
+            other.collide(self.playerPushing)
+            self.playerPushing.direction = "freeze"
+
+        
         # Ignore collisions with certain types.
         if not (type(other) == Entity or 
                 (type(other) == BeatBlock and other.isOn()) or
@@ -617,19 +660,20 @@ class Stone(Entity):
             self.roundToGrid()
             return(did)
 
-        if self.direction == "right" and ((right <= other.x1 <= tryRight and self.qInYRange(other)) or (did)):
+
+        if self.direction == "right" and (right <= other.x1 <= tryRight and self.qInYRange(other)) :
             self.x1 = other.x1 - xSize
             self.x2 = other.x1
             did = True
-        elif self.direction == "left" and ((tryLeft <= other.x2 <= left and self.qInYRange(other)) or (did)):
+        elif self.direction == "left" and (tryLeft <= other.x2 <= left and self.qInYRange(other)) :
             self.x1 = other.x2
             self.x2 = other.x2 + xSize
             did = True
-        elif self.direction == "up" and ((top >= other.y2 >= tryUp and self.qInXRange(other)) or (did)):
+        elif self.direction == "up" and (top >= other.y2 >= tryUp and self.qInXRange(other)) :
             self.y1 = other.y2
             self.y2 = other.y2 + ySize
             did = True
-        elif self.direction == "down" and ((tryDown >= other.y1 >= bottom and self.qInXRange(other)) or (did)):
+        elif self.direction == "down" and (tryDown >= other.y1 >= bottom and self.qInXRange(other)) :
             self.y1 = other.y1 - ySize
             self.y2 = other.y1
             did = True
