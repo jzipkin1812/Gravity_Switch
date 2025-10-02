@@ -21,12 +21,46 @@ def resource_path(relative_path: str) -> str:
 
     return os.path.join(base_path, relative_path)
 
+def loadImage(name : str):
+    return pygame.image.load(os.path.join(assets_dir, name))
+
+def loadSound(name : str):
+    return pygame.mixer.Sound(os.path.join(assets_dir, name))
 
 # Path to the assets directory (inside lib/assets)
 assets_dir = resource_path("assets")
 
 # Load images
-titleImage = pygame.image.load(os.path.join(assets_dir, "titleScreen.png"))
-levelSelectImage = pygame.image.load(os.path.join(assets_dir, "levelSelect.png"))
-gameOverImage = pygame.image.load(os.path.join(assets_dir, "gameover.png"))
-howToPlayImage = pygame.image.load(os.path.join(assets_dir, "howToPlay.png"))
+titleImage = loadImage("titleScreen.png")
+levelSelectImage = loadImage("levelSelect.png") 
+gameOverImage = loadImage("gameover.png") 
+howToPlayImage = loadImage("howToPlay.png") 
+
+# Load sounds
+# Channels: 0 = Music, 1 = collision SFX, 2 = special SFX
+bumpSounds = [
+    loadSound("bump1.wav"),
+    loadSound("bump2.wav"),
+    loadSound("bump3.wav"),
+    loadSound("bump4.wav"),
+    loadSound("bump5.wav"),
+    loadSound("bump6.wav"),
+]
+
+redirectorSounds = {
+    "down" : loadSound("redirectorDown.wav"),
+    "up" : loadSound("redirectorUp.wav"),
+    "left" : loadSound("redirectorLeft.wav"),
+    "right" : loadSound("redirectorRight.wav"),
+}
+
+nullcubeSound = loadSound("nullcube.wav")
+coinSound = loadSound("coin.wav")
+deathSound = loadSound("death.wav")
+teleporterSounds = [
+    loadSound("teleport0.wav"),
+    loadSound("teleport1.wav"),
+    loadSound("teleport2.wav"),
+    loadSound("teleport3.wav"),
+]
+cloudSound = loadSound("cloud.wav")

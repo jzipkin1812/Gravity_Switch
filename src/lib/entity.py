@@ -2,6 +2,9 @@ import pygame
 from . import utility as u
 from . import player as p
 from .constants import *
+from .loadAssets import *
+import random
+
 class Entity:
     # This monotonically increasing counter
     # tracks how recently items have been added to a level.
@@ -107,6 +110,8 @@ class Entity:
         # Debug: Marks platforms red when hit to tell me whether they can be removed without consequence
         # if did:
         #     self.color = (255, 0, 0)
+        if did:
+            pygame.mixer.Channel(1).play(random.choice(bumpSounds))
         return(did)
     def inYRange(self, player: p.Player) -> bool:
         isAbove = (player.y + player.size) <= self.y1
@@ -172,6 +177,7 @@ class Coin(Entity):
     def collide(self, player: p.Player) -> bool:
         if self.willTouch(player):
             self.dead = True
+            pygame.mixer.Channel(1).play(coinSound)
             return(True)
         else:
             return(False)

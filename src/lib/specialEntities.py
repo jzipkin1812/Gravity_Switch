@@ -14,6 +14,7 @@ class NullCube(Entity):
             player.x = self.x1
             player.y = self.y1
             player.stop()
+            pygame.mixer.Channel(1).play(nullcubeSound)
             return(True)
         else:
             return(False)
@@ -111,6 +112,7 @@ class Redirector(Entity):
             player.y = self.y1
             player.stop()
             player.direction = self.direction
+            pygame.mixer.Channel(1).play(redirectorSounds[self.direction])
             return(True)
         else:
             return(False)
@@ -143,6 +145,7 @@ class Cloud(Entity):
         if player.direction == "down" and tryDown >= self.y1 >= bottom and self.inXRange(player):
             player.y = self.y1 - player.size
             player.stop()
+            pygame.mixer.Channel(1).play(cloudSound)
             return(True)
         return(False)
     def toString(self):
@@ -242,7 +245,13 @@ class Teleporter(Entity):
         if (did):
             self.uses -= 1
             if self.uses == 0:
+                pygame.mixer.Channel(2).play(teleporterSounds[0])
                 self.dead = True
+            elif self.uses == 1 or self.uses == 2:
+                pygame.mixer.Channel(2).play(teleporterSounds[self.uses])
+            else:
+                pygame.mixer.Channel(2).play(teleporterSounds[3])
+
         
         return did
     def toString(self):
