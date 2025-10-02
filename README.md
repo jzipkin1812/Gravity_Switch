@@ -98,3 +98,35 @@ With your primary pointer on the top-left location of where you want your text, 
 * Lock levels until you finish the previous ones.
 * Add an ending screen after F-10.
 * Allow different multipliers for resizers.
+
+
+📦src
+ ┣ 📂lib
+ ┃ ┣ 📂assets
+ ┃ ┃ ┣ 📜gameover.png
+ ┃ ┃ ┣ 📜howToPlay.png
+ ┃ ┃ ┣ 📜levelSelect.png
+ ┃ ┃ ┗ 📜titleScreen.png
+ ┃ ┣ 📂levels
+ ┃ ┃ ┣ 📜__init__.py
+ ┃ ┃ ┣ 📜challenge.py
+ ┃ ┃ ┣ 📜worldA.py
+ ┃ ┃ ┣ 📜worldB.py
+ ┃ ┃ ┣ 📜worldC.py
+ ┃ ┃ ┣ 📜worldD.py
+ ┃ ┃ ┣ 📜worldE.py
+ ┃ ┃ ┗ 📜worldF.py
+ ┃ ┣ 📜__init__.py
+ ┃ ┣ 📜constants.py
+ ┃ ┣ 📜entity.py
+ ┃ ┣ 📜gameStateInfo.py
+ ┃ ┣ 📜level.py
+ ┃ ┣ 📜loadAssets.py
+ ┃ ┣ 📜oldgame.py
+ ┃ ┣ 📜player.py
+ ┃ ┣ 📜specialEntities.py
+ ┃ ┣ 📜utility.py
+ ┃ ┗ 📜worlds.py
+ ┣ 📜__init__.py
+ ┣ 📜gravityswitch.py
+ ┗ 📜levelDump.txt

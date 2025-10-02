@@ -1,9 +1,19 @@
 #GRAVITY SWITCH 2.0 Main File
 #By Javin Zipkin
+
+import os, sys
+
+if hasattr(sys, "_MEIPASS"):
+    os.chdir(sys._MEIPASS)  # run inside the bundle
+else:
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 import pygame
 from lib import gameStateInfo as gs
 from lib import utility as u
 from lib import constants as c
+
+
 
 pygame.mixer.pre_init(44100, -16, 2, 2048)
 pygame.init()
