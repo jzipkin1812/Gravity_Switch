@@ -92,41 +92,13 @@ With your primary pointer on the top-left location of where you want your text, 
 * The title screen and level select page are fully functional. However, the "!" levels have not been added yet. They are intended to be challenge levels; these will be significantly harder than the main game and optional.
 * There is still no save file, so everything is unlocked right at the start.
 * All mechanics and objects from the original 2018 game are implemented.
+## Version 1.1 (10/2025):
+* Preliminary installation script added to package Gravity Switch into a playable windows or Mac application.
+* SFX added.
+* Asset loading refactored.
 ## Plans for Future Versions
 * Finish challenge level for world E.
 * Fix the editor pointer bug mentioned above.
 * Lock levels until you finish the previous ones.
 * Add an ending screen after F-10.
 * Allow different multipliers for resizers.
-
-
-📦src
- ┣ 📂lib
- ┃ ┣ 📂assets
- ┃ ┃ ┣ 📜gameover.png
- ┃ ┃ ┣ 📜howToPlay.png
- ┃ ┃ ┣ 📜levelSelect.png
- ┃ ┃ ┗ 📜titleScreen.png
- ┃ ┣ 📂levels
- ┃ ┃ ┣ 📜__init__.py
- ┃ ┃ ┣ 📜challenge.py
- ┃ ┃ ┣ 📜worldA.py
- ┃ ┃ ┣ 📜worldB.py
- ┃ ┃ ┣ 📜worldC.py
- ┃ ┃ ┣ 📜worldD.py
- ┃ ┃ ┣ 📜worldE.py
- ┃ ┃ ┗ 📜worldF.py
- ┃ ┣ 📜__init__.py
- ┃ ┣ 📜constants.py
- ┃ ┣ 📜entity.py
- ┃ ┣ 📜gameStateInfo.py
- ┃ ┣ 📜level.py
- ┃ ┣ 📜loadAssets.py
- ┃ ┣ 📜oldgame.py
- ┃ ┣ 📜player.py
- ┃ ┣ 📜specialEntities.py
- ┃ ┣ 📜utility.py
- ┃ ┗ 📜worlds.py
- ┣ 📜__init__.py
- ┣ 📜gravityswitch.py
- ┗ 📜levelDump.txt
