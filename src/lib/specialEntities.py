@@ -42,16 +42,19 @@ class Resizer(Entity):
 
     def collide(self, player: p.Player) -> bool:
         if self.willTouch(player):
-            # Case 1: Embiggen
+            # Case 1: Grow
             if(player.size < self.large):
                 player.x = self.x1
                 player.y = self.y1
                 player.size = self.large
+                pygame.mixer.Channel(2).play(growingSound)
                 # player.stop()
+            # Case 2: Shrink
             else:
                 player.x = self.x3
                 player.y = self.y3
                 player.size = self.small
+                pygame.mixer.Channel(2).play(shrinkingSound)
                 # player.stop()
             return(True)
         else:
@@ -167,6 +170,7 @@ class Antiplatform(Entity):
         elif not self.activated:
             if(self.willTouch(player)):
                 self.activated = True
+                pygame.mixer.Channel(2).play(antiplatformSound)
         else:
             if not self.willTouch(player):
                 self.solid = True
@@ -282,6 +286,7 @@ class Lever(Entity):
         elif self.willTouch(player):
             self.direction = u.invert(self.direction)
             self.hollow = True
+            pygame.mixer.Channel(4).play(leverSound)
     def display(self, screen, gridlike = False):
         u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 2)
         if self.direction == "up":
@@ -349,6 +354,7 @@ class BeatBlock(Entity):
             result = super().collide(player)
             if result:
                 BeatBlock.solidParity = BeatBlock.inverse(BeatBlock.solidParity)
+                pygame.mixer.Channel(1).play(beatBlockSound)
             return(result)
         else:   
             return(False)
@@ -504,6 +510,7 @@ class Quicksand(Entity):
             self.activated = False
             self.settled  = True
             self.roundToGrid()
+            pygame.mixer.Channel(2).play(sandThudSound)
         return(did)
 
     def qInYRange(self, other: Entity) -> bool:

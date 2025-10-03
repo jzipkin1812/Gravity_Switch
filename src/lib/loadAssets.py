@@ -64,3 +64,15 @@ teleporterSounds = [
     loadSound("teleport3.wav"),
 ]
 cloudSound = loadSound("cloud.wav")
+leverSound = loadSound("lever.wav")
+antiplatformSound = loadSound("antiplatform.wav")
+
+growingSound = loadSound("growing.wav")
+shrinkingSound = loadSound("shrinking.wav")
+beatBlockSound = loadSound("pop.wav")
+
+levelCompleteSounds = [
+    loadSound(f"levelComplete{i}.wav") for i in range(1, 11)
+]
+worldCompleteSound = loadSound("worldComplete.wav")
+sandThudSound = loadSound("sandthud.wav")

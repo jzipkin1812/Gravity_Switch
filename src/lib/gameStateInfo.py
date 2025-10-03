@@ -79,6 +79,9 @@ class GameStateInfo:
         if self.levelNumber >= 10:
             self.world = nextWorld(self.world)
             self.levelNumber = 0
+            pygame.mixer.Channel(3).play(worldCompleteSound)
+        else:
+            pygame.mixer.Channel(3).play(levelCompleteSounds[self.levelNumber - 1])
         
         self.beamDown(self.world, self.levelNumber)
     def displayProperMode(self):

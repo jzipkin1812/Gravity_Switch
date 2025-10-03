@@ -27,7 +27,7 @@ frames = 0
 
 mainStatus = gs.GameStateInfo(screen)
 while not mainStatus.quit:
-    clock.tick()
+    clock.tick(500)
     mainStatus.tickTime = clock.get_time() 
 
     # All displays
