@@ -14,14 +14,14 @@ class NullCube(Entity):
             player.x = self.x1
             player.y = self.y1
             player.stop()
-            pygame.mixer.Channel(1).play(nullcubeSound)
+            u.playSound(1, nullcubeSound)
             return(True)
         else:
             return(False)
     def display(self, screen, gridlike = False):
         u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 3)
     def toString(self):
-        return("s.NullCube(" + str(self.x1) + ", " + str(self.y1) + ")")
+        return(f"s.NullCube({self.x1}, {self.y1})")
     def copy(self):
         result = NullCube(self.x1, self.y1, (self.color[0], self.color[1], self.color[2]))
         result.timestamp = self.timestamp
@@ -47,14 +47,14 @@ class Resizer(Entity):
                 player.x = self.x1
                 player.y = self.y1
                 player.size = self.large
-                pygame.mixer.Channel(2).play(growingSound)
+                u.playSound(2, growingSound)
                 # player.stop()
             # Case 2: Shrink
             else:
                 player.x = self.x3
                 player.y = self.y3
                 player.size = self.small
-                pygame.mixer.Channel(2).play(shrinkingSound)
+                u.playSound(2, shrinkingSound)
                 # player.stop()
             return(True)
         else:
@@ -64,31 +64,9 @@ class Resizer(Entity):
         u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 2)
         u.betterRect(screen, self.x3, self.y3, self.x4, self.y4, self.color, 2)
     def toString(self):
-        return("s.Resizer(" + str(self.x1) + ", " + str(self.y1) + ", " + 
-               str(self.multiplier) + "," + str(self.color) + ")")
+        return(f"s.Resizer({self.x1}, {self.y1}, {self.multiplier}, {self.color})")
     def copy(self):
         result = (Resizer(self.x1, self.y1, self.multiplier, (self.color[0], self.color[1], self.color[2])))
-        result.timestamp = self.timestamp
-        return(result)
-
-class Teleporter(Entity):
-    def __init__(self, x, y, color = (250, 0, 200)):
-        super().__init__(x, y, x + GRID_SIZE, y + GRID_SIZE, color)
-    def collide(self, player: p.Player) -> bool:
-        if self.willTouch(player):
-            self.dead = True
-            player.x = self.x1
-            player.y = self.y1
-            player.stop()
-            return(True)
-        else:
-            return(False)
-    def display(self, screen, gridlike = False):
-        u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 3)
-    def toString(self):
-        return("s.NullCube(" + str(self.x1) + ", " + str(self.y1) + ")")
-    def copy(self):
-        result = NullCube(self.x1, self.y1, (self.color[0], self.color[1], self.color[2]))
         result.timestamp = self.timestamp
         return(result)
 
@@ -115,7 +93,7 @@ class Redirector(Entity):
             player.y = self.y1
             player.stop()
             player.direction = self.direction
-            pygame.mixer.Channel(1).play(redirectorSounds[self.direction])
+            u.playSound(1, redirectorSounds[self.direction])
             return(True)
         else:
             return(False)
@@ -132,7 +110,7 @@ class Redirector(Entity):
         elif self.direction == "right":
             pygame.draw.line(screen, self.color, (centerX, centerY), (self.x2, centerY))
     def toString(self):
-        return("s.Redirector(" + str(self.x1) + ", " + str(self.y1) + ", \"" + self.direction + "\")")
+        return(f"s.Redirector({self.x1}, {self.y1}, \"{self.direction}\")")
     def copy(self):
         result = Redirector(self.x1, self.y1, self.direction, (self.color[0], self.color[1], self.color[2]))
         result.timestamp = self.timestamp
@@ -148,12 +126,11 @@ class Cloud(Entity):
         if player.direction == "down" and tryDown >= self.y1 >= bottom and self.inXRange(player):
             player.y = self.y1 - player.size
             player.stop()
-            pygame.mixer.Channel(1).play(cloudSound)
+            u.playSound(1, cloudSound)
             return(True)
         return(False)
     def toString(self):
-        return("s.Cloud(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) +
-               ", " + str(self.color) + ")")
+        return(f"s.Cloud({self.x1}, {self.y1}, {self.x2}, {self.y2}, {self.color})")
     def copy(self):
         result = Cloud(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2]))
         result.timestamp = self.timestamp
@@ -170,7 +147,7 @@ class Antiplatform(Entity):
         elif not self.activated:
             if(self.willTouch(player)):
                 self.activated = True
-                pygame.mixer.Channel(2).play(antiplatformSound)
+                u.playSound(2, antiplatformSound)
         else:
             if not self.willTouch(player):
                 self.solid = True
@@ -180,8 +157,7 @@ class Antiplatform(Entity):
         else:
             u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 3)
     def toString(self):
-        return("s.Antiplatform(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + 
-               ", " + str(self.y2) + ", " + str(self.color) + ")")
+        return(f"s.Antiplatform({self.x1}, {self.y1}, {self.x2}, {self.y2}, {self.color})")
     def copy(self):
         result = Antiplatform(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2]))
         result.timestamp = self.timestamp
@@ -249,18 +225,17 @@ class Teleporter(Entity):
         if (did):
             self.uses -= 1
             if self.uses == 0:
-                pygame.mixer.Channel(2).play(teleporterSounds[0])
+                u.playSound(2, teleporterSounds[0])
                 self.dead = True
             elif self.uses == 1 or self.uses == 2:
-                pygame.mixer.Channel(2).play(teleporterSounds[self.uses])
+                u.playSound(2, teleporterSounds[self.uses])
             else:
-                pygame.mixer.Channel(2).play(teleporterSounds[3])
+                u.playSound(2, teleporterSounds[3])
 
         
         return did
     def toString(self):
-        return("s.Teleporter(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", " \
-            + str(self.uses) + ", " + str(self.color) + ")")
+        return(f"s.Teleporter({self.x1}, {self.y1}, {self.x2}, {self.y2}, {self.uses}, {self.color})")
     def copy(self):
         result = Teleporter(self.x1, self.y1, self.x2, self.y2, self.uses, (self.color[0], self.color[1], self.color[2]))
         result.timestamp = self.timestamp
@@ -298,8 +273,7 @@ class Lever(Entity):
         elif self.direction == "left":
             u.betterRect(screen, self.x1, self.y1, (self.x2 + self.x1) // 2, self.y2, self.color, 0)
     def toString(self):
-        return("s.Lever(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" 
-               + self.direction + "\"" + ", " + str(self.color) +  ")")
+        return(f"s.Lever({self.x1}, {self.y1}, {self.x2}, {self.y2}, \"{self.direction}\", {self.color})")
     def copy(self):
         result = Lever(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2]))
         result.timestamp = self.timestamp
@@ -326,7 +300,7 @@ class Tar(Entity):
         elif self.direction == "left":
             u.betterRect(screen, self.x1, self.y1, (self.x2 + self.x1) // 2, self.y2, self.color, 0)
     def toString(self):
-        return("s.Tar(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" + self.direction + "\")")
+        return(f"s.Tar({self.x1}, {self.y1}, {self.x2}, {self.y2}, \"{self.direction}\")")
     def copy(self):
         result = Tar(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2]))
         result.timestamp = self.timestamp
@@ -354,7 +328,7 @@ class BeatBlock(Entity):
             result = super().collide(player)
             if result:
                 BeatBlock.solidParity = BeatBlock.inverse(BeatBlock.solidParity)
-                pygame.mixer.Channel(1).play(beatBlockSound)
+                u.playSound(1, beatBlockSound)
             return(result)
         else:   
             return(False)
@@ -364,7 +338,7 @@ class BeatBlock(Entity):
         else:
             u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 3)
     def toString(self):
-        return("s.BeatBlock(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" + self.parity + "\")")
+        return(f"s.BeatBlock({self.x1}, {self.y1}, {self.x2}, {self.y2}, \"{self.parity}\")")
     def copy(self):
         result = (BeatBlock(self.x1, self.y1, self.x2, self.y2, self.parity))
         result.timestamp = self.timestamp
@@ -422,7 +396,7 @@ class Quicksand(Entity):
 
 
     def toString(self):
-        return("s.Quicksand(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", \"" + self.direction + "\")")
+        return(f"s.Quicksand({self.x1}, {self.y1}, {self.x2}, {self.y2}, \"{self.direction}\")")
     def copy(self):
         result = (Quicksand(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2])))
         result.timestamp = self.timestamp
@@ -510,7 +484,7 @@ class Quicksand(Entity):
             self.activated = False
             self.settled  = True
             self.roundToGrid()
-            pygame.mixer.Channel(2).play(sandThudSound)
+            u.playSound(2, sandThudSound)
         return(did)
 
     def qInYRange(self, other: Entity) -> bool:
@@ -581,10 +555,11 @@ class Stone(Entity):
                 self.xv = -1 * self.startSpeed
             elif(self.direction == "right"):
                 self.xv = self.startSpeed
+            u.playSound(1, stoneSlideSound)
         return(did)
     
     def toString(self):
-        return("s.Stone(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ")")
+        return(f"s.Stone({self.x1}, {self.y1}, {self.x2}, {self.y2})")
     def copy(self):
         result = (Stone(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2])))
         result.timestamp = self.timestamp
@@ -675,6 +650,7 @@ class Stone(Entity):
             self.playerPushing.direction = "stop"
             self.playerPushing.roundToGrid()
             self.roundToGrid()
+            u.playSound(1, random.choice(bumpSounds))
             return(did)
 
 
@@ -700,6 +676,7 @@ class Stone(Entity):
             self.playerPushing.direction = "stop"
             self.playerPushing.roundToGrid()
             self.roundToGrid()
+            u.playSound(1, random.choice(bumpSounds))
         return(did)
 
     def qInYRange(self, other: Entity) -> bool:

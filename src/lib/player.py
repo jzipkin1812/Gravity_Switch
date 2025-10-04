@@ -74,7 +74,7 @@ class Player:
         return(Player(self.x, self.y, (self.color[0], self.color[1], self.color[2]), self.size, self.inverted))
 
     def toString(self):
-        return("p.Player(" + str(self.x) + ", " + str(self.y) + "," + str(self.color) + ", inverted = " + str(self.inverted) + ")")
+        return(f"p.Player( {self.x}, {self.y}, {self.color}, size = {self.size}, inverted = {self.inverted})")
 
     def roundToGrid(self):
         def myround(num):

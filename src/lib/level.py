@@ -3,6 +3,9 @@ from . import player
 from . import utility as u
 from . import specialEntities as s
 from .constants import *
+from .loadAssets import bumpSounds
+import pygame
+import random
 
 class Level:
     def __init__(self, players = [], levelObjects = [], background = (0, 0, 0), text = "", textLocation = (0, 0), textColor = (150, 150, 150)):
@@ -68,7 +71,9 @@ class Level:
                     b.getVmod(milliseconds)
                     for otherPlatform in self.levelObjects:
                         if not (otherPlatform is b):
-                            b.stoneCollide(otherPlatform)
+                            did = b.stoneCollide(otherPlatform)
+                            if did:
+                                u.playSound(1, random.choice(bumpSounds))
                     b.updateMove(milliseconds)
 
             p.updateMove(milliseconds)

@@ -69,7 +69,8 @@ class GameStateInfo:
             if (self.world == worldChallenge):
                 self.mode = "Level Select"
         elif (self.level.playerIsDead()):
-            pygame.mixer.Channel(2).play(deathSound)
+            u.playSound(2, deathSound)
+            pygame.mixer.Channel(1).stop()
             self.mode = "Game Over"
             self.level.reset()
     def nextLevel(self):
@@ -79,9 +80,9 @@ class GameStateInfo:
         if self.levelNumber >= 10:
             self.world = nextWorld(self.world)
             self.levelNumber = 0
-            pygame.mixer.Channel(3).play(worldCompleteSound)
+            u.playSound(3, worldCompleteSound)
         else:
-            pygame.mixer.Channel(3).play(levelCompleteSounds[self.levelNumber - 1])
+            u.playSound(3, levelCompleteSounds[self.levelNumber - 1])
         
         self.beamDown(self.world, self.levelNumber)
     def displayProperMode(self):

@@ -111,7 +111,7 @@ class Entity:
         # if did:
         #     self.color = (255, 0, 0)
         if did:
-            pygame.mixer.Channel(1).play(random.choice(bumpSounds))
+            u.playSound(1, random.choice(bumpSounds))
         return(did)
     def inYRange(self, player: p.Player) -> bool:
         isAbove = (player.y + player.size) <= self.y1
@@ -128,7 +128,7 @@ class Entity:
         isBelow = (player.y) >= self.y2
         return(not(isLeft or isRight or isAbove or isBelow))
     def toString(self):
-        return("b.Entity(" + str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) + ", " + str(self.color) + ")")
+        return(f"b.Entity({self.x1}, {self.y1}, {self.x2}, {self.y2}, {self.color})")
     def willTouch(self, player: p.Player):
         xv = player.xv * player.vMod
         yv = player.yv * player.vMod
@@ -177,7 +177,7 @@ class Coin(Entity):
     def collide(self, player: p.Player) -> bool:
         if self.willTouch(player):
             self.dead = True
-            pygame.mixer.Channel(1).play(coinSound)
+            u.playSound(1, coinSound)
             return(True)
         else:
             return(False)
