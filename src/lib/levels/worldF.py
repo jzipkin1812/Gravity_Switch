@@ -239,10 +239,10 @@ F6 = level.Level(
 
 F7 = level.Level(
     players = [
-        p.Player(75.0, 100.0,(255, 0, 171), inverted = False),
+        p.Player( 75.0, 100.0, (255, 0, 171), size = 25, inverted = False),
     ],
     levelObjects = [
-        s.Resizer(75, 425, 3,(255, 243, 179)),
+        s.Resizer(75, 425, 3, (255, 243, 179)),
         s.Stone(200, 100, 250, 150),
         b.Entity(25, 0, 50, 50, (198, 255, 0)),
         b.Entity(25, 25, 150, 50, (198, 255, 0)),
@@ -271,8 +271,8 @@ F7 = level.Level(
         b.Entity(625, 250, 650, 300, (198, 255, 0)),
         b.Entity(0, 250, 25, 275, (198, 255, 0)),
         b.Coin(375, 200,(255, 255, 0)),
-        b.Coin(600, 275,(255, 255, 0)),
         b.Coin(250, 125,(255, 255, 0)),
+        b.Coin(600, 150,(255, 255, 0)),
     ],
     background = (125, 28, 148),
     text = "7.Companion Cube",
@@ -282,16 +282,15 @@ F7 = level.Level(
 
 F8 = level.Level(
     players = [
-        p.Player(250.0, 575.0,(255, 0, 171), inverted = False),
+        p.Player( 250.0, 575.0, (255, 0, 171), size = 25, inverted = False),
     ],
     levelObjects = [
         b.Entity(225, 625, 250, 650, (198, 255, 0)),
         s.BeatBlock(375, 475, 425, 575, "blue"),
-        s.Resizer(225, 325, 3,(255, 243, 179)),
+        s.Resizer(225, 325, 3, (255, 243, 179)),
         s.BeatBlock(275, 525, 300, 550, "red"),
         s.Stone(425, 325, 500, 400),
         s.BeatBlock(225, 175, 300, 225, "blue"),
-        s.BeatBlock(0, 0, 50, 125, "red"),
         s.BeatBlock(425, 175, 500, 225, "red"),
         b.Entity(0, 325, 25, 400, (198, 255, 0)),
         s.BeatBlock(150, 0, 225, 50, "blue"),
@@ -308,6 +307,7 @@ F8 = level.Level(
         s.BeatBlock(575, 400, 625, 450, "red"),
         s.BeatBlock(575, 0, 650, 50, "blue"),
         b.Entity(575, 175, 600, 200, (198, 255, 0)),
+        s.BeatBlock(0, 0, 50, 100, "red"),
         b.Coin(125, 300,(255, 255, 0)),
         b.Coin(600, 350,(255, 255, 0)),
     ],
@@ -316,10 +316,11 @@ F8 = level.Level(
     textLocation = (100, 100),
     textColor = (255, 243, 179),
 )
+
 F9 = level.Level(
     players = [
-        p.Player(25.0, 200.0,(255, 0, 171), size=75, inverted = False),
-        p.Player(325.0, 475.0,(255, 0, 171), inverted = False),
+        p.Player( 25.0, 200.0, (255, 0, 171), size = 75, inverted = False),
+        p.Player( 325.0, 475.0, (255, 0, 171), size = 25, inverted = False),
     ],
     levelObjects = [
         b.Entity(50, 50, 75, 75, (198, 255, 0)),
@@ -349,10 +350,11 @@ F9 = level.Level(
         s.Tar(525, 425, 600, 450, "up"),
         s.Tar(25, 400, 50, 475, "left"),
         b.Entity(0, 400, 25, 475, (198, 255, 0)),
-        s.Tar(400, 325, 425, 400, "right"),
         b.Entity(625, 75, 650, 125, (198, 255, 0)),
+        s.Tar(425, 125, 575, 150, "down"),
         b.Coin(50, 425,(255, 255, 0)),
         b.Coin(125, 75,(255, 255, 0)),
+        b.Coin(400, 350,(255, 255, 0)),
     ],
     background = (125, 28, 148),
     text = "9.Big Sister",

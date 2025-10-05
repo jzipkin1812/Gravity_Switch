@@ -153,7 +153,7 @@ class Antiplatform(Entity):
                 self.solid = True
     def display(self, screen, gridlike = False):
         if self.solid:
-            super().display(screen)
+            super().display(screen, gridlike)
         else:
             u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 3)
     def toString(self):
@@ -205,8 +205,6 @@ class Teleporter(Entity):
     def erase(self, x, y):
         if(self.x1 == x and self.y1 == y) or (self.x2 == x and self.y2 == y):
             self.dead = True
-        
-            
     
     def collide(self, player: p.Player) -> bool:
         t1 = Entity(self.x1, self.y1, self.x1 + GRID_SIZE, self.y1 + GRID_SIZE)
@@ -231,8 +229,6 @@ class Teleporter(Entity):
                 u.playSound(2, teleporterSounds[self.uses])
             else:
                 u.playSound(2, teleporterSounds[3])
-
-        
         return did
     def toString(self):
         return(f"s.Teleporter({self.x1}, {self.y1}, {self.x2}, {self.y2}, {self.uses}, {self.color})")

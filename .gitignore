@@ -2,3 +2,4 @@
 src/lib/*.txt
 src/*.txt
 **/__pycache__/
+gravityswitch.spec
