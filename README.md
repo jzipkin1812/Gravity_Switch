@@ -57,7 +57,7 @@ With your primary pointer on the top-left location of where you want your text, 
 * SFX added.
 * Asset loading refactored.
 * World E's challenge level added. It's a doozy.
-* World F finished, not including the challenge level. This world is not for the weak!
+* World F finished. This world is not for the weak!
 ## Version 1.7 (6/10/2025):
 * World F added.
 * New graphics features added.
