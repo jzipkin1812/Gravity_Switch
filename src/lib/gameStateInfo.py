@@ -76,12 +76,16 @@ class GameStateInfo:
     def nextLevel(self):
         self.level.reset()
         self.levelNumber += 1
-        
-        if self.levelNumber >= 10:
+
+        if self.world is worldChallenge:
+            self.levelNumber -= 1
+            u.playSound(3, challengeCompleteSound)
+        elif self.levelNumber >= 10:
             self.world = nextWorld(self.world)
             self.levelNumber = 0
             u.playSound(3, worldCompleteSound)
         else:
+            print(self.world is worldChallenge)
             u.playSound(3, levelCompleteSounds[self.levelNumber - 1])
         
         self.beamDown(self.world, self.levelNumber)
@@ -143,15 +147,18 @@ class GameStateInfo:
                 pass
             elif event.key == pygame.K_r:
                 self.level.reset()
+                u.stopSFX()
             elif (event.key in [pygame.K_DOWN, pygame.K_UP, pygame.K_LEFT, pygame.K_RIGHT,
                              pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d]) and allStopped:
                 for p in self.level.players:
                     p.keyMove(event.key)
             elif event.key == pygame.K_ESCAPE:
                 self.mode = "Title Screen"
+                u.stopSFX()
             elif event.key == pygame.K_SLASH:
                 self.level.reset()
                 self.mode = "Level Editor"
+                u.stopSFX()
     
     def processTitle(self, event: pygame.event.Event):
         #PLAY: (81, 183) to (322, 265)

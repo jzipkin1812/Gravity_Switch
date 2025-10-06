@@ -59,3 +59,9 @@ def dashedLine(surface, color, startPos, endPos, dashLength=10, spaceLength=5, w
 
 def playSound(channel : int, soundObj):
     pygame.mixer.Channel(channel).play(soundObj)
+
+def stopSFX():
+    pygame.mixer.Channel(1).stop()
+    pygame.mixer.Channel(2).stop()
+    pygame.mixer.Channel(3).stop()
+    pygame.mixer.Channel(4).stop()

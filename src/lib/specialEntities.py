@@ -310,11 +310,12 @@ class BeatBlock(Entity):
         else:
             return "blue"
         
-    def __init__(self, x1, y1, x2, y2, parity = "blue"):
-        if parity == "blue":
-            color = (0, 0, 205)
-        else:
-            color = (240, 89, 132)
+    def __init__(self, x1, y1, x2, y2, parity = "blue", color = None):
+        if color is None:
+            if parity == "blue":
+                color = (0, 0, 205)
+            else:
+                color = (240, 89, 132)
         super().__init__(x1, y1, x2, y2, color)
         self.parity = parity
     def isOn(self) -> bool:
@@ -334,9 +335,9 @@ class BeatBlock(Entity):
         else:
             u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 3)
     def toString(self):
-        return(f"s.BeatBlock({self.x1}, {self.y1}, {self.x2}, {self.y2}, \"{self.parity}\")")
+        return(f"s.BeatBlock({self.x1}, {self.y1}, {self.x2}, {self.y2}, \"{self.parity}\", {self.color})")
     def copy(self):
-        result = (BeatBlock(self.x1, self.y1, self.x2, self.y2, self.parity))
+        result = (BeatBlock(self.x1, self.y1, self.x2, self.y2, self.parity, self.color))
         result.timestamp = self.timestamp
         return(result)
     
@@ -392,7 +393,7 @@ class Quicksand(Entity):
 
 
     def toString(self):
-        return(f"s.Quicksand({self.x1}, {self.y1}, {self.x2}, {self.y2}, \"{self.direction}\")")
+        return(f"s.Quicksand({self.x1}, {self.y1}, {self.x2}, {self.y2}, \"{self.direction}\", {self.color})")
     def copy(self):
         result = (Quicksand(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2])))
         result.timestamp = self.timestamp

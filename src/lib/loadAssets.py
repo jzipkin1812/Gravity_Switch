@@ -77,4 +77,4 @@ levelCompleteSounds = [
 worldCompleteSound = loadSound("worldComplete.wav")
 sandThudSound = loadSound("sandthud.wav")
 stoneSlideSound = loadSound("stone.wav")
-
+challengeCompleteSound = loadSound("challengeComplete.wav")
