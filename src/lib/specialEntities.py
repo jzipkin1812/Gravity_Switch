@@ -34,10 +34,11 @@ class Resizer(Entity):
         self.multiplier = multiplier
         self.small = GRID_SIZE
         self.large = GRID_SIZE * multiplier
-        self.x3 = self.x1 +     int((self.x2 - self.x1) / 3.0)
-        self.x4 = self.x1 + 2 * int((self.x2 - self.x1) / 3.0)
-        self.y3 = self.y1 +     int((self.y2 - self.y1) / 3.0)
-        self.y4 = self.y1 + 2 * int((self.y2 - self.y1) / 3.0)
+        divider = float(multiplier)
+        self.x3 = self.x1 +     int((self.x2 - self.x1) / divider)
+        self.x4 = self.x1 + 2 * int((self.x2 - self.x1) / divider)
+        self.y3 = self.y1 +     int((self.y2 - self.y1) / divider)
+        self.y4 = self.y1 + 2 * int((self.y2 - self.y1) / divider)
 
 
     def collide(self, player: p.Player) -> bool:

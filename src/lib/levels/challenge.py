@@ -173,6 +173,7 @@ ChallengeD = level.Level(
     textLocation = (425, 50),
     textColor = (255, 255, 255),
 )
+
 ChallengeE = level.Level(
     players = [
         p.Player( 50.0, 75.0, (245, 0, 0), size = 25, inverted = False),
@@ -252,6 +253,46 @@ ChallengeE = level.Level(
     textLocation = (125, 175),
     textColor = (255, 255, 255),
 )
+
+ChallengeF = level.Level(
+    players = [
+        p.Player( 50.0, 100.0, (245, 0, 0), size = 25, inverted = False),
+    ],
+    levelObjects = [
+        s.Stone(300, 200, 375, 275),
+        s.Stone(325, 275, 400, 350),
+        s.Stone(250, 300, 325, 375),
+        s.Stone(225, 225, 300, 300),
+        s.Stone(375, 175, 475, 275),
+        s.Stone(325, 350, 425, 450),
+        s.Stone(150, 300, 250, 400),
+        s.Resizer(25, 550, 3, (255, 243, 179)),
+        b.Entity(625, 0, 650, 650, (255, 255, 224)),
+        b.Entity(0, 0, 650, 25, (255, 255, 224)),
+        s.Stone(100, 250, 200, 300),
+        s.Stone(125, 200, 200, 250),
+        s.Stone(450, 275, 500, 325),
+        s.Stone(400, 450, 450, 500),
+        b.Entity(0, 575, 25, 600, (255, 255, 224)),
+        b.Entity(50, 625, 75, 650, (255, 255, 224)),
+        b.Entity(125, 625, 650, 650, (255, 255, 224)),
+        b.Entity(0, 0, 25, 475, (255, 255, 224)),
+        s.Stone(350, 75, 425, 175),
+        b.Entity(25, 25, 50, 75, (255, 255, 224)),
+        b.Entity(25, 25, 75, 50, (255, 255, 224)),
+        b.Entity(575, 25, 625, 50, (255, 255, 224)),
+        b.Entity(600, 50, 625, 75, (255, 255, 224)),
+        b.Entity(575, 600, 625, 625, (255, 255, 224)),
+        b.Entity(600, 575, 625, 600, (255, 255, 224)),
+        s.Stone(175, 125, 250, 200),
+        b.Coin(300, 275,(20, 240, 20)),
+    ],
+    background = (20, 20, 20),
+    text = "!.Space Miner",
+    textLocation = (125, 575),
+    textColor = (255, 255, 255),
+)
+
 
 # Donkey kong colors
 # Ladder: rgb(10, 223, 224)

@@ -256,6 +256,8 @@ class GameStateInfo:
                 self.level.levelObjects.append(special.NullCube(a[0], a[1]))
             elif event.key == pygame.K_d:
                 self.level.levelObjects.append(special.Resizer(a[0], a[1], 3))
+            elif event.key == pygame.K_e:
+                self.level.levelObjects.append(special.Resizer(a[0], a[1], 5))
             elif event.key == pygame.K_s:
                 self.level.levelObjects.append(special.Stone(a[0], a[1], 
                                                             b[0], b[1]))
