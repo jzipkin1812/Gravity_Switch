@@ -52,6 +52,12 @@ You can directly edit your level's code to make tweaks that the editor doesn't s
 With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text into the terminal. (This feature uses Python's input() function.) The text should appear on screen.
 
 # Changelog
+## Version 2.0 (10/xx/2025):
+* Preliminary installation script added to package Gravity Switch into a playable windows or Mac application.
+* SFX added.
+* Asset loading refactored.
+* World E's challenge level added. It's a doozy.
+* World F finished, not including the challenge level. This world is not for the weak!
 ## Version 1.7 (6/10/2025):
 * World F added.
 * New graphics features added.
@@ -92,13 +98,9 @@ With your primary pointer on the top-left location of where you want your text, 
 * The title screen and level select page are fully functional. However, the "!" levels have not been added yet. They are intended to be challenge levels; these will be significantly harder than the main game and optional.
 * There is still no save file, so everything is unlocked right at the start.
 * All mechanics and objects from the original 2018 game are implemented.
-## Version 1.1 (10/2025):
-* Preliminary installation script added to package Gravity Switch into a playable windows or Mac application.
-* SFX added.
-* Asset loading refactored.
 ## Plans for Future Versions
-* Finish challenge level for world E.
+* Finish challenge level for world F.
 * Fix the editor pointer bug mentioned above.
 * Lock levels until you finish the previous ones.
-* Add an ending screen after F-10.
 * Allow different multipliers for resizers.
+* Distribute the game publicly.

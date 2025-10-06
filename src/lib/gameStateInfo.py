@@ -85,7 +85,6 @@ class GameStateInfo:
             self.levelNumber = 0
             u.playSound(3, worldCompleteSound)
         else:
-            print(self.world is worldChallenge)
             u.playSound(3, levelCompleteSounds[self.levelNumber - 1])
         
         self.beamDown(self.world, self.levelNumber)
