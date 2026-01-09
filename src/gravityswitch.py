@@ -12,8 +12,7 @@ import pygame
 from lib import gameStateInfo as gs
 from lib import utility as u
 from lib import constants as c
-
-
+from lib import loadAssets as a
 
 pygame.mixer.pre_init(44100, -16, 2, 2048)
 pygame.init()
@@ -26,6 +25,8 @@ done = False
 frames = 0
 
 mainStatus = gs.GameStateInfo(screen)
+mainStatus.loadSaveFile(a.loadedSave)
+
 while not mainStatus.quit:
     clock.tick(500)
     mainStatus.tickTime = clock.get_time() 
@@ -47,3 +48,8 @@ while not mainStatus.quit:
 mainStatus.levelDumpFile.write(mainStatus.level.toString())
 mainStatus.levelDumpFile.close()
 pygame.quit()
+
+# SAVE the save file, represented by this 2D array:
+with open(a.getSavePath(), "w") as f:
+    for row in mainStatus.unlocked:
+        f.write(" ".join(map(str, row)) + "\n")

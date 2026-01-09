@@ -52,6 +52,10 @@ You can directly edit your level's code to make tweaks that the editor doesn't s
 With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text into the terminal. (This feature uses Python's input() function.) The text should appear on screen.
 
 # Changelog
+## Version 2.1 (1/xx/2026):
+* Level unlock system added.
+* Save file system added. Your progress will be saved!
+* A mysterious easter egg...
 ## Version 2.0 (10/xx/2025):
 * Preliminary installation script added to package Gravity Switch into a playable windows or Mac application.
 * SFX added.

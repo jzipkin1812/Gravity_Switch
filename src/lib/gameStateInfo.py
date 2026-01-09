@@ -55,7 +55,14 @@ class GameStateInfo:
         self.doAdvance = True
         # Level select info
         self.scrollMod: int = 0
-
+        # Unlocked levels
+        self.unlocked : list[list[int]] = [[0 for _ in range(11)] for _ in range(6)]
+        for row in self.unlocked:
+            row[0] = 1
+        # ???????
+        self.secret = []
+        self.code = [pygame.K_j, pygame.K_a, pygame.K_v, pygame.K_i, pygame.K_n]
+        self.edoc = [pygame.K_n, pygame.K_i, pygame.K_v, pygame.K_a, pygame.K_j]
     def update(self):
         self.frames += 1
         
@@ -77,6 +84,13 @@ class GameStateInfo:
         self.level.reset()
         self.levelNumber += 1
 
+        # Unlock next level
+        # Upon clearing a world, unlock its challenge level
+        if not (self.world is worldChallenge):
+            worldIndex = worlds.index(self.world)
+            self.unlocked[worldIndex][self.levelNumber] = 1
+
+        # Play sfx and change screen
         if self.world is worldChallenge:
             self.levelNumber -= 1
             u.playSound(3, challengeCompleteSound)
@@ -93,10 +107,24 @@ class GameStateInfo:
     def displayTitle(self):
         self.screen.blit(titleImage, (0,0))
     def displayLevelSelect(self):
+        # Main background
         self.screen.blit(levelSelectImage, (0, self.scrollMod))
+        # Lock overlays
+        offset = 5
+        for i in range(6):
+            levelsPos = levelSelections[i]
+            lock = locks[i]
+            challengePos = levelSelectWorldChallenge[i]
+            # Locks for regular levels
+            for levelNum in range(10):
+                if not self.unlocked[i][levelNum]:
+                    pos = levelsPos[levelNum]
+                    self.screen.blit(lock, (pos[0] + offset, pos[1] + self.scrollMod + offset))
+            # Lock for challenge level
+            if not self.unlocked[i][10]:
+                self.screen.blit(lock, (challengePos[0] + offset, challengePos[1] + self.scrollMod + offset))
     
     def displayLevel(self):
-
         self.level.display(self.screen, (self.world == worldF))
         if pygame.key.get_pressed()[pygame.K_LSHIFT]:
             self.displayGrid()
@@ -164,10 +192,9 @@ class GameStateInfo:
         #LVL SELECT: (354, 322) to (597, 402)
 
         if event.type == pygame.KEYDOWN:
-            # if event.key == pygame.K_SPACE:
-            #     self.mode = "Gameplay"
             if event.key == pygame.K_BACKSPACE:
                 self.doAdvance = not self.doAdvance
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 # title screen BUTTONS
@@ -191,6 +218,23 @@ class GameStateInfo:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 self.mode = "Title Screen"
+            elif event.key in self.code:
+                self.secret.append(event.key)
+            else:
+                self.secret = []
+            
+            admin = len(self.secret) == len(self.code)
+            reset = len(self.secret) == len(self.code)
+            for one, two, three in zip(self.secret, self.code, self.edoc):
+                admin = admin and (one == two)
+                reset = reset and (one == three)
+            if admin:
+                self.unlocked = [[1 for _ in range(11)] for _ in range(6)]
+                self.secret = []
+            elif reset:
+                self.resetData()
+                self.secret = []
+
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 # print(f"({self.mouseX}, {self.mouseY - self.scrollMod})")
@@ -315,11 +359,15 @@ class GameStateInfo:
     
     def selectLevel(self):
         mouseModY = self.mouseY - self.scrollMod
-        for planet, selector in worldInfo:
+        for (worldIndex, (planet, selector)) in enumerate(worldInfo):
             for i, (x, y) in enumerate(selector):
                 if (x <= self.mouseX <= x + LEVEL_SQUARE_SIZE) and \
                 (y <= mouseModY <= y + LEVEL_SQUARE_SIZE):
-                    self.beamDown(planet, i)
+                    # Is the level unlocked?
+                    if planet == worldChallenge and self.unlocked[i][10]:
+                        self.beamDown(planet, i)
+                    elif planet != worldChallenge and self.unlocked[worldIndex][i]:
+                        self.beamDown(planet, i)                    
     
     def beamDown(self, destination, num):
         self.levelNumber = num
@@ -355,5 +403,15 @@ class GameStateInfo:
                 self.mode = "Gameplay"
             elif event.key == pygame.K_ESCAPE:
                 self.mode = "Title Screen"
+    
+    def loadSaveFile(self, f : list[list[int]]):
+        self.unlocked = f
+        for row in self.unlocked:
+            row[0] = 1
+    
+    def resetData(self):
+        self.unlocked = [[0 for _ in range(11)] for _ in range(6)]
+        for row in self.unlocked:
+            row[0] = 1
         
         

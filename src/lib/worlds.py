@@ -24,6 +24,7 @@ worldE = [E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]
 worldF = [F1, F2, F3, F4, F5, F6, F7, F8, F9, F10]
 worldChallenge = [ChallengeA, ChallengeB, ChallengeC, ChallengeD, ChallengeE, ChallengeF]
 
+worlds = [worldA, worldB, worldC, worldD, worldE, worldF]
 worldInfo = [
     (worldA, levelSelectWorldA),
     (worldB, levelSelectWorldB),

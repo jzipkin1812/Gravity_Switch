@@ -22,10 +22,10 @@ def resource_path(relative_path: str) -> str:
     return os.path.join(base_path, relative_path)
 
 def loadImage(name : str):
-    return pygame.image.load(os.path.join(assets_dir, name))
+    return pygame.image.load(os.path.join(assets_dir, "img", name))
 
 def loadSound(name : str):
-    return pygame.mixer.Sound(os.path.join(assets_dir, name))
+    return pygame.mixer.Sound(os.path.join(assets_dir, "sfx", name))
 
 # Path to the assets directory (inside lib/assets)
 assets_dir = resource_path("assets")
@@ -78,3 +78,39 @@ worldCompleteSound = loadSound("worldComplete.wav")
 sandThudSound = loadSound("sandthud.wav")
 stoneSlideSound = loadSound("stone.wav")
 challengeCompleteSound = loadSound("challengeComplete.wav")
+
+locks = [loadImage("lock" + str(i) + ".png") for i in range(6)]
+
+def getSavePath():
+    # Windows
+    if sys.platform == "win32": 
+        base = os.environ.get("APPDATA", os.path.expanduser("~"))
+    # Mac
+    elif sys.platform == "darwin":
+        base = os.path.expanduser("~/Library/Application Support")
+    # Linux
+    else:
+        base = os.path.expanduser("~/.local/share")
+
+    save_dir = os.path.join(base, "GravitySwitchData")
+    os.makedirs(save_dir, exist_ok=True)
+    return os.path.join(save_dir, "gsSave.txt")
+
+savePath = getSavePath()
+if os.path.exists(savePath):
+    print("FOUND SAVE FILE AT", savePath)
+    try:
+        with open(savePath, "r") as f:
+            loadedSave = [
+                [int(x) for x in line.strip().split()]
+                for line in f
+                if line.strip()
+            ]
+    except:
+        print("The save file is malformed. Defaulting to new save.")
+        loadedSave = [[0 for _ in range(11)] for _ in range(11)]
+else:
+    print("No save data found.")
+    # Create a default save if none exists
+    loadedSave = [[0 for _ in range(11)] for _ in range(11)]
+

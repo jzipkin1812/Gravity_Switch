@@ -2,7 +2,7 @@ SCREEN_WIDTH = 650
 SCREEN_HEIGHT = 650
 SCREEN_SIZE = 650
 GRID_SIZE = 25
-GAME_SPEED = 0.5
+GAME_SPEED = 1.5
 
 colorsWorldA = {
     "platform" : (100, 149, 237),
@@ -92,7 +92,7 @@ levelSelectWorldA = [
 (326, 147),
 (464, 182),
 (549, 271),
-(423, 321),
+(434, 321),
 (308, 280),
 (169, 300),
 (44, 380),
@@ -174,4 +174,11 @@ levelSelectWorldChallenge = [
 (528, 2147),
 (308, 2652)
 ]
+
+levelSelections = [levelSelectWorldA, 
+                   levelSelectWorldB, 
+                   levelSelectWorldC, 
+                   levelSelectWorldD,
+                   levelSelectWorldE,
+                   levelSelectWorldF]
 
