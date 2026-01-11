@@ -126,3 +126,28 @@ class Level:
         self.players = [p for p in self.players if not 
                                       (p.x == x and p.y == y)]
         self.solidify()
+
+    def toDict(self):
+        result = {
+            "players" : [p.toDict() for p in self.players],
+            "background" : [rgb for rgb in self.background],
+            "text" : self.text, 
+            "textLocation" : [coord for coord in self.textLocation],
+            "textColor" : [rgb for rgb in self.textColor],
+            "levelObjects" : [
+                obj.toDict() for obj in self.levelObjects
+            ],
+        }
+        return(result)
+
+def levelFromDict(data):
+    result = Level(
+        [player.playerFromDict(p) for p in data["players"]],
+        [s.entityFromDict(obj) for obj in data["levelObjects"]],
+        (data["background"][0], data["background"][1], data["background"][2]),
+        data["text"],
+        (data["textLocation"][0], data["textLocation"][1]),
+        (data["textColor"][0], data["textColor"][1], data["textColor"][2]),
+    )
+    return(result)
+

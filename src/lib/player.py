@@ -82,7 +82,14 @@ class Player:
         self.x = myround(self.x)
         self.y = myround(self.y)
 
-    # #This is only for debug, so I can view the player stats
-    # def __repr__(self):
-    #     return(str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2) \
-    #         + ", " + str(self.xv) + ", " + str(self.yv))
+    def toDict(self):
+        return {
+            "x" : self.x,
+            "y" : self.y,
+            "color" : self.color,
+            "size" : self.size,
+            "inverted" : self.inverted,
+        }
+    
+def playerFromDict(data):
+    return Player(data["x"], data["y"], data["color"], data["size"], data["inverted"])

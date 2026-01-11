@@ -14,17 +14,26 @@ from lib import utility as u
 from lib import constants as c
 from lib import loadAssets as a
 
+import pygame_gui
+from pygame_gui.windows.ui_file_dialog import UIFileDialog
+from pygame_gui.elements.ui_button import UIButton
+from pygame.rect import Rect
+
+
+
 pygame.mixer.pre_init(44100, -16, 2, 2048)
 pygame.init()
 
 #pygame variables 
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode([c.SCREEN_WIDTH, c.SCREEN_HEIGHT])
+manager = pygame_gui.UIManager((c.SCREEN_WIDTH, c.SCREEN_WIDTH))
+
 pygame.display.set_caption("Gravity Switch 2.0")
 done = False
 frames = 0
 
-mainStatus = gs.GameStateInfo(screen)
+mainStatus = gs.GameStateInfo(screen, manager)
 mainStatus.loadSaveFile(a.loadedSave)
 
 while not mainStatus.quit:
@@ -38,12 +47,16 @@ while not mainStatus.quit:
     mainStatus.mouseX = mouseX = pygame.mouse.get_pos()[0]
     mainStatus.mouseY = mouseY = pygame.mouse.get_pos()[1]
     for event in pygame.event.get(): 
+        manager.process_events(event)
         mainStatus.process(event)
     # All game logic
     mainStatus.update()
     # Debug: Display FPS
     u.screenText(10, 10, screen, "FPS: " + str(int(clock.get_fps())), 15)
-    pygame.display.flip()
+    # Draw special GUI elements (file selector)
+    manager.update(mainStatus.tickTime)
+    manager.draw_ui(screen)
+    pygame.display.update()
 
 mainStatus.levelDumpFile.write(mainStatus.level.toString())
 mainStatus.levelDumpFile.close()

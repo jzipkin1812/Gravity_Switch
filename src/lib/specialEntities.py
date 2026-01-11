@@ -26,6 +26,13 @@ class NullCube(Entity):
         result = NullCube(self.x1, self.y1, (self.color[0], self.color[1], self.color[2]))
         result.timestamp = self.timestamp
         return(result)
+    def toDict(self):
+        return {
+            "type": "NullCube",
+            "x": self.x1,
+            "y": self.y1,
+            "color": self.color,
+        }
     
 
 class Resizer(Entity):
@@ -60,7 +67,15 @@ class Resizer(Entity):
             return(True)
         else:
             return(False)
-    
+    def toDict(self):
+        return {
+            "type": "Resizer",
+            "x": self.x1,
+            "y": self.y1,
+            "multiplier": self.multiplier,
+            "color": self.color,
+        }
+
     def display(self, screen, gridlike = False):
         u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 2)
         u.betterRect(screen, self.x3, self.y3, self.x4, self.y4, self.color, 2)
@@ -116,6 +131,15 @@ class Redirector(Entity):
         result = Redirector(self.x1, self.y1, self.direction, (self.color[0], self.color[1], self.color[2]))
         result.timestamp = self.timestamp
         return(result)
+    def toDict(self):
+        return {
+            "type": "Redirector",
+            "x": self.x1,
+            "y": self.y1,
+            "direction": self.direction,
+            "color": self.color,
+        }
+
    
 class Cloud(Entity):
     def __init__(self, x1, y1, x2, y2, color = (200, 200, 200)):
@@ -136,6 +160,16 @@ class Cloud(Entity):
         result = Cloud(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2]))
         result.timestamp = self.timestamp
         return(result)
+    def toDict(self):
+        return {
+            "type": "Cloud",
+            "x1": self.x1,
+            "y1": self.y1,
+            "x2": self.x2,
+            "y2": self.y2,
+            "color": self.color,
+        }
+
 
 class Antiplatform(Entity):
     def __init__(self, x1, y1, x2, y2, color = (85, 51, 51)):
@@ -163,6 +197,16 @@ class Antiplatform(Entity):
         result = Antiplatform(self.x1, self.y1, self.x2, self.y2, (self.color[0], self.color[1], self.color[2]))
         result.timestamp = self.timestamp
         return(result)
+    def toDict(self):
+        return {
+            "type": "Antiplatform",
+            "x1": self.x1,
+            "y1": self.y1,
+            "x2": self.x2,
+            "y2": self.y2,
+            "color": self.color,
+        }
+
     
 class Teleporter(Entity):
     def __init__(self, x1, y1, x2, y2, uses = 0, color = (144, 169, 85)):
@@ -237,6 +281,17 @@ class Teleporter(Entity):
         result = Teleporter(self.x1, self.y1, self.x2, self.y2, self.uses, (self.color[0], self.color[1], self.color[2]))
         result.timestamp = self.timestamp
         return(result)
+    def toDict(self):
+        return {
+            "type": "Teleporter",
+            "x1": self.x1,
+            "y1": self.y1,
+            "x2": self.x2,
+            "y2": self.y2,
+            "uses": self.uses,
+            "color": self.color,
+        }
+
 
 
 class Lever(Entity):
@@ -275,6 +330,17 @@ class Lever(Entity):
         result = Lever(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2]))
         result.timestamp = self.timestamp
         return(result)
+    def toDict(self):
+        return {
+            "type": "Lever",
+            "x1": self.x1,
+            "y1": self.y1,
+            "x2": self.x2,
+            "y2": self.y2,
+            "direction": self.direction,
+            "color": self.color,
+        }
+
     
 
 class Tar(Entity):
@@ -302,6 +368,17 @@ class Tar(Entity):
         result = Tar(self.x1, self.y1, self.x2, self.y2, self.direction, (self.color[0], self.color[1], self.color[2]))
         result.timestamp = self.timestamp
         return(result)
+    def toDict(self):
+        return {
+            "type": "Tar",
+            "x1": self.x1,
+            "y1": self.y1,
+            "x2": self.x2,
+            "y2": self.y2,
+            "direction": self.direction,
+            "color": self.color,
+        }
+
 
 class BeatBlock(Entity):
     solidParity = "blue"
@@ -341,6 +418,17 @@ class BeatBlock(Entity):
         result = (BeatBlock(self.x1, self.y1, self.x2, self.y2, self.parity, self.color))
         result.timestamp = self.timestamp
         return(result)
+    def toDict(self):
+        return {
+            "type": "BeatBlock",
+            "x1": self.x1,
+            "y1": self.y1,
+            "x2": self.x2,
+            "y2": self.y2,
+            "parity": self.parity,
+            "color": self.color,
+        }
+
     
 class Quicksand(Entity):
     def __init__(self, x1, y1, x2, y2, direction = "down", color = (139, 69, 19)):
@@ -501,6 +589,16 @@ class Quicksand(Entity):
         self.y1 = myround(self.y1)
         self.x2 = myround(self.x2)
         self.y2 = myround(self.y2)
+    def toDict(self):
+        return {
+            "type": "Quicksand",
+            "x1": self.x1,
+            "y1": self.y1,
+            "x2": self.x2,
+            "y2": self.y2,
+            "direction": self.direction,
+            "color": self.color,
+        }
 
 class Stone(Entity):
     def __init__(self, x1, y1, x2, y2, color = (150, 150, 150)):
@@ -693,5 +791,57 @@ class Stone(Entity):
         self.y1 = myround(self.y1)
         self.x2 = myround(self.x2)
         self.y2 = myround(self.y2)
+    def toDict(self):
+        return {
+            "type": "Stone",
+            "x1": self.x1,
+            "y1": self.y1,
+            "x2": self.x2,
+            "y2": self.y2,
+            "color": self.color,
+        }
+
     
-  
+def entityFromDict(d : dict):
+    t = d["type"]
+
+    if t == "NullCube":
+        return NullCube(d["x"], d["y"], d["color"])
+
+    elif t == "Resizer":
+        return Resizer(d["x"], d["y"], d["multiplier"], d["color"])
+
+    elif t == "Redirector":
+        return Redirector(d["x"], d["y"], d["direction"], d["color"])
+
+    elif t == "Cloud":
+        return Cloud(d["x1"], d["y1"], d["x2"], d["y2"], d["color"])
+
+    elif t == "Antiplatform":
+        return Antiplatform(d["x1"], d["y1"], d["x2"], d["y2"], d["color"])
+
+    elif t == "Teleporter":
+        return Teleporter(d["x1"], d["y1"], d["x2"], d["y2"], d["uses"], d["color"])
+
+    elif t == "Lever":
+        return Lever(d["x1"], d["y1"], d["x2"], d["y2"], d["direction"], d["color"])
+
+    elif t == "Tar":
+        return Tar(d["x1"], d["y1"], d["x2"], d["y2"], d["direction"], d["color"])
+
+    elif t == "BeatBlock":
+        return BeatBlock(d["x1"], d["y1"], d["x2"], d["y2"], d["parity"], d["color"])
+
+    elif t == "Quicksand":
+        return Quicksand(d["x1"], d["y1"], d["x2"], d["y2"], d["direction"], d["color"])
+
+    elif t == "Stone":
+        return Stone(d["x1"], d["y1"], d["x2"], d["y2"], d["color"])
+    
+    elif t == "Coin" :
+        return Coin(d["x"], d["y"], d["color"])
+
+    elif t == "Entity" :
+        return Entity(d["x1"], d["y1"], d["x2"], d["y2"], d["color"])
+
+    raise ValueError(f"Unknown entity type: {t}")

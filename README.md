@@ -12,11 +12,9 @@ The Level Editor button on the title screen simply takes you to a blank level. N
 If you open the editor while in a main stage level, you will no longer advance to the next stage upon completing it.
 ## Navigating the editor
 Use the left mouse button to select the location of the editor pointer. This looks like a small red circle. It points to the top left of whichever grid space you click. Once you have chosen a location for the editor pointer, you will use the keyboard to place objects there. You will also need to use the right mouse button similarly to select the location of the secondary mouse pointer. This is, in contrast, a small white circle, at the bottom right corner of whichever grid space you click. 
-## CAUTION!!!!!!
-The secondary editor pointer (white circle) absolutely MUST be below and to the right of the primary pointer (red circle)! The white pointer is at the bottom right corner of the grid space for a reason! If you do not follow this rule and place a platform, your entire level will be broken and you will have to restart the game! I will fix this in a later update...
 ## Placing platforms
 Press the space key to create a rectangular platform, defined by the two editor pointers. The primary (red) editor pointer is the top left corner of your platform and the secondary (white) editor pointer is the bottom right corner of your platform. Similarly,
-* To create clouds (from Space Station), press: o 
+* To create clouds (from Space Station), press: f 
 * To create antiplatforms (from Volcanic Delta), press: a
 * Blue Beat Block (from Brownian Motion Beach): , 
 * Pink Beat Block (from Brownian Motion Beach): .
@@ -43,15 +41,18 @@ The number keys provide this functionality. Press 0 and then create a teleporter
 ## Testing your Level 
 Simply click the mouse wheel again to exit editor mode and start playing. You can freely switch between these two modes with the mouse wheel at any time. Ngl the seamless design of this feature ate...
 ## Saving and Sharing your level
-While in editor mode, press the w button to write your current level to a file. The file it will be saved to is "levelDump.txt", located in the src folder. When closing the game, the current level will also be saved for you just in case. You'll find everything you saved during your last playthrough of the game in levelDump.txt at once. 
-### How to read and use levelDump.txt and premadeLevels.py
-What you see in levelDump is literally the code needed to be executed to create that level. If you go to /lib/premadeLevels.py, you'll see that this format is used by the game. Feel free to send such code to a friend, and they can paste it in to editorLevel in that file. Then, when pressing the level editor button, they'll see your level! Note that there is no 'completion' screen for editorLevel, so if a friend completes your level and subsequently dies (this is a core strategy of many main game levels, since after collecting the last coin you immediately win) they'll still get a death screen.
-### Advanced Tricks
-You can directly edit your level's code to make tweaks that the editor doesn't support. For example, the 'color' field of any object in the level, as well as the color value for the background and text color, may be changed freely. You may also change the x and y coordinates of objects to make adjustments finer than the grid size.
+While in editor mode, press CTRL+o to save your level to a file. Use the dialog that pops up on screen.
+To load a level from your computer, press CTRL+o, and again use the dialog that pops up on screen.
+Feel free to share your levels with your friends...or send them to me!
+### Advanced Editing
+You can directly edit your level file by opening it up in a text editor to make tweaks that the editor doesn't support. For example, the 'color' field of any object in the level, as well as the color value for the background and text color, may be changed freely. You may also change the x and y coordinates of objects to make adjustments finer than the grid size. 
 ## Adding text to your level
 With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text into the terminal. (This feature uses Python's input() function.) The text should appear on screen.
 
 # Changelog
+## Version 2.2 (1/xx/2026):
+* You can now save/load levels!
+* Editor pointer bug fixed (FINALLY!!!!)
 ## Version 2.1 (1/xx/2026):
 * Level unlock system added.
 * Save file system added. Your progress will be saved!
@@ -103,6 +104,5 @@ With your primary pointer on the top-left location of where you want your text, 
 * There is still no save file, so everything is unlocked right at the start.
 * All mechanics and objects from the original 2018 game are implemented.
 ## Plans for Future Versions
-* Fix the editor pointer bug mentioned above.
 * Allow different multipliers for resizers.
 * Distribute the game publicly.

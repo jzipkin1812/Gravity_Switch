@@ -168,6 +168,16 @@ class Entity:
     
     def order(self) -> int:
         return(1)
+    
+    def toDict(self):
+        return {
+            "type": "Entity",
+            "x1": self.x1,
+            "y1": self.y1,
+            "x2": self.x2,
+            "y2": self.y2,
+            "color": self.color,
+        }
         
         
 class Coin(Entity):
@@ -192,3 +202,10 @@ class Coin(Entity):
         return(result)
     def order(self) -> int:
         return(2)
+    def toDict(self):
+        return {
+            "type": "Coin",
+            "x": self.x1,
+            "y": self.y1,
+            "color": self.color,
+        }

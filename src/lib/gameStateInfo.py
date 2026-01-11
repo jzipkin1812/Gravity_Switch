@@ -1,3 +1,6 @@
+import tkinter
+import tkinter.filedialog
+
 import pygame
 from .worlds import *
 from . import level
@@ -6,18 +9,30 @@ from . import entity
 from . import specialEntities as special 
 from .constants import *
 from .loadAssets import *
+import json
+import pygame_gui
+from pygame_gui.windows.ui_file_dialog import UIFileDialog
+from pygame_gui.elements.ui_button import UIButton
+from pygame.rect import Rect
+
 
 class GameStateInfo:
-    def __init__(self, pygameScreen):
+    manager = pygame_gui.UIManager((800, 600))
+
+    def __init__(self, pygameScreen : pygame.Surface, pygameManager : pygame_gui.UIManager):
         # Pygame variables
         self.quit: bool = False
         self.frames: int = 0
         self.screen: pygame.Surface = pygameScreen
+        self.manager: pygame_gui.UIManager = pygameManager
         self.screenWidth: int = self.screen.get_width()
         self.screenHeight: int = self.screen.get_height()
         self.mouseX: int = 0
         self.mouseY: int = 0
         self.timer = pygame.time.Clock()
+        # GUI variables
+        self.saveSelector = None
+        self.loadSelector = None
         # Aesthetic variables
         self.colors = colorsWorldA
         # Mode functions
@@ -47,8 +62,8 @@ class GameStateInfo:
         self.advance: bool = True
         # Level editor info
         self.gridSize: int = GRID_SIZE
-        self.point1: tuple = (0, 0)
-        self.point2: tuple = (0, 0)
+        self.point1: list = [0, 0]
+        self.point2: list = [0, 0]
         self.levelDumpFile = open("levelDump.txt", "w")
         self.editDirection = "up"
         self.editUses = 0
@@ -243,13 +258,23 @@ class GameStateInfo:
     def processEditor(self, event: pygame.event.Event):
         a = self.point1
         b = self.point2
+        swappedPointerX = False
+        swappedPointerY = False
         # Adjust points if necessary
-        # if(a[0] - 5 > b[0] or a[1] - 5 > b[1]):
-        #     temp = (a[0], a[1])
-        #     self.point1 = self.point2
-        #     self.point2 = temp
+        if(a[0] - 5 > b[0]):
+            temp = a[0]
+            a[0] = b[0]
+            b[0] = temp
+            swappedPointerX = True
+
+        elif(a[1] - 5 > b[1]):
+            temp = a[1]
+            a[1] = b[1]
+            b[1] = temp
+            swappedPointerY = True
+
         # Keys add objects to level
-        if event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN and not (self.saveSelector or self.loadSelector):
             # Erase
             if event.key == pygame.K_BACKSPACE:
                 self.level.erase(a[0], a[1])
@@ -269,7 +294,7 @@ class GameStateInfo:
             elif event.key == pygame.K_a:
                 self.level.levelObjects.append(special.Antiplatform(a[0], a[1], 
                                                             b[0], b[1], self.colors["platform"]))
-            elif event.key == pygame.K_o:
+            elif event.key == pygame.K_f:
                 self.level.levelObjects.append(special.Cloud(a[0], a[1], 
                                                             b[0], b[1]))
             elif event.key == pygame.K_COMMA:
@@ -302,7 +327,7 @@ class GameStateInfo:
                 self.level.levelObjects.append(special.Resizer(a[0], a[1], 3))
             elif event.key == pygame.K_e:
                 self.level.levelObjects.append(special.Resizer(a[0], a[1], 5))
-            elif event.key == pygame.K_s:
+            elif event.key == pygame.K_9:
                 self.level.levelObjects.append(special.Stone(a[0], a[1], 
                                                             b[0], b[1]))
 
@@ -312,9 +337,6 @@ class GameStateInfo:
                 self.level.textColor = self.colors["text"]
                 self.level.text = input()
             
-            # Write/Save
-            elif event.key == pygame.K_w:
-                self.levelDumpFile.write(self.level.toString())
             # Change direction for directed objects
             elif event.key in [pygame.K_DOWN, pygame.K_UP, pygame.K_LEFT, pygame.K_RIGHT]:
                 self.editDirection = player.directionDict[event.key]
@@ -338,6 +360,37 @@ class GameStateInfo:
             elif event.key == pygame.K_SLASH:
                 self.mode = "Gameplay"
                 self.level.solidify()
+
+            # Save/Load
+            elif event.key == pygame.K_s and pygame.key.get_mods() & pygame.KMOD_CTRL:
+                self.saveSelector = UIFileDialog(rect=Rect(50, 50, 500, 400), 
+                                                 manager=self.manager, allow_picking_directories=True)
+
+            elif event.key == pygame.K_o and pygame.key.get_mods() & pygame.KMOD_CTRL:
+                self.loadSelector = UIFileDialog(rect=Rect(50, 50, 500, 400), 
+                                                 manager=self.manager, allow_existing_files_only=True, allow_picking_directories=True)
+
+        elif event.type == pygame_gui.UI_BUTTON_PRESSED:
+            # SAVE
+            if self.saveSelector and event.ui_element == self.saveSelector.ok_button:
+                print("SAVING LEVEL to", self.saveSelector.current_file_path)
+                path = self.saveSelector.current_file_path
+                if path:
+                    with open(path, "w") as f:
+                        json.dump(self.level.toDict(), f, indent=2)
+                self.saveSelector = None
+            # LOAD
+            elif self.loadSelector and event.ui_element == self.loadSelector.ok_button:
+                print("LOADING LEVEL from", self.loadSelector.current_file_path)
+                path = self.loadSelector.current_file_path
+                if path:
+                    with open(path, "r") as f:
+                        self.level = level.levelFromDict(json.load(f))
+                self.loadSelector = None
+            elif self.saveSelector and event.ui_element == self.saveSelector.cancel_button:
+                self.saveSelector = None
+            elif self.loadSelector and event.ui_element == self.loadSelector.cancel_button:
+                self.loadSelector = None
         
         if event.type == pygame.MOUSEBUTTONDOWN:
             # Middle Mouse: Swap modes and solidify level contents
@@ -346,12 +399,22 @@ class GameStateInfo:
                 self.level.solidify()
             # Left mouse: Set point1
             if event.button == 1:
-                self.point1 = (self.mouseX - (self.mouseX % self.gridSize), self.mouseY - (self.mouseY % self.gridSize))
+                self.point1 = [self.mouseX - (self.mouseX % self.gridSize), self.mouseY - (self.mouseY % self.gridSize)]
             # Right mouse: Set point2
             if event.button == 3:
-                self.point2 = (self.mouseX - (self.mouseX % self.gridSize) + self.gridSize, self.mouseY - (self.mouseY % self.gridSize)  + self.gridSize)
+                self.point2 = [self.mouseX - (self.mouseX % self.gridSize) + self.gridSize, self.mouseY - (self.mouseY % self.gridSize)  + self.gridSize]
         
-            
+        # Adjust points if necessary
+        if(swappedPointerX):
+            temp = a[0]
+            a[0] = b[0]
+            b[0] = temp
+        elif(swappedPointerY):
+            temp = a[1]
+            a[1] = b[1]
+            b[1] = temp
+
+
     def screenText(self, x, y, text = "Default", size = 100, color = [250, 250, 250], background = None):
         tempFont = pygame.font.SysFont("msgothic", size)
         tempText = tempFont.render(text, True, color, background)
@@ -413,5 +476,3 @@ class GameStateInfo:
         self.unlocked = [[0 for _ in range(11)] for _ in range(6)]
         for row in self.unlocked:
             row[0] = 1
-        
-        
