@@ -35,6 +35,8 @@ titleImage = loadImage("titleScreen.png")
 levelSelectImage = loadImage("levelSelect.png") 
 gameOverImage = loadImage("gameover.png") 
 howToPlayImage = loadImage("howToPlay.png") 
+paletteImage = loadImage("paletteBackground.png")
+editorControlsImage = loadImage("editorControls.png")
 
 # Load sounds
 # Channels: 0 = Music, 1 = collision SFX, 2 = special SFX
@@ -74,6 +76,7 @@ beatBlockSound = loadSound("pop.wav")
 levelCompleteSounds = [
     loadSound(f"levelComplete{i}.wav") for i in range(1, 11)
 ]
+editorCompleteSound = loadSound("editorComplete.wav")
 worldCompleteSound = loadSound("worldComplete.wav")
 sandThudSound = loadSound("sandthud.wav")
 stoneSlideSound = loadSound("stone.wav")

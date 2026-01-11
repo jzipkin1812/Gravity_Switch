@@ -626,13 +626,8 @@ class Stone(Entity):
         d = 3
         borderWidth = 2
         borderColor = (self.color[0]/d, self.color[1]/d, self.color[2]/d)
-        u.dashedLine(screen, borderColor, (self.x1, self.y1), (self.x1, self.y2), 5, 5, borderWidth)
-        u.dashedLine(screen, borderColor, (self.x2, self.y1), (self.x2, self.y2), 5, 5, borderWidth)
-        u.dashedLine(screen, borderColor, (self.x1, self.y1), (self.x2, self.y1), 5, 5, borderWidth)
-        u.dashedLine(screen, borderColor, (self.x1, self.y2), (self.x2, self.y2), 5, 5, borderWidth)
-        # u.betterRect(screen, self.x1, self.y1, self.x2, self.y2,
-        #               (self.color[0]/d, self.color[1]/d, self.color[2]/d), borderWidth)
-        
+        u.dashedRect(screen, borderColor, self.x1, self.y1, self.x2, self.y2, borderWidth)
+                
     def collide(self, player: p.Player) -> bool:
         # Always collide
         pastDir = player.direction

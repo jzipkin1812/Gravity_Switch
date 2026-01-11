@@ -56,6 +56,11 @@ def dashedLine(surface, color, startPos, endPos, dashLength=10, spaceLength=5, w
 
         pygame.draw.line(surface, color, (startX, startY), (endX, endY), width)
 
+def dashedRect(screen, color, x1, y1, x2, y2, width):
+    dashedLine(screen, color, (x1, y1), (x1, y2), 5, 5, width)
+    dashedLine(screen, color, (x2, y1), (x2, y2), 5, 5, width)
+    dashedLine(screen, color, (x1, y1), (x2, y1), 5, 5, width)
+    dashedLine(screen, color, (x1, y2), (x2, y2), 5, 5, width)
 
 def playSound(channel : int, soundObj):
     pygame.mixer.Channel(channel).play(soundObj)

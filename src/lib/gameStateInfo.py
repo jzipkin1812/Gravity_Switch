@@ -47,6 +47,8 @@ class GameStateInfo:
             "Game Over" : self.displayGameOver,
             "Level Select" : self.displayLevelSelect,
             "How To Play" : self.displayHowToPlay,
+            "Palette" : self.displayPalette,
+            "Editor Controls" : self.displayEditorControls,
         }
         self.modeInputDict = {
             "Title Screen" : self.processTitle,
@@ -55,6 +57,8 @@ class GameStateInfo:
             "Game Over" : self.processGameOver,
             "Level Select" : self.processLevelSelect,
             "How To Play" : self.processHowToPlay,
+            "Palette" : self.processPalette,
+            "Editor Controls" : self.processEditorControls,
         }
         # Gameplay statuses
         self.world: list[level.Level] = worldA
@@ -70,6 +74,9 @@ class GameStateInfo:
         self.editDirection = "up"
         self.editUses = 0
         self.doAdvance = True
+        self.editorBrush = "Coin"
+        self.editorColor = None
+        self.colorIndicator = None
         # Level select info
         self.scrollMod: int = 0
         # Unlocked levels
@@ -80,23 +87,33 @@ class GameStateInfo:
         self.secret = []
         self.code = [pygame.K_j, pygame.K_a, pygame.K_v, pygame.K_i, pygame.K_n]
         self.edoc = [pygame.K_n, pygame.K_i, pygame.K_v, pygame.K_a, pygame.K_j]
+        self.coords1 = (0, 0)
+        self.coords2 = (0, 0)
+    
     def update(self):
         self.frames += 1
         
         # Player movement occurs in the update, with speed independent of framerate.
         self.timer.tick()
         self.level.update(self.timer.get_time())
-        
+        # Advancement from normal levels
         if (self.level.isComplete()) and self.advance:
             self.nextLevel()
             # Completing challenge levels sends you back to the level select screen.
             if (self.world == worldChallenge):
                 self.mode = "Level Select"
+        # Advancement from editor levels
+        elif (self.level.isComplete()) and (self.level.isBeatable()):
+            self.level.reset()
+            u.playSound(2, editorCompleteSound)
+            
+        # Death
         elif (self.level.playerIsDead()):
             u.playSound(2, deathSound)
             pygame.mixer.Channel(1).stop()
             self.mode = "Game Over"
             self.level.reset()
+    
     def nextLevel(self):
         self.level.reset()
         self.levelNumber += 1
@@ -119,10 +136,13 @@ class GameStateInfo:
             u.playSound(3, levelCompleteSounds[self.levelNumber - 1])
         
         self.beamDown(self.world, self.levelNumber)
+    
     def displayProperMode(self):
         self.modeDisplayDict[self.mode]()
+    
     def displayTitle(self):
         self.screen.blit(titleImage, (0,0))
+    
     def displayLevelSelect(self):
         # Main background
         self.screen.blit(levelSelectImage, (0, self.scrollMod))
@@ -142,19 +162,25 @@ class GameStateInfo:
                 self.screen.blit(lock, (challengePos[0] + offset, challengePos[1] + self.scrollMod + offset))
     
     def displayLevel(self):
-        self.level.display(self.screen, (self.world == worldF))
+        self.level.display(self.screen)
         if pygame.key.get_pressed()[pygame.K_LSHIFT]:
             self.displayGrid()
+    
     def displayGameOver(self):
         self.screen.blit(gameOverImage, (0, 0))
+    
+    def displayEditorControls(self):
+        self.screen.blit(editorControlsImage, (0, 0))
+    
     def displayGrid(self):
         # 25 pixel grid
         for i in range(0, SCREEN_SIZE, self.gridSize):
             pygame.draw.line(self.screen, (75, 75, 75), (i, 0), (i, SCREEN_HEIGHT))
             pygame.draw.line(self.screen, (75, 75, 75), (0, i), (SCREEN_WIDTH, i))
+    
     def displayLevelEditor(self):
         self.advance = False
-        self.level.display(self.screen, self.world == worldF)
+        self.level.display(self.screen)
         self.displayGrid()
         # editor pointers
         pygame.draw.circle(self.screen, (255, 0, 0), self.point1, 5)
@@ -162,8 +188,50 @@ class GameStateInfo:
         # text ui
         if self.textinput:
             self.screen.blit(self.textinput.surface, (self.point1[0], self.point1[1]))
-        
-    
+
+    def displayPalette(self):
+        self.screen.blit(paletteImage, (0,0))
+        x1, y1, x2, y2 = palleteSelections[self.editorBrush]
+        u.dashedRect(self.screen, (255, 255, 255), x1, y1, x2, y2, 2)
+
+        if self.editorColor:
+            u.betterRect(self.screen, 
+                         self.colorIndicator[0], 
+                         self.colorIndicator[1], 
+                         self.colorIndicator[2], 
+                         self.colorIndicator[3],
+                         (255, 255, 255), 2)
+
+        # u.dashedRect(self.screen, (255, 255, 255), self.coords1[0], self.coords1[1], self.coords2[0], self.coords2[1], 2)
+
+    def processPalette(self, event: pygame.event.Event):
+        if event.type == pygame.KEYDOWN:
+            self.mode = "Level Editor"
+            # Upon leaving the palette, color the level according to theme.
+            if self.editorColor:
+                self.level.colorFromTheme(self.editorColor)
+
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                self.coords1 = (self.mouseX, self.mouseY)
+                # Select a brush
+                for (brush, coords) in palleteSelections.items():
+                    if coords[0] <= self.mouseX <= coords[2] and coords[1] <= self.mouseY <= coords[3]:
+                        self.editorBrush = brush
+                # Select a color theme
+                for worldNum in range(6):
+                    x1 = 145 + 80 * worldNum
+                    y1 = 546
+                    x2 = x1 + 75
+                    y2 = y1 + 75
+                    if x1 <= self.mouseX <= x2 and y1 <= self.mouseY <= y2:
+                        self.editorColor = allColors[worldNum]
+                        self.colors = self.editorColor
+                        self.colorIndicator = [x1, y1, x2, y2]
+            else:
+                self.coords2 = (self.mouseX, self.mouseY)
+                print([self.coords1[0], self.coords1[1], self.coords2[0], self.coords2[1]])
+
     def process(self, event: pygame.event.Event):
         # Clicking x button
         if event.type == pygame.QUIT:
@@ -175,8 +243,7 @@ class GameStateInfo:
         if event.type == pygame.KEYDOWN:
             self.mode = "Gameplay"
             self.level.reset()
-    
-        
+       
     def processGameplay(self, event: pygame.event.Event):
         # For multiple players, check if everyone is stopped.
         allStopped = True
@@ -230,7 +297,13 @@ class GameStateInfo:
                     self.advance = False
                     self.world = worldA
                     self.levelNumber = 0
+                elif 212 <= self.mouseX <= 335 and 540 <= self.mouseY <= 570:
+                    self.mode = "Editor Controls"
     
+    def processEditorControls(self, event: pygame.event.Event):
+        if event.type == pygame.KEYDOWN:
+            self.mode = "Title Screen"
+
     def processLevelSelect(self, event: pygame.event.Event):        
         if event.type == pygame.MOUSEWHEEL:
             self.scrollMod += 20 * event.y
@@ -274,110 +347,63 @@ class GameStateInfo:
                 print("SAVING LEVEL to", self.saveSelector.current_file_path)
                 path = self.saveSelector.current_file_path
                 if path:
-                    with open(path, "w") as f:
-                        json.dump(self.level.toDict(), f, indent=2)
+                    try:
+                        with open(path, "w") as f:
+                            json.dump(self.level.toDict(), f, indent=2)
+                    except Exception as e:
+                        print("Could not save level:", e)
                 self.saveSelector = None
             # LOAD
             elif self.loadSelector and event.ui_element == self.loadSelector.ok_button:
                 print("LOADING LEVEL from", self.loadSelector.current_file_path)
                 path = self.loadSelector.current_file_path
                 if path:
-                    with open(path, "r") as f:
-                        self.level = level.levelFromDict(json.load(f))
+                    try:
+                        with open(path, "r") as f:
+                            self.level = level.levelFromDict(json.load(f))
+                    except:
+                        print("Could not load level:", e)
                 self.loadSelector = None
             elif self.saveSelector and event.ui_element == self.saveSelector.cancel_button:
                 self.saveSelector = None
             elif self.loadSelector and event.ui_element == self.loadSelector.cancel_button:
                 self.loadSelector = None
+        # Text Input
         elif self.isGui() and self.textinput:
             self.textinput.update([event])
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 self.level.text = self.textinput.value
                 self.textinput = None
-        elif event.type == pygame.KEYDOWN and (not self.isGui()):
+        # All editor commands besides object placement
+        elif event.type == pygame.KEYDOWN and (not self.isGui()) and not(event.key == pygame.K_SPACE):
             # Erase
             if event.key == pygame.K_BACKSPACE:
                 self.level.erase(a[0], a[1])
 
-            # Text Location
+            # Switch Modes
             elif event.key == pygame.K_TAB:
-                self.textinput = pygame_textinput.TextInputVisualizer(font_object = pygame.font.SysFont("Courier New", LEVELTEXTSIZE), 
-                                                                      font_color=self.colors["text"], 
-                                                                      cursor_color=self.colors["text"])
-                self.level.textLocation = (a[0], a[1])
-                self.level.text = ""
-                self.level.textColor = self.colors["text"]
+                self.mode = "Palette"
+            elif event.key == pygame.K_ESCAPE:
+                self.mode = "Title Screen"
+                self.editorColor = None
+                self.colorIndicator = None
+            elif event.key == pygame.K_SLASH:
+                self.mode = "Gameplay"
+                self.level.solidify()
 
-            # Most commands require the pointer swap to get around the infamous pointer bug.
-            if(a[0] - 5 > b[0]):
-                temp = a[0]
-                a[0] = b[0]
-                b[0] = temp
-                swappedPointerX = True
-            if(a[1] - 5 > b[1]):
-                temp = a[1]
-                a[1] = b[1]
-                b[1] = temp
-                swappedPointerY = True
+            # Save/Load
+            elif event.key == pygame.K_s and pygame.key.get_mods() & pygame.KMOD_CTRL:
+                self.saveSelector = UIFileDialog(rect=Rect(50, 50, 500, 400), 
+                                                 manager=self.manager, allow_picking_directories=False)
 
-            # Undo
-            if event.key == pygame.K_z:
-                if len(self.level.levelObjects) > 0:
-                    self.level.levelObjects.sort(key = lambda obj: obj.timestamp)
-                    result : entity.Entity = self.level.levelObjects.pop()
-                    print("Undid object with timestamp", result.timestamp)
-                    self.level.levelObjects.sort(key = lambda obj: obj.order())
-            elif event.key == pygame.K_SPACE:
-                self.level.levelObjects.append(entity.Entity(a[0], a[1], 
-                                                            b[0], b[1], self.colors["platform"]))
-            elif event.key == pygame.K_t:
-                self.level.levelObjects.append(special.Teleporter(a[0], a[1], 
-                                                            b[0], b[1], self.editUses))
-            elif event.key == pygame.K_a:
-                self.level.levelObjects.append(special.Antiplatform(a[0], a[1], 
-                                                            b[0], b[1], self.colors["platform"]))
-            elif event.key == pygame.K_f:
-                self.level.levelObjects.append(special.Cloud(a[0], a[1], 
-                                                            b[0], b[1]))
-            elif event.key == pygame.K_COMMA:
-                self.level.levelObjects.append(special.BeatBlock(a[0], a[1], 
-                                                            b[0], b[1], "blue"))
-            elif event.key == pygame.K_PERIOD:
-                self.level.levelObjects.append(special.BeatBlock(a[0], a[1], 
-                                                            b[0], b[1], "red"))
-                
-            elif event.key == pygame.K_l:
-                self.level.levelObjects.append(special.Lever(a[0], a[1], 
-                                                            b[0], b[1], self.editDirection))
-            elif event.key == pygame.K_q:
-                self.level.levelObjects.append(special.Quicksand(a[0], a[1], 
-                                                            b[0], b[1], self.editDirection))
-            elif event.key == pygame.K_r:
-                self.level.levelObjects.append(special.Tar(a[0], a[1], 
-                                                            b[0], b[1], self.editDirection))
-            elif event.key == pygame.K_p:
-                self.level.players.append(player.Player(a[0], a[1], self.colors["player"], self.gridSize, False))
-            elif event.key == pygame.K_v:
-                self.level.players.append(player.Player(a[0], a[1], self.colors["inverted"], self.gridSize, True))    
-                
-                
-            elif event.key == pygame.K_c:
-                self.level.levelObjects.append(entity.Coin(a[0], a[1], self.colors["coin"]))
-            elif event.key == pygame.K_n:
-                self.level.levelObjects.append(special.NullCube(a[0], a[1]))
-            elif event.key == pygame.K_d:
-                self.level.levelObjects.append(special.Resizer(a[0], a[1], 3))
-            elif event.key == pygame.K_e:
-                self.level.levelObjects.append(special.Resizer(a[0], a[1], 5))
-            elif event.key == pygame.K_9:
-                self.level.levelObjects.append(special.Stone(a[0], a[1], 
-                                                            b[0], b[1]))
-            
-            # Change direction for directed objects
-            elif event.key in [pygame.K_DOWN, pygame.K_UP, pygame.K_LEFT, pygame.K_RIGHT]:
+            elif event.key == pygame.K_o and pygame.key.get_mods() & pygame.KMOD_CTRL:
+                self.loadSelector = UIFileDialog(rect=Rect(50, 50, 500, 400), 
+                                                 manager=self.manager, allow_existing_files_only=False, allow_picking_directories=True)
+
+            # Change  direction for directed objects
+            elif event.key in player.directionDict.keys():
                 self.editDirection = player.directionDict[event.key]
-            elif event.key == pygame.K_i:
-                self.level.levelObjects.append(special.Redirector(a[0], a[1], self.editDirection))
+            
             # Change uses for teleporters and possibly other objects in the future
             elif event.key == pygame.K_0:
                 self.editUses = 0
@@ -389,28 +415,85 @@ class GameStateInfo:
                 self.editUses = 3
             elif event.key == pygame.K_4:
                 self.editUses = 4
-                
             
-            elif event.key == pygame.K_ESCAPE:
-                self.mode = "Title Screen"
-            elif event.key == pygame.K_SLASH:
-                self.mode = "Gameplay"
-                self.level.solidify()
+            # Undo
+            if event.key == pygame.K_z:
+                if len(self.level.levelObjects) > 0:
+                    self.level.levelObjects.sort(key = lambda obj: obj.timestamp)
+                    result : entity.Entity = self.level.levelObjects.pop()
+                    print("Undid object with timestamp", result.timestamp)
+                    self.level.levelObjects.sort(key = lambda obj: obj.order())
+            
+        # All object placement
+        elif (event.type == pygame.KEYDOWN) and (not self.isGui()) and (event.key == pygame.K_SPACE):
+            # These commands do not require a pointer swap. Most only use the primary pointer.
+            if self.editorBrush == "Text":
+                self.textinput = pygame_textinput.TextInputVisualizer(font_object = pygame.font.SysFont("Courier New", LEVELTEXTSIZE), 
+                                                                      font_color=self.colors["text"], 
+                                                                      cursor_color=self.colors["text"])
+                self.level.textLocation = (a[0], a[1])
+                self.level.text = ""
+                self.level.textColor = self.colors["text"]
 
-            # Save/Load
-            elif event.key == pygame.K_s and pygame.key.get_mods() & pygame.KMOD_CTRL:
-                self.saveSelector = UIFileDialog(rect=Rect(50, 50, 500, 400), 
-                                                 manager=self.manager, allow_picking_directories=True)
+            elif self.editorBrush == "Teleporter":
+                self.level.levelObjects.append(special.Teleporter(a[0], a[1], 
+                                                            b[0], b[1], self.editUses))
+            elif self.editorBrush == "Player":
+                self.level.players.append(player.Player(a[0], a[1], self.colors["player"], self.gridSize, False))
+            elif self.editorBrush == "InvertedPlayer":
+                self.level.players.append(player.Player(a[0], a[1], self.colors["inverted"], self.gridSize, True)) 
+            elif self.editorBrush == "Coin":
+                self.level.levelObjects.append(entity.Coin(a[0], a[1], self.colors["coin"]))
+            elif self.editorBrush == "Nullcube":
+                self.level.levelObjects.append(special.NullCube(a[0], a[1]))
+            elif self.editorBrush == "Resizer":
+                self.level.levelObjects.append(special.Resizer(a[0], a[1], 3))
+            elif self.editorBrush == "Redirector":
+                self.level.levelObjects.append(special.Redirector(a[0], a[1], self.editDirection)) 
 
-            elif event.key == pygame.K_o and pygame.key.get_mods() & pygame.KMOD_CTRL:
-                self.loadSelector = UIFileDialog(rect=Rect(50, 50, 500, 400), 
-                                                 manager=self.manager, allow_existing_files_only=True, allow_picking_directories=True)
-        
+            # Platform additions require the pointer swap to get around the infamous pointer bug.
+            if(a[0] - 5 > b[0]):
+                temp = a[0]
+                a[0] = b[0]
+                b[0] = temp
+                swappedPointerX = True
+            if(a[1] - 5 > b[1]):
+                temp = a[1]
+                a[1] = b[1]
+                b[1] = temp
+                swappedPointerY = True
+
+            if self.editorBrush == "Entity":
+                self.level.levelObjects.append(entity.Entity(a[0], a[1], 
+                                                            b[0], b[1], self.colors["platform"]))
+            
+            elif self.editorBrush == "Antiplatform":
+                self.level.levelObjects.append(special.Antiplatform(a[0], a[1], 
+                                                            b[0], b[1], self.colors["platform"]))
+            elif self.editorBrush == "Cloud":
+                self.level.levelObjects.append(special.Cloud(a[0], a[1], 
+                                                            b[0], b[1]))
+            elif self.editorBrush == "BeatBlockA":
+                self.level.levelObjects.append(special.BeatBlock(a[0], a[1], 
+                                                            b[0], b[1], "blue"))
+            elif self.editorBrush == "BeatBlockB":
+                self.level.levelObjects.append(special.BeatBlock(a[0], a[1], 
+                                                            b[0], b[1], "red"))
+                
+            elif self.editorBrush == "Lever":
+                self.level.levelObjects.append(special.Lever(a[0], a[1], 
+                                                            b[0], b[1], self.editDirection))
+            elif self.editorBrush == "Quicksand":
+                self.level.levelObjects.append(special.Quicksand(a[0], a[1], 
+                                                            b[0], b[1], self.editDirection))
+            elif self.editorBrush == "Tar":
+                self.level.levelObjects.append(special.Tar(a[0], a[1], 
+                                                            b[0], b[1], self.editDirection))
+            elif self.editorBrush == "Stone":
+                self.level.levelObjects.append(special.Stone(a[0], a[1], 
+                                                            b[0], b[1]))
+        # Pointer selection         
         elif event.type == pygame.MOUSEBUTTONDOWN and (not self.isGui()):
-            # Middle Mouse: Swap modes and solidify level contents
-            if event.button == 2:
-                self.mode = "Gameplay"
-                self.level.solidify()
             # Left mouse: Set point1
             if event.button == 1:
                 self.point1 = [self.mouseX - (self.mouseX % self.gridSize), self.mouseY - (self.mouseY % self.gridSize)]
@@ -427,7 +510,6 @@ class GameStateInfo:
             temp = a[1]
             a[1] = b[1]
             b[1] = temp
-
 
     def screenText(self, x, y, text = "Default", size = 100, color = [250, 250, 250], background = None):
         tempFont = pygame.font.SysFont("msgothic", size)
@@ -474,6 +556,7 @@ class GameStateInfo:
                    
     def displayHowToPlay(self):
         self.screen.blit(howToPlayImage, (0, 0))
+    
     def processHowToPlay(self, event: pygame.event.Event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:

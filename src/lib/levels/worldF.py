@@ -43,6 +43,7 @@ F1 = level.Level(
     text = "1.Level Up!",
     textLocation = (50, 350),
     textColor = (255, 243, 179),
+    gridPlatforms=True
 )
 
 F2 = level.Level(
@@ -81,6 +82,7 @@ F2 = level.Level(
     text = "2.A Tight Squeeze",
     textLocation = (125, 50),
     textColor = (255, 243, 179),
+    gridPlatforms=True
 )
 
 F3 = level.Level(
@@ -111,6 +113,7 @@ F3 = level.Level(
     text = "3.Fe Fi Fo Fum!",
     textLocation = (0, 575),
     textColor = (255, 243, 179),
+    gridPlatforms=True
 )
 
 F4 = level.Level(
@@ -158,6 +161,7 @@ F4 = level.Level(
     text = "4.Combination Lock",
     textLocation = (100, 0),
     textColor = (255, 243, 179),
+    gridPlatforms=True
 )
 
 F5 = level.Level(
@@ -194,6 +198,7 @@ F5 = level.Level(
     text = "5.Under Construction",
     textLocation = (75, 325),
     textColor = (255, 243, 179),
+    gridPlatforms=True
 )
 
 F6 = level.Level(
@@ -235,6 +240,7 @@ F6 = level.Level(
     text = "6.Canal",
     textLocation = (125, 175),
     textColor = (255, 243, 179),
+    gridPlatforms=True
 )
 
 F7 = level.Level(
@@ -278,6 +284,7 @@ F7 = level.Level(
     text = "7.Companion Cube",
     textLocation = (75, 250),
     textColor = (255, 243, 179),
+    gridPlatforms=True
 )
 
 F8 = level.Level(
@@ -315,6 +322,7 @@ F8 = level.Level(
     text = "8.Pufferfish",
     textLocation = (100, 100),
     textColor = (255, 243, 179),
+    gridPlatforms=True
 )
 
 F9 = level.Level(
@@ -360,6 +368,7 @@ F9 = level.Level(
     text = "9.Big Sister",
     textLocation = (175, 250),
     textColor = (255, 243, 179),
+    gridPlatforms=True
 )
 
 
@@ -410,4 +419,5 @@ F10 = level.Level(
     text = "",
     textLocation = (0, 0),
     textColor = (150, 150, 150),
+    gridPlatforms=True
 )

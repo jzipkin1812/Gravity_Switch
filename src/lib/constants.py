@@ -14,6 +14,7 @@ colorsWorldA = {
     "cloud" : (220, 220, 220),
     "background" : (0, 0, 80),
     "text" : (240, 240, 240),
+    "gridPlatforms" : False
 }
 
 colorsWorldB = {
@@ -25,6 +26,7 @@ colorsWorldB = {
     "cloud" : (234, 218, 181),
     "background" : (255, 102, 0),
     "text" : (0, 0, 0),
+    "gridPlatforms" : False
 }
 
 colorsWorldC = {
@@ -36,6 +38,7 @@ colorsWorldC = {
     "cloud" : (236, 243, 158),
     "background" : (19, 42, 19),
     "text" : (150, 150, 150),
+    "gridPlatforms" : False
 }
 
 colorsWorldD = {
@@ -47,6 +50,7 @@ colorsWorldD = {
     "cloud" : (255, 255, 224),
     "background" : (93, 136, 226),
     "text" : (30, 30, 30),
+    "gridPlatforms" : False
 }
 
 colorsWorldE = {
@@ -58,6 +62,7 @@ colorsWorldE = {
     "cloud" : (255, 255, 224),
     "background" : (240, 223, 121),
     "text" : (0, 0, 255),
+    "gridPlatforms" : False
 }
 
 colorsWorldF = {
@@ -69,6 +74,7 @@ colorsWorldF = {
     "cloud" : (255, 255, 224),
     "background" : (125, 28, 148),
     "text" : (255, 243, 179),
+    "gridPlatforms" : True
 }
 
 
@@ -82,6 +88,15 @@ colorsWorldChallenge = {
     "background" : (20, 20, 20),
     "text" : (255, 255, 255),
 }
+
+allColors = [
+    colorsWorldA,
+    colorsWorldB,
+    colorsWorldC,
+    colorsWorldD,
+    colorsWorldE,
+    colorsWorldF,
+]
 
 
 GLOBALCOLORS = colorsWorldF
@@ -183,3 +198,23 @@ levelSelections = [levelSelectWorldA,
                    levelSelectWorldE,
                    levelSelectWorldF]
 
+
+palleteSelections = {
+    "Player" : [19, 117, 86, 172],
+    "Entity" : [119, 121, 190, 189],
+    "Coin" : [230, 122, 279, 170],
+    "Nullcube" : [358, 125, 426, 180],
+    "Cloud" : [464, 121, 642, 177],
+    "Redirector" : [36, 218, 121, 287],
+    "Antiplatform" : [201, 222, 329, 289],
+    "Teleporter" : [382, 217, 519, 282],
+    "Lever" : [555, 225, 623, 390],
+    "BeatBlockA" : [18, 428, 136, 494],
+    "BeatBlockB" : [152, 428, 273, 494],
+    "Tar" : [16, 331, 132, 390],
+    "InvertedPlayer" : [200, 328, 317, 387],
+    "Resizer" : [302, 420, 397, 515],
+    "Text" : [410, 429, 527, 495],
+    "Stone" : [540, 422, 627, 509],
+    "Quicksand" : [413, 325, 528, 424],
+}

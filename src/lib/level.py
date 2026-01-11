@@ -8,17 +8,17 @@ import pygame
 import random
 
 class Level:
-    def __init__(self, players = [], levelObjects = [], background = (0, 0, 0), text = "", textLocation = (0, 0), textColor = (150, 150, 150)):
+    def __init__(self, players = [], levelObjects = [], background = (0, 0, 0), text = "", textLocation = (0, 0), textColor = (150, 150, 150), gridPlatforms = False):
         # Mutable level objects and players
         self.players: list[player.Player] = players
-        self.levelObjects: list[entity.Block] = levelObjects
+        self.levelObjects: list[entity.Entity] = levelObjects
         
         # Save the original state of the level so that it may be reset later
         self.origPlayers: list[player.Player] = []
         for p in players:
             self.origPlayers.append(p.copy())
             
-        self.origObjects: list[entity.Block] = []
+        self.origObjects: list[entity.Entity] = []
         for o in levelObjects:
             self.origObjects.append(o.copy())
         # Sort objects
@@ -28,6 +28,7 @@ class Level:
         self.text: str = text
         self.textLocation: tuple = textLocation
         self.textColor: tuple = textColor
+        self.gridPlatforms: bool = gridPlatforms
     
     def isComplete(self) -> bool:
         for obj in self.levelObjects:
@@ -35,20 +36,27 @@ class Level:
                 return(False)
         return(True)
     
+    def isBeatable(self):
+        foundCoin = False
+        for obj in self.origObjects:
+            if type(obj) == entity.Coin:
+                foundCoin = True
+        return(len(self.players) > 0 and foundCoin)
+    
     def playerIsDead(self) -> bool:
         for p in self.players:
             if p.x > SCREEN_WIDTH or p.y > SCREEN_HEIGHT or p.x < 0 or p.y < 0:
                 return(True)
         return(False)
     
-    def display(self, screen, gridPlatforms = False):
+    def display(self, screen):
         screen.fill(self.background)
         u.transparentScreenText(self.textLocation[0], self.textLocation[1], 
                                 screen, self.text, LEVELTEXTSIZE, self.textColor)
         for p in self.players:
             p.display(screen)
         for b in self.levelObjects:
-            b.display(screen, gridPlatforms)
+            b.display(screen, self.gridPlatforms)
         
     def update(self, milliseconds = 1):
         # print(milliseconds)
@@ -137,10 +145,33 @@ class Level:
             "levelObjects" : [
                 obj.toDict() for obj in self.levelObjects
             ],
+            "gridPlatforms" : self.gridPlatforms
         }
         return(result)
+    
+    def colorFromTheme(self, theme : dict):
+        # Color basic attributes
+        self.background = theme["background"]
+        self.textColor = theme["text"]
+        self.gridPlatforms = theme["gridPlatforms"]
 
-def levelFromDict(data):
+        # Color players
+        for player in self.players:
+            if player.inverted:
+                player.color = theme["inverted"]
+            else:
+                player.color = theme["player"]
+        # Color objects
+        for obj in self.levelObjects:
+            t = type(obj)
+            if t == s.Antiplatform or t == s.Lever or t == entity.Entity:
+                obj.color = theme["platform"]
+            elif t == s.Coin:
+                obj.color = theme["coin"]
+            elif t == s.Cloud:
+                obj.color = theme["cloud"]
+
+def levelFromDict(data : dict):
     result = Level(
         [player.playerFromDict(p) for p in data["players"]],
         [s.entityFromDict(obj) for obj in data["levelObjects"]],
@@ -148,6 +179,7 @@ def levelFromDict(data):
         data["text"],
         (data["textLocation"][0], data["textLocation"][1]),
         (data["textColor"][0], data["textColor"][1], data["textColor"][2]),
+        (data.get("gridPlatforms", False))
     )
     return(result)
 
