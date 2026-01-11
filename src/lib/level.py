@@ -44,7 +44,7 @@ class Level:
     def display(self, screen, gridPlatforms = False):
         screen.fill(self.background)
         u.transparentScreenText(self.textLocation[0], self.textLocation[1], 
-                                screen, self.text, 45, self.textColor)
+                                screen, self.text, LEVELTEXTSIZE, self.textColor)
         for p in self.players:
             p.display(screen)
         for b in self.levelObjects:
@@ -130,10 +130,10 @@ class Level:
     def toDict(self):
         result = {
             "players" : [p.toDict() for p in self.players],
-            "background" : [rgb for rgb in self.background],
+            "background" : [self.background[0], self.background[1], self.background[2]],
             "text" : self.text, 
-            "textLocation" : [coord for coord in self.textLocation],
-            "textColor" : [rgb for rgb in self.textColor],
+            "textLocation" : [self.textLocation[0], self.textLocation[1]],
+            "textColor" : [self.textColor[0], self.textColor[1], self.textColor[2]],
             "levelObjects" : [
                 obj.toDict() for obj in self.levelObjects
             ],

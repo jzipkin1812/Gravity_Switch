@@ -12,9 +12,9 @@ from .loadAssets import *
 import json
 import pygame_gui
 from pygame_gui.windows.ui_file_dialog import UIFileDialog
-from pygame_gui.elements.ui_button import UIButton
 from pygame.rect import Rect
 
+import pygame_textinput
 
 class GameStateInfo:
     manager = pygame_gui.UIManager((800, 600))
@@ -33,6 +33,8 @@ class GameStateInfo:
         # GUI variables
         self.saveSelector = None
         self.loadSelector = None
+        self.textinput = None
+
         # Aesthetic variables
         self.colors = colorsWorldA
         # Mode functions
@@ -157,6 +159,9 @@ class GameStateInfo:
         # editor pointers
         pygame.draw.circle(self.screen, (255, 0, 0), self.point1, 5)
         pygame.draw.circle(self.screen, (255, 255, 255), self.point2, 5)
+        # text ui
+        if self.textinput:
+            self.screen.blit(self.textinput.surface, (self.point1[0], self.point1[1]))
         
     
     def process(self, event: pygame.event.Event):
@@ -260,24 +265,61 @@ class GameStateInfo:
         b = self.point2
         swappedPointerX = False
         swappedPointerY = False
-        # Adjust points if necessary
-        if(a[0] - 5 > b[0]):
-            temp = a[0]
-            a[0] = b[0]
-            b[0] = temp
-            swappedPointerX = True
+        
 
-        elif(a[1] - 5 > b[1]):
-            temp = a[1]
-            a[1] = b[1]
-            b[1] = temp
-            swappedPointerY = True
-
-        # Keys add objects to level
-        if event.type == pygame.KEYDOWN and not (self.saveSelector or self.loadSelector):
+        # When a GUI object is present, ignore all other inputs and focus on it.
+        if self.isGui() and event.type == pygame_gui.UI_BUTTON_PRESSED:
+            # SAVE
+            if self.saveSelector and event.ui_element == self.saveSelector.ok_button:
+                print("SAVING LEVEL to", self.saveSelector.current_file_path)
+                path = self.saveSelector.current_file_path
+                if path:
+                    with open(path, "w") as f:
+                        json.dump(self.level.toDict(), f, indent=2)
+                self.saveSelector = None
+            # LOAD
+            elif self.loadSelector and event.ui_element == self.loadSelector.ok_button:
+                print("LOADING LEVEL from", self.loadSelector.current_file_path)
+                path = self.loadSelector.current_file_path
+                if path:
+                    with open(path, "r") as f:
+                        self.level = level.levelFromDict(json.load(f))
+                self.loadSelector = None
+            elif self.saveSelector and event.ui_element == self.saveSelector.cancel_button:
+                self.saveSelector = None
+            elif self.loadSelector and event.ui_element == self.loadSelector.cancel_button:
+                self.loadSelector = None
+        elif self.isGui() and self.textinput:
+            self.textinput.update([event])
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                self.level.text = self.textinput.value
+                self.textinput = None
+        elif event.type == pygame.KEYDOWN and (not self.isGui()):
             # Erase
             if event.key == pygame.K_BACKSPACE:
                 self.level.erase(a[0], a[1])
+
+            # Text Location
+            elif event.key == pygame.K_TAB:
+                self.textinput = pygame_textinput.TextInputVisualizer(font_object = pygame.font.SysFont("Courier New", LEVELTEXTSIZE), 
+                                                                      font_color=self.colors["text"], 
+                                                                      cursor_color=self.colors["text"])
+                self.level.textLocation = (a[0], a[1])
+                self.level.text = ""
+                self.level.textColor = self.colors["text"]
+
+            # Most commands require the pointer swap to get around the infamous pointer bug.
+            if(a[0] - 5 > b[0]):
+                temp = a[0]
+                a[0] = b[0]
+                b[0] = temp
+                swappedPointerX = True
+            if(a[1] - 5 > b[1]):
+                temp = a[1]
+                a[1] = b[1]
+                b[1] = temp
+                swappedPointerY = True
+
             # Undo
             if event.key == pygame.K_z:
                 if len(self.level.levelObjects) > 0:
@@ -330,12 +372,6 @@ class GameStateInfo:
             elif event.key == pygame.K_9:
                 self.level.levelObjects.append(special.Stone(a[0], a[1], 
                                                             b[0], b[1]))
-
-            # Text Location
-            elif event.key == pygame.K_TAB:
-                self.level.textLocation = (a[0], a[1])
-                self.level.textColor = self.colors["text"]
-                self.level.text = input()
             
             # Change direction for directed objects
             elif event.key in [pygame.K_DOWN, pygame.K_UP, pygame.K_LEFT, pygame.K_RIGHT]:
@@ -369,30 +405,8 @@ class GameStateInfo:
             elif event.key == pygame.K_o and pygame.key.get_mods() & pygame.KMOD_CTRL:
                 self.loadSelector = UIFileDialog(rect=Rect(50, 50, 500, 400), 
                                                  manager=self.manager, allow_existing_files_only=True, allow_picking_directories=True)
-
-        elif event.type == pygame_gui.UI_BUTTON_PRESSED:
-            # SAVE
-            if self.saveSelector and event.ui_element == self.saveSelector.ok_button:
-                print("SAVING LEVEL to", self.saveSelector.current_file_path)
-                path = self.saveSelector.current_file_path
-                if path:
-                    with open(path, "w") as f:
-                        json.dump(self.level.toDict(), f, indent=2)
-                self.saveSelector = None
-            # LOAD
-            elif self.loadSelector and event.ui_element == self.loadSelector.ok_button:
-                print("LOADING LEVEL from", self.loadSelector.current_file_path)
-                path = self.loadSelector.current_file_path
-                if path:
-                    with open(path, "r") as f:
-                        self.level = level.levelFromDict(json.load(f))
-                self.loadSelector = None
-            elif self.saveSelector and event.ui_element == self.saveSelector.cancel_button:
-                self.saveSelector = None
-            elif self.loadSelector and event.ui_element == self.loadSelector.cancel_button:
-                self.loadSelector = None
         
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        elif event.type == pygame.MOUSEBUTTONDOWN and (not self.isGui()):
             # Middle Mouse: Swap modes and solidify level contents
             if event.button == 2:
                 self.mode = "Gameplay"
@@ -409,7 +423,7 @@ class GameStateInfo:
             temp = a[0]
             a[0] = b[0]
             b[0] = temp
-        elif(swappedPointerY):
+        if(swappedPointerY):
             temp = a[1]
             a[1] = b[1]
             b[1] = temp
@@ -476,3 +490,6 @@ class GameStateInfo:
         self.unlocked = [[0 for _ in range(11)] for _ in range(6)]
         for row in self.unlocked:
             row[0] = 1
+
+    def isGui(self):
+        return(self.saveSelector or self.loadSelector or self.textinput)

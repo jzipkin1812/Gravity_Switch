@@ -46,7 +46,8 @@ while not mainStatus.quit:
     # All sources of user input
     mainStatus.mouseX = mouseX = pygame.mouse.get_pos()[0]
     mainStatus.mouseY = mouseY = pygame.mouse.get_pos()[1]
-    for event in pygame.event.get(): 
+    allEvents = pygame.event.get()
+    for event in allEvents:
         manager.process_events(event)
         mainStatus.process(event)
     # All game logic

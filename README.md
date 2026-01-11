@@ -47,12 +47,13 @@ Feel free to share your levels with your friends...or send them to me!
 ### Advanced Editing
 You can directly edit your level file by opening it up in a text editor to make tweaks that the editor doesn't support. For example, the 'color' field of any object in the level, as well as the color value for the background and text color, may be changed freely. You may also change the x and y coordinates of objects to make adjustments finer than the grid size. 
 ## Adding text to your level
-With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text into the terminal. (This feature uses Python's input() function.) The text should appear on screen.
+With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text and press ENTER.
 
 # Changelog
 ## Version 2.2 (1/xx/2026):
 * You can now save/load levels!
 * Editor pointer bug fixed (FINALLY!!!!)
+* Adding text to your level no longer requires the terminal and looks much cleaner.
 ## Version 2.1 (1/xx/2026):
 * Level unlock system added.
 * Save file system added. Your progress will be saved!

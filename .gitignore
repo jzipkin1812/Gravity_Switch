@@ -1,4 +1,5 @@
 *.txt
+*.json
 src/lib/*.txt
 src/*.txt
 **/__pycache__/
