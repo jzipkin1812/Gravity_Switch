@@ -20,7 +20,7 @@ colorsWorldA = {
 colorsWorldB = {
     "platform" : (85, 51, 51),
     "player" : (255, 255, 68),
-    "inverted" : (68, 255, 255),
+    "inverted" : (128, 128, 128),
     "special" : (240, 25, 5),
     "coin" : (204, 68, 34),
     "cloud" : (234, 218, 181),
@@ -56,7 +56,7 @@ colorsWorldD = {
 colorsWorldE = {
     "platform" : (205, 133, 63),
     "player" : (100, 149, 237),
-    "inverted" : (255, 255, 224),
+    "inverted" : (107, 142, 35),
     "special" : (144, 169, 85),
     "coin" : (255, 165, 0),
     "cloud" : (255, 255, 224),
