@@ -370,10 +370,11 @@ class GameStateInfo:
                 self.loadSelector = None
         # Text Input
         elif self.isGui() and self.textinput:
-            self.textinput.update([event])
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+            if event.type == pygame.KEYDOWN and (event.key == pygame.K_ESCAPE or event.key == pygame.K_RETURN):
                 self.level.text = self.textinput.value
                 self.textinput = None
+            else:
+                self.textinput.update([event])
         # All editor commands besides object placement
         elif event.type == pygame.KEYDOWN and (not self.isGui()) and not(event.key == pygame.K_SPACE):
             # Erase
@@ -393,11 +394,11 @@ class GameStateInfo:
 
             # Save/Load
             elif event.key == pygame.K_s and pygame.key.get_mods() & pygame.KMOD_CTRL:
-                self.saveSelector = UIFileDialog(rect=Rect(50, 50, 500, 400), 
+                self.saveSelector = UIFileDialog(rect=Rect(50, 50, 500, 400), window_title="Save your Level",
                                                  manager=self.manager, allow_picking_directories=False)
 
             elif event.key == pygame.K_o and pygame.key.get_mods() & pygame.KMOD_CTRL:
-                self.loadSelector = UIFileDialog(rect=Rect(50, 50, 500, 400), 
+                self.loadSelector = UIFileDialog(rect=Rect(50, 50, 500, 400), window_title="Load from File",
                                                  manager=self.manager, allow_existing_files_only=False, allow_picking_directories=True)
 
             # Change  direction for directed objects
@@ -482,7 +483,8 @@ class GameStateInfo:
                 
             elif self.editorBrush == "Lever":
                 self.level.levelObjects.append(special.Lever(a[0], a[1], 
-                                                            b[0], b[1], self.editDirection))
+                                                            b[0], b[1], self.editDirection,
+                                                            self.colors["platform"]))
             elif self.editorBrush == "Quicksand":
                 self.level.levelObjects.append(special.Quicksand(a[0], a[1], 
                                                             b[0], b[1], self.editDirection))
