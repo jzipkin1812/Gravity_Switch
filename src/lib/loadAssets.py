@@ -1,7 +1,6 @@
 import pygame
 import os
 import sys
-from . import utility as u
 
 pygame.mixer.pre_init(44100, -16, 2, 2048)
 pygame.init()

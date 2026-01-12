@@ -5,3 +5,5 @@ src/*.txt
 **/__pycache__/
 gravityswitch.spec
 .DS_Store
+build/
+dist/

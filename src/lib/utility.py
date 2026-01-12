@@ -1,5 +1,10 @@
 import pygame
 import math
+
+# GLOBAL UTILITY VARIABLES FOR SOUND
+doSound = True
+doMusic = True
+
 # UTILITY FUNCTIONS
 def betterRect(screen, x1, y1, x2, y2, color = (0, 0, 0), width = 0):
     pygame.draw.polygon(screen, (color), ([(x1, y1), (x2, y1), (x2, y2), (x1, y2)]), width)
@@ -62,11 +67,27 @@ def dashedRect(screen, color, x1, y1, x2, y2, width):
     dashedLine(screen, color, (x1, y1), (x2, y1), 5, 5, width)
     dashedLine(screen, color, (x1, y2), (x2, y2), 5, 5, width)
 
-def playSound(channel : int, soundObj):
-    pygame.mixer.Channel(channel).play(soundObj)
 
 def stopSFX():
     pygame.mixer.Channel(1).stop()
     pygame.mixer.Channel(2).stop()
     pygame.mixer.Channel(3).stop()
     pygame.mixer.Channel(4).stop()
+
+def stopMusic():
+    pygame.mixer.Channel(5).stop()
+
+def silence():
+    stopSFX()
+    stopMusic()
+
+def playSound(channel : int, soundObj : pygame.Sound):
+    global doSound
+    if doSound:
+        print("Playing a sound")
+        pygame.mixer.Channel(channel).play(soundObj)
+
+def playMusic(musicObj : pygame.Sound):
+    global doMusic
+    if doMusic:
+        pygame.mixer.Channel(5).play(musicObj, -1)

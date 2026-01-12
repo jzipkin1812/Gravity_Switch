@@ -7,6 +7,7 @@ from . import level
 from . import player
 from . import entity
 from . import specialEntities as special 
+from . import utility as u
 from .constants import *
 from .loadAssets import *
 import json
@@ -30,6 +31,8 @@ class GameStateInfo:
         self.mouseX: int = 0
         self.mouseY: int = 0
         self.timer = pygame.time.Clock()
+        # Global settings variables
+        self.showFPS = False
         # GUI variables
         self.saveSelector = None
         self.loadSelector = None
@@ -142,6 +145,14 @@ class GameStateInfo:
     
     def displayTitle(self):
         self.screen.blit(titleImage, (0,0))
+
+        # Slashes over sound toggle buttoms
+        if not u.doSound:
+            pygame.draw.line(self.screen, (255, 0, 0), (538, 18), (572, 52), 3)
+            pygame.draw.line(self.screen, (255, 0, 0), (538, 52), (572, 18), 3)
+        if not u.doMusic:
+            pygame.draw.line(self.screen, (255, 0, 0), (598, 18), (632, 52), 3)
+            pygame.draw.line(self.screen, (255, 0, 0), (598, 52), (632, 18), 3)
     
     def displayLevelSelect(self):
         # Main background
@@ -236,6 +247,10 @@ class GameStateInfo:
         # Clicking x button
         if event.type == pygame.QUIT:
             self.quit = True
+
+        # Global settings: FPS indicator
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
+            self.showFPS = not self.showFPS
             
         self.modeInputDict[self.mode](event)
     
@@ -299,6 +314,15 @@ class GameStateInfo:
                     self.levelNumber = 0
                 elif 212 <= self.mouseX <= 335 and 540 <= self.mouseY <= 570:
                     self.mode = "Editor Controls"
+                # Sound toggles
+                elif 530 <= self.mouseX <= 580 and 10 <= self.mouseY <= 60:
+                    u.doSound = not u.doSound
+                    if not u.doSound:
+                        u.stopSFX()
+                elif 590 <= self.mouseX <= 640 and 10 <= self.mouseY <= 60:
+                    u.doMusic = not u.doMusic
+                    if not u.doMusic:
+                        u.stopMusic()
     
     def processEditorControls(self, event: pygame.event.Event):
         if event.type == pygame.KEYDOWN:

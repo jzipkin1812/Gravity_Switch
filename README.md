@@ -1,49 +1,20 @@
 # Gravity Switch
-New and improved Gravity Switch game, all the way back from 2018! The main file is gravityswitch.py. Before running, make sure you have the latest version of Pygame. Run gravityswitch.py from either the root or src directory.
+New and improved Gravity Switch game, all the way back from 2018! 
+This GitHub repository is for the game's source code. If you want to play the game yourself and are not a developer, please use an appropriate download from the [Itch.io download page](https://jzipkin1812.itch.io/gravity-switch). This page is the ONLY real download link for Gravity Switch.
 
 # Controls
 Use the mouse to navigate menus. Use ESC to return to the main menu. Use the arrows to play. Use the r key to restart the current level at any time.
 
-# Level Editor Guide
-The Level Editor allows you to create your own stage or modify any of the stages from the main game. You can easily convert your creation to actual source code (whoah!) to share with friends.
-## Swapping to Editor Mode
-While playing any level in the game, click (not scroll, click) the mouse wheel to enter the editor mode. You will see a grid layed out across the screen to help you. Also note that modifying any level from the main game doesn't permanently affect it; if you close the game and reopen it, the original level will be present, so feel free to toy around with the main game levels as much as you want! Perhaps create a remixed version?
-The Level Editor button on the title screen simply takes you to a blank level. Nothing special about it.
-If you open the editor while in a main stage level, you will no longer advance to the next stage upon completing it.
-## Navigating the editor
-Use the left mouse button to select the location of the editor pointer. This looks like a small red circle. It points to the top left of whichever grid space you click. Once you have chosen a location for the editor pointer, you will use the keyboard to place objects there. You will also need to use the right mouse button similarly to select the location of the secondary mouse pointer. This is, in contrast, a small white circle, at the bottom right corner of whichever grid space you click. 
-## Placing platforms
-Press the space key to create a rectangular platform, defined by the two editor pointers. The primary (red) editor pointer is the top left corner of your platform and the secondary (white) editor pointer is the bottom right corner of your platform. Similarly,
-* To create clouds (from Space Station), press: f 
-* To create antiplatforms (from Volcanic Delta), press: a
-* Blue Beat Block (from Brownian Motion Beach): , 
-* Pink Beat Block (from Brownian Motion Beach): .
-* Stone (from Disassociated Dreamscape): s
+# Level Editor
+The Level Editor allows you to create your own stage or modify any of the stages from the main game. You can easily convert your creation to actual source code (whoah!) to share with friends. On the title screen, click the "Controls" button to see how to use the editor. This README is not required to learn how to use the editor.
+## Progress in Editor Mode
+If you swap to Editor Mode in any main game level or play the empty level reserved as "Level Editor", you cannot progress. Specifically, when you complete the stage (if it is beatable e.g. it has at least one player and at least one coin) you'll here a special jingle that only plays upon completing a custom level. This means that if you edit a main level you can't progress past it until you switch to a different level or restart the game. This is intended.
 ## Erasing and Undoing
-Press the backspace button and any object touching the primary pointer will be deleted. Be careful; multiple objects can be deleted at once if they all touch the primary pointer. To conveniently delete the most recently created object, press z.
-## Small Objects
-Non-platform objects take up only one 25x25 pixel square each, so they only depend on the primary (red) editor pointer. Here are all such objects:
-* Player: p
-* Goal square / Coin: c
-* Null cube (from Space Station): n
-* Reverse Player (from Dark Matter Mountains): v
-* Resizer (from Disassociated Dreamscape): d
-## Directed Objects
-Some objects face a direction. To set the direction of an object you are about to place, use an arrow key. Then,
-* Redirector (from Volcanic Delta): i 
-* Lever (from Non-Euclidean Rainforest): l
-* Tar (from Dark Matter Mountains): r
-* Quicksand (from Brownian Motion Beach): q
-## Teleporters
-Use the t key to create a set of two teleporters. The top-left corners of each part of the teleporter are determined by the two editor pointers. It is recommended to only have one set, since they all look the same, but multiple sets will function just fine.
-### Limited-Use Teleporters
-The number keys provide this functionality. Press 0 and then create a teleporter to make one with unlimited uses. Press 1, 2, 3, or 4 to make teleporters with those number of uses.
-## Testing your Level 
-Simply click the mouse wheel again to exit editor mode and start playing. You can freely switch between these two modes with the mouse wheel at any time. Ngl the seamless design of this feature ate...
+Press the backspace button and any object touching the primary pointer will be deleted. Be careful; multiple objects can be deleted at once if they all touch the primary pointer. To conveniently delete the most recently created non-player object, press z.
 ## Saving and Sharing your level
-While in editor mode, press CTRL+o to save your level to a file. Use the dialog that pops up on screen.
+While in editor mode, press CTRL+s to save your level to a file. Use the dialog that pops up on screen.
 To load a level from your computer, press CTRL+o, and again use the dialog that pops up on screen.
-Feel free to share your levels with your friends...or send them to me!
+Feel free to share your levels with your friends...or send them to me! You can send your level to javinzipkin@gmail.com and, if I like it, it might just be featured in a future "featured levels" official page!
 ### Advanced Editing
 You can directly edit your level file by opening it up in a text editor to make tweaks that the editor doesn't support. For example, the 'color' field of any object in the level, as well as the color value for the background and text color, may be changed freely. You may also change the x and y coordinates of objects to make adjustments finer than the grid size. 
 ## Adding text to your level
@@ -52,6 +23,8 @@ With your primary pointer on the top-left location of where you want your text, 
 # Changelog
 ## Version 3.0 (1/xx/2026):
 * The entire level editor UI has been overhauled! Any player should now be able to use it without any help from this README, and I think it's clean and intuitive. The level editor is now a complete feature and I look forward to playing levels made by all of you!
+* A new "Controls" page has been added to show how to use the editor. 
+* Toggle buttons have been added to turn the sound on and off. The music button does nothing because I haven't added the soundtrack yet, but it's almost done!
 ## Version 2.2 (1/xx/2026):
 * You can now save/load levels!
 * Editor pointer bug fixed (FINALLY!!!!)

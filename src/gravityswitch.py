@@ -53,7 +53,8 @@ while not mainStatus.quit:
     # All game logic
     mainStatus.update()
     # Debug: Display FPS
-    u.screenText(10, 10, screen, "FPS: " + str(int(clock.get_fps())), 15)
+    if mainStatus.showFPS:
+        u.screenText(10, 10, screen, "FPS: " + str(int(clock.get_fps())), 15)
     # Draw special GUI elements (file selector)
     manager.update(mainStatus.tickTime)
     manager.draw_ui(screen)
