@@ -80,5 +80,5 @@ With your primary pointer on the top-left location of where you want your text, 
 * There is still no save file, so everything is unlocked right at the start.
 * All mechanics and objects from the original 2018 game are implemented.
 ## Plans for Future Versions
-* Allow different multipliers for resizers.
-* Distribute the game publicly.
+* Add the game's soundtrack. 4/7 tracks have been composed.
+* Celebrate the game's official release, coming early 2026!
