@@ -60,8 +60,8 @@ while not mainStatus.quit:
     manager.draw_ui(screen)
     pygame.display.update()
 
-mainStatus.levelDumpFile.write(mainStatus.level.toString())
-mainStatus.levelDumpFile.close()
+# mainStatus.levelDumpFile.write(mainStatus.level.toString())
+# mainStatus.levelDumpFile.close()
 pygame.quit()
 
 # SAVE the save file, represented by this 2D array:

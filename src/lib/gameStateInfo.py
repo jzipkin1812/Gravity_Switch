@@ -73,7 +73,7 @@ class GameStateInfo:
         self.gridSize: int = GRID_SIZE
         self.point1: list = [0, 0]
         self.point2: list = [0, 0]
-        self.levelDumpFile = open("levelDump.txt", "w")
+        # self.levelDumpFile = open("levelDump.txt", "w")
         self.editDirection = "up"
         self.editUses = 0
         self.doAdvance = True
