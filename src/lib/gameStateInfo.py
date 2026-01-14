@@ -322,7 +322,6 @@ class GameStateInfo:
                     self.mode = "Level Editor"
                     self.level = editorLevel
                     self.advance = False
-                    self.world = worldA
                     self.levelNumber = 0
                 elif 212 <= self.mouseX <= 335 and 540 <= self.mouseY <= 570:
                     self.mode = "Editor Controls"
