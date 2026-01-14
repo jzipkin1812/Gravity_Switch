@@ -76,6 +76,10 @@ def stopSFX():
 
 def stopMusic():
     pygame.mixer.Channel(5).stop()
+def pauseMusic():
+    pygame.mixer.Channel(5).pause()
+def unpauseMusic():
+    pygame.mixer.Channel(5).unpause()
 
 def silence():
     stopSFX()
@@ -84,7 +88,6 @@ def silence():
 def playSound(channel : int, soundObj : pygame.Sound):
     global doSound
     if doSound:
-        print("Playing a sound")
         pygame.mixer.Channel(channel).play(soundObj)
 
 def playMusic(musicObj : pygame.Sound):

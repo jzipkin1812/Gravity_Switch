@@ -21,10 +21,11 @@ You can directly edit your level file by opening it up in a text editor to make 
 With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text and press ENTER.
 
 # Changelog
-## Version 3.0 (1/xx/2026):
+## Version 3.0 - OFFICIAL RELEASE! (1/13/2026):
 * The entire level editor UI has been overhauled! Any player should now be able to use it without any help from this README, and I think it's clean and intuitive. The level editor is now a complete feature and I look forward to playing levels made by all of you!
 * A new "Controls" page has been added to show how to use the editor. 
-* Toggle buttons have been added to turn the sound on and off. The music button does nothing because I haven't added the soundtrack yet, but it's almost done!
+* The soundtrack has been added, featuring 6 funky jams composed by Javin Zipkin himself! The editor song and the OST's Spotify release will be coming soon.
+* Toggle buttons have been added to turn the SFX and music on and off.
 ## Version 2.2 (1/xx/2026):
 * You can now save/load levels!
 * Editor pointer bug fixed (FINALLY!!!!)
@@ -80,5 +81,5 @@ With your primary pointer on the top-left location of where you want your text, 
 * There is still no save file, so everything is unlocked right at the start.
 * All mechanics and objects from the original 2018 game are implemented.
 ## Plans for Future Versions
-* Add the game's soundtrack. 4/7 tracks have been composed.
-* Celebrate the game's official release, coming early 2026!
+* Celebrate the game's official release!
+* Add a song for the level editor specifically, featuring a very special singer I know!

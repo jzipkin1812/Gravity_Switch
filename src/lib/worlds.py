@@ -37,16 +37,16 @@ worldInfo = [
 
 def nextWorld(w):
     if w == worldA:
-        return(worldB)
+        return(worldB, -500)
     elif w == worldB:
-        return(worldC)
+        return(worldC, -948)
     elif w == worldC:
-        return(worldD)
+        return(worldD, -1386)
     elif w == worldD:
-        return(worldE)
+        return(worldE, -2122)
     elif w == worldE:
-        return(worldF)
+        return(worldF, -2554)
     elif w == worldChallenge:
-        return(worldChallenge)
+        return(worldChallenge, 1)
     else:
-        return(worldA)
+        return(worldA, 0)

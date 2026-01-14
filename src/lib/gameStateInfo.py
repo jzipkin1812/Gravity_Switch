@@ -92,6 +92,8 @@ class GameStateInfo:
         self.edoc = [pygame.K_n, pygame.K_i, pygame.K_v, pygame.K_a, pygame.K_j]
         self.coords1 = (0, 0)
         self.coords2 = (0, 0)
+        # Start the music!
+        u.playMusic(worldAMusic)
     
     def update(self):
         self.frames += 1
@@ -105,6 +107,7 @@ class GameStateInfo:
             # Completing challenge levels sends you back to the level select screen.
             if (self.world == worldChallenge):
                 self.mode = "Level Select"
+                u.stopMusic()
         # Advancement from editor levels
         elif (self.level.isComplete()) and (self.level.isBeatable()):
             self.level.reset()
@@ -114,6 +117,7 @@ class GameStateInfo:
         elif (self.level.playerIsDead()):
             u.playSound(2, deathSound)
             pygame.mixer.Channel(1).stop()
+            u.pauseMusic()
             self.mode = "Game Over"
             self.level.reset()
     
@@ -132,9 +136,16 @@ class GameStateInfo:
             self.levelNumber -= 1
             u.playSound(3, challengeCompleteSound)
         elif self.levelNumber >= 10:
-            self.world = nextWorld(self.world)
-            self.levelNumber = 0
+            newWorld, newScrollMod = nextWorld(self.world)
+            if newScrollMod <= 0:
+                self.scrollMod = newScrollMod
+            newLevelNumber = 0
+            self.level.reset()
+            self.beamDown(newWorld, newLevelNumber)
+            u.pauseMusic()
             u.playSound(3, worldCompleteSound)
+            self.mode = "Level Select"
+            return
         else:
             u.playSound(3, levelCompleteSounds[self.levelNumber - 1])
         
@@ -258,6 +269,7 @@ class GameStateInfo:
         if event.type == pygame.KEYDOWN:
             self.mode = "Gameplay"
             self.level.reset()
+            u.unpauseMusic()
        
     def processGameplay(self, event: pygame.event.Event):
         # For multiple players, check if everyone is stopped.
@@ -555,26 +567,40 @@ class GameStateInfo:
                         self.beamDown(planet, i)                    
     
     def beamDown(self, destination, num):
+
+        # Change colors and music
+        u.unpauseMusic()
+        if destination == worldChallenge:
+            self.colors = colorsWorldChallenge
+            u.playMusic(allMusic[num])
+        elif destination == self.world:
+            pass
+        elif destination == worldA:
+            self.colors = colorsWorldA
+            u.playMusic(worldAMusic)
+        elif destination == worldB:
+            self.colors = colorsWorldB
+            u.playMusic(worldBMusic)
+        elif destination == worldC:
+            self.colors = colorsWorldC
+            u.playMusic(worldCMusic)
+        elif destination == worldD:
+            self.colors = colorsWorldD
+            u.playMusic(worldDMusic)
+        elif destination == worldE:
+            self.colors = colorsWorldE
+            u.playMusic(worldEMusic)
+        elif destination == worldF:
+            self.colors = colorsWorldF
+            u.playMusic(worldFMusic)
+        
+        
         self.levelNumber = num
         self.world = destination
         self.level = destination[num]
         self.level.reset()
         self.advance = self.doAdvance
         self.mode = "Gameplay"
-        if destination == worldA:
-            self.colors = colorsWorldA
-        elif destination == worldB:
-            self.colors = colorsWorldB
-        elif destination == worldC:
-            self.colors = colorsWorldC
-        elif destination == worldD:
-            self.colors = colorsWorldD
-        elif destination == worldE:
-            self.colors = colorsWorldE
-        elif destination == worldF:
-            self.colors = colorsWorldF
-        elif destination == worldChallenge:
-            self.colors = colorsWorldChallenge
         # In developer mode, the level's background should be set
         if (not self.doAdvance):
             self.level.background = self.colors["background"]
