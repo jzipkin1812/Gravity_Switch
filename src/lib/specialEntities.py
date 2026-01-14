@@ -313,7 +313,7 @@ class Lever(Entity):
         elif self.willTouch(player):
             self.direction = u.invert(self.direction)
             self.hollow = True
-            pygame.mixer.Channel(4).play(leverSound)
+            u.playSound(4, leverSound)
     def display(self, screen, gridlike = False):
         u.betterRect(screen, self.x1, self.y1, self.x2, self.y2, self.color, 2)
         if self.direction == "up":

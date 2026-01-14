@@ -17,7 +17,7 @@ To load a level from your computer, press CTRL+o, and again use the dialog that 
 Feel free to share your levels with your friends...or send them to me! You can send your level to javinzipkin@gmail.com and, if I like it, it might just be featured in a future "featured levels" official page!
 ### Advanced Editing
 You can directly edit your level file by opening it up in a text editor to make tweaks that the editor doesn't support. For example, the 'color' field of any object in the level, as well as the color value for the background and text color, may be changed freely. You may also change the x and y coordinates of objects to make adjustments finer than the grid size. 
-## Adding text to your level
+## Adding text to your level    
 With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text and press ENTER.
 
 # Changelog

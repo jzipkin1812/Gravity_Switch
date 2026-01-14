@@ -399,9 +399,9 @@ class GameStateInfo:
                     except:
                         print("Could not load level:", e)
                 self.loadSelector = None
-            elif self.saveSelector and event.ui_element == self.saveSelector.cancel_button:
+            elif self.saveSelector and event.ui_element == self.saveSelector.cancel_button or event.ui_element == self.saveSelector.close_window_button:
                 self.saveSelector = None
-            elif self.loadSelector and event.ui_element == self.loadSelector.cancel_button:
+            elif self.loadSelector and event.ui_element == self.loadSelector.cancel_button or event.ui_element == self.loadSelector.close_window_button:
                 self.loadSelector = None
         # Text Input
         elif self.isGui() and self.textinput:
