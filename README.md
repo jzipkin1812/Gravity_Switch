@@ -21,6 +21,10 @@ You can directly edit your level file by opening it up in a text editor to make 
 With your primary pointer on the top-left location of where you want your text, press TAB. Then, input your desired text and press ENTER.
 
 # Changelog
+## Version 3.1 (2/16/2026):
+* Fixed a bug where lever sounds still played while they were supposed to be muted.
+* Fixed various bugs with the level saving and loading GUI.
+* Added in a special bonus song featuring Magnolia Lemmon.
 ## Version 3.0 - OFFICIAL RELEASE! (1/13/2026):
 * The entire level editor UI has been overhauled! Any player should now be able to use it without any help from this README, and I think it's clean and intuitive. The level editor is now a complete feature and I look forward to playing levels made by all of you!
 * A new "Controls" page has been added to show how to use the editor. 

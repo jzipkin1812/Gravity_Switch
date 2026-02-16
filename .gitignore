@@ -7,3 +7,4 @@ gravityswitch.spec
 .DS_Store
 build/
 dist/
+**/.DS_Store

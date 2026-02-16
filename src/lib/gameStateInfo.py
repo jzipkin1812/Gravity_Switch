@@ -14,6 +14,7 @@ import json
 import pygame_gui
 from pygame_gui.windows.ui_file_dialog import UIFileDialog
 from pygame.rect import Rect
+from pathlib import Path
 
 import pygame_textinput
 
@@ -323,6 +324,7 @@ class GameStateInfo:
                     self.level = editorLevel
                     self.advance = False
                     self.levelNumber = 0
+                    u.playMusic(editorMusic)
                 elif 212 <= self.mouseX <= 335 and 540 <= self.mouseY <= 570:
                     self.mode = "Editor Controls"
                 # Sound toggles
@@ -399,9 +401,9 @@ class GameStateInfo:
                     except:
                         print("Could not load level:", e)
                 self.loadSelector = None
-            elif self.saveSelector and event.ui_element == self.saveSelector.cancel_button or event.ui_element == self.saveSelector.close_window_button:
+            elif (self.saveSelector) and ((event.ui_element == self.saveSelector.cancel_button) or (event.ui_element == self.saveSelector.close_window_button)):
                 self.saveSelector = None
-            elif self.loadSelector and event.ui_element == self.loadSelector.cancel_button or event.ui_element == self.loadSelector.close_window_button:
+            elif (self.loadSelector) and (event.ui_element == self.loadSelector.cancel_button or event.ui_element == self.loadSelector.close_window_button):
                 self.loadSelector = None
         # Text Input
         elif self.isGui() and self.textinput:
@@ -423,6 +425,7 @@ class GameStateInfo:
                 self.mode = "Title Screen"
                 self.editorColor = None
                 self.colorIndicator = None
+                u.stopMusic()
             elif event.key == pygame.K_SLASH:
                 self.mode = "Gameplay"
                 self.level.solidify()
@@ -430,11 +433,13 @@ class GameStateInfo:
             # Save/Load
             elif event.key == pygame.K_s and pygame.key.get_mods() & pygame.KMOD_CTRL:
                 self.saveSelector = UIFileDialog(rect=Rect(50, 50, 500, 400), window_title="Save your Level",
-                                                 manager=self.manager, allow_picking_directories=False)
+                                                 manager=self.manager, allow_picking_directories=False, 
+                                                 initial_file_path=Path.home())
 
             elif event.key == pygame.K_o and pygame.key.get_mods() & pygame.KMOD_CTRL:
                 self.loadSelector = UIFileDialog(rect=Rect(50, 50, 500, 400), window_title="Load from File",
-                                                 manager=self.manager, allow_existing_files_only=False, allow_picking_directories=True)
+                                                 manager=self.manager, allow_existing_files_only=False, allow_picking_directories=True, 
+                                                 initial_file_path=Path.home())
 
             # Change  direction for directed objects
             elif event.key in player.directionDict.keys():
@@ -572,9 +577,9 @@ class GameStateInfo:
         if destination == worldChallenge:
             self.colors = colorsWorldChallenge
             u.playMusic(allMusic[num])
-        elif destination == self.world:
+        elif destination == self.world and pygame.mixer.Channel(5).get_busy():
             pass
-        elif destination == worldA:
+        elif destination == worldA: 
             self.colors = colorsWorldA
             u.playMusic(worldAMusic)
         elif destination == worldB:
